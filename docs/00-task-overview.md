@@ -1,6 +1,6 @@
 # 00 — Task overview (Soup AI Engineer take-home, hard track)
 
-Personal reference notes. Sources: the task PDF (`Soup-Task-01-AI-Engineer-v5.pdf`), the Exact Layer Streaming paper v3 (Makazhan, Aug 2026), the follow-up message from the team, and three internal docs they shared (dynamic streaming ×2, L2L context).
+Personal reference notes. Sources: the task PDF (`team/Soup-Task-01-AI-Engineer-v5.pdf`), the Exact Layer Streaming paper v3 (Makazhan, Aug 2026), the follow-up message from the team, and three internal docs they shared (dynamic streaming ×2, L2L context).
 
 ## The task in one paragraph
 
@@ -63,5 +63,7 @@ Likely live questions: how did you prove training happened; what does your check
 - `02-memory-time-budget.md` — part 1 broken into steps, with formulas and Qwen3-4B numbers
 - `03-prior-work-soup.md` — the paper's lessons and traps, Soup repo findings, internal D2 / L2L docs, 10Cache
 - `04-plan-and-hypotheses.md` — build order, hypothesis table, A/B methodology, checklists
-- `task1_budget/` — Part 1 code: `budget.py` (ledger, time model, arms), `bench.py` (GPU measurements), `config.yaml`, `results/predicted.md`, README with the pre-registered hypotheses
-- `DFlash.md` — DFlash notes; `dynamic_stream.md`, `dynamic_stream_2.md`, `l2l_context.md` — the team's internal docs (Russian)
+- `../task1_budget/` — Part 1 code: `budget.py` (ledger, time model, arms), `bench.py` (GPU measurements), `config.yaml`, `results/predicted.md`, README with the pre-registered hypotheses
+- `DFlash.md` — DFlash notes
+- `team/` — the task PDF and the team's internal docs (Russian): `dynamic_stream.md`, `dynamic_stream_2.md`, `l2l_context.md`
+- `../task2_l2l/` — Part 2 code: streamed L2L engine, GRPO loop, data streaming with resume, merge, Part 3 verification

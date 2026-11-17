@@ -116,7 +116,7 @@ s/prompt), but fewer steps per hour remain (43 → 21). 2 prompts gives two ques
 
 ## Hypotheses and decision rules (pre-registered)
 
-IDs follow `../04-plan-and-hypotheses.md`. Each rule is fixed before the first GPU number.
+IDs follow `../docs/04-plan-and-hypotheses.md`. Each rule is fixed before the first GPU number.
 - **Validity:** an arm whose validity check fails (cap exceeded on nvidia-smi, greedy output not token-identical to
   the reference, copies not async) has no verdict. It is never reported as "slower".
 - **A/B protocol:** A-B-B-A blocks on one instance, same seed, prompts and warm-up (2 steps discarded), at

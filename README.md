@@ -8,12 +8,14 @@ L2L, everything under 8 GB of GPU memory on nvidia-smi.
 | Path | What |
 |---|---|
 | `task1_budget/` | Part 1: memory and time budget (`budget.py`), GPU measurements (`bench.py`), committed prediction (`results/predicted.md`), pre-registered hypotheses and A/B rules (`README.md`) |
-| `00-task-overview.md` | The task, the team's scope update, open questions, file index |
-| `01-concepts.md` | Background: prefill/decode, KV cache, GRPO, LoRA/merge, pinned memory, streaming vs L2L, DFlash |
-| `02-memory-time-budget.md` | Part 1 reasoning step by step (numbers come from `task1_budget/`) |
-| `03-prior-work-soup.md` | Exact Layer Streaming paper, Soup repo, internal D2 / L2L docs, 10Cache |
-| `04-plan-and-hypotheses.md` | Build order, hypothesis table, A/B methodology, silent-failure checklist |
-| `DFlash.md` | DFlash notes (bonus arm) |
+| `task2_l2l/` | Part 2/3: streamed L2L engine, GRPO + LoRA loop, data streaming with deterministic resume, merge, verification (`README.md` has the run commands) |
+| `docs/00-task-overview.md` | The task, the team's scope update, open questions, file index |
+| `docs/01-concepts.md` | Background: prefill/decode, KV cache, GRPO, LoRA/merge, pinned memory, streaming vs L2L, DFlash |
+| `docs/02-memory-time-budget.md` | Part 1 reasoning step by step (numbers come from `task1_budget/`) |
+| `docs/03-prior-work-soup.md` | Exact Layer Streaming paper, Soup repo, internal D2 / L2L docs, 10Cache |
+| `docs/04-plan-and-hypotheses.md` | Build order, hypothesis table, A/B methodology, silent-failure checklist |
+| `docs/DFlash.md` | DFlash notes (bonus arm) |
+| `docs/team/` | Task PDF and the team's internal docs (dynamic streaming, L2L context; Russian) |
 
 ## Scope
 
