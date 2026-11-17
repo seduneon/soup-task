@@ -1,0 +1,42 @@
+# Only the knobs the report argues about. Architecture comes from the checkpoint headers;
+# fixed engine choices (L2L order, SDPA, 2 prefetch buffers, fp32 LoRA + Adam) are in the README.
+models: {target: Qwen/Qwen3-4B, drafter: z-lab/Qwen3-4B-DFlash-b16}
+
+cap_mib: 8192              # nvidia-smi memory.used, CUDA context included
+reserve_mib: 512           # allocator fragmentation + workspaces we did not model
+
+prompts: 2                 # prompts per GRPO step; B = prompts * G sequences share every weight pass
+G: 8                       # rollouts per prompt
+P: 256                     # prompt tokens (to be set from the dataset: p99 of templated prompts)
+C: 512                     # max completion tokens (to be set from base-model samples: ~p95)
+lora_rank: 16
+lora_targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+offload_checkpoints: true  # boundary activations -> pinned host memory
+prefill_mb: 2              # sequences per prefill chunk inside one layer
+train_mb: 1                # sequences per micro-batch inside one layer (ref + train)
+logits_chunk: 256          # tokens per logits / log-softmax chunk
+
+# Streaming arm. regular: fixed resident count for the whole run (baseline).
+# dynamic: during decode the KV cache grows from P to S tokens; layers are kept resident in the memory the
+# KV cache has not claimed yet and evicted as it grows (KV pages carved from the freed layer buffers).
+streaming: regular
+
+# Bonus arm (team: optional, for A/B). Drafter resident, each weight pass verifies a block.
+dflash: false
+block: 16                  # draft tokens verified per target pass
+tau: 3.0                   # assumed: tokens emitted per verify pass at the SAMPLING temperature, slowest
+                           # sequence of the batch
+
+hw:                        # assumed until bench.py replaces them (target card: 8 GB RTX 3060 Ti / 3070)
+  ctx_mib: 500             # CUDA context + cuBLAS/SDPA workspaces
+  h2d_gbps: 22             # pinned H2D under concurrent compute
+  vram_gbps: 380           # effective weight read at decode size (spec 448 GB/s)
+  tflops: 20               # achievable bf16 GEMM at training shapes
+  overhead_ms: 0.5         # launch + Python per layer visit, weights excluded
+  host_base_gib: 3         # Python + torch + CUDA host side
+
+scenarios:                 # dotted-key overrides; each one is an A/B arm or a risk
+  dynamic: {streaming: dynamic}
+  dflash_tau3: {dflash: true}
+  dflash_tau2: {dflash: true, tau: 2.0}
+  pcie3_x16: {hw.h2d_gbps: 12}

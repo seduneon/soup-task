@@ -1,0 +1,171 @@
+{
+ "target": {
+  "conf": {
+   "architectures": [
+    "Qwen3ForCausalLM"
+   ],
+   "attention_bias": false,
+   "attention_dropout": 0.0,
+   "bos_token_id": 151643,
+   "eos_token_id": 151645,
+   "head_dim": 128,
+   "hidden_act": "silu",
+   "hidden_size": 2560,
+   "initializer_range": 0.02,
+   "intermediate_size": 9728,
+   "max_position_embeddings": 40960,
+   "max_window_layers": 36,
+   "model_type": "qwen3",
+   "num_attention_heads": 32,
+   "num_hidden_layers": 36,
+   "num_key_value_heads": 8,
+   "rms_norm_eps": 1e-06,
+   "rope_scaling": null,
+   "rope_theta": 1000000,
+   "sliding_window": null,
+   "tie_word_embeddings": true,
+   "torch_dtype": "bfloat16",
+   "transformers_version": "4.51.0",
+   "use_cache": true,
+   "use_sliding_window": false,
+   "vocab_size": 151936
+  },
+  "layer_params": 100930816,
+  "layer_bytes": 201861632,
+  "linears": {
+   "down_proj": [
+    2560,
+    9728
+   ],
+   "gate_proj": [
+    9728,
+    2560
+   ],
+   "up_proj": [
+    9728,
+    2560
+   ],
+   "k_proj": [
+    1024,
+    2560
+   ],
+   "o_proj": [
+    2560,
+    4096
+   ],
+   "q_proj": [
+    4096,
+    2560
+   ],
+   "v_proj": [
+    1024,
+    2560
+   ]
+  },
+  "other": {
+   "model.norm.weight": 2560,
+   "model.embed_tokens.weight": 388956160
+  },
+  "total_bytes": 8044936192,
+  "shards": {
+   "model-00002-of-00003.safetensors": 3987425280,
+   "model-00003-of-00003.safetensors": 99630080,
+   "model-00001-of-00003.safetensors": 3957880832
+  }
+ },
+ "drafter": {
+  "conf": {
+   "architectures": [
+    "DFlashDraftModel"
+   ],
+   "attention_bias": false,
+   "attention_dropout": 0.0,
+   "auto_map": {
+    "AutoModel": "dflash.DFlashDraftModel"
+   },
+   "block_size": 16,
+   "bos_token_id": 151643,
+   "dflash_config": {
+    "mask_token_id": 151669,
+    "target_layer_ids": [
+     1,
+     9,
+     17,
+     25,
+     33
+    ]
+   },
+   "dtype": "bfloat16",
+   "eos_token_id": 151645,
+   "head_dim": 128,
+   "hidden_act": "silu",
+   "hidden_size": 2560,
+   "initializer_range": 0.02,
+   "intermediate_size": 9728,
+   "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+   ],
+   "max_position_embeddings": 40960,
+   "max_window_layers": 5,
+   "model_type": "qwen3",
+   "num_attention_heads": 32,
+   "num_hidden_layers": 5,
+   "num_key_value_heads": 8,
+   "num_target_layers": 36,
+   "rms_norm_eps": 1e-06,
+   "rope_scaling": null,
+   "rope_theta": 1000000,
+   "sliding_window": null,
+   "tie_word_embeddings": true,
+   "transformers_version": "4.57.3",
+   "use_cache": true,
+   "use_sliding_window": false,
+   "vocab_size": 151936
+  },
+  "layer_params": 100930816,
+  "layer_bytes": 201861632,
+  "linears": {
+   "down_proj": [
+    2560,
+    9728
+   ],
+   "gate_proj": [
+    9728,
+    2560
+   ],
+   "up_proj": [
+    9728,
+    2560
+   ],
+   "k_proj": [
+    1024,
+    2560
+   ],
+   "o_proj": [
+    2560,
+    4096
+   ],
+   "q_proj": [
+    4096,
+    2560
+   ],
+   "v_proj": [
+    1024,
+    2560
+   ]
+  },
+  "other": {
+   "fc.weight": 32768000,
+   "hidden_norm.weight": 2560,
+   "norm.weight": 2560
+  },
+  "total_bytes": 1074854400,
+  "shards": {
+   "model.safetensors": 1074854400
+  }
+ }
+}

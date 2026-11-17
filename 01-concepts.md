@@ -31,7 +31,8 @@ One decoder layer = RMSNorm → attention (q, k, v, o projections, plus q_norm /
 
 - During decode, keep each past token's keys and values per layer so they aren't recomputed.
 - Size per token = 2 (K and V) × layers × kv_heads × head_dim × 2 bytes = 2 × 36 × 8 × 128 × 2 = **147,456 B ≈ 144 KiB/token**.
-- Under layer streaming, layer i's KV is only needed while layer i is on the GPU → it could be streamed too (design choice).
+- Under layer streaming, layer i's KV is only needed while layer i is on the GPU → it could be streamed too (design choice; we keep it on the GPU).
+- The KV cache **grows during decode** (P → P + C tokens). Memory it has not claimed yet can hold extra resident layers that are evicted as it grows. That is the dynamic-streaming arm; it needs the KV cache allocated in pages rather than at full length up front.
 - Speculative decoding needs KV **rollback** (crop to accepted length) after each verify.
 
 ## 4. Speculative decoding (general)
@@ -41,7 +42,7 @@ One decoder layer = RMSNorm → attention (q, k, v, o projections, plus q_norm /
 - **Sampling, textbook rule:** accept draft token x with prob min(1, p(x)/q(x)); on rejection, resample from normalize(max(0, p − q)). Output distribution equals the target's exactly.
 - **Acceptance length τ** = tokens gained per target pass (accepted + 1). Speedup ≈ τ when target passes dominate.
 
-## 5. DFlash specifically (read from the drafter repo's `dflash.py`)
+## 5. DFlash specifically (bonus arm; read from the drafter repo's `dflash.py`)
 
 - Drafter: `z-lab/Qwen3-4B-DFlash-b16`, 537.4M params = 5 Qwen3-shaped layers + one fusion projection `fc` (5·2560 → 2560). ~1025 MiB bf16. **No embedding or LM head of its own** — it reuses the target's `embed_tokens` and `lm_head`.
 - Conditioning: hidden states from target layers **1, 9, 17, 25, 33** are concatenated, passed through `fc` and a norm → one context vector per past token.
@@ -80,7 +81,8 @@ Key facts:
 - Normal ("pageable") RAM can be moved or swapped by the OS at any time.
 - The GPU's copy engine (DMA) reads physical addresses directly, so CUDA won't DMA from pageable memory: it first copies (with the CPU) into a hidden pinned staging buffer, then DMAs. Extra copy, slower, and **`non_blocking=True` silently becomes synchronous** → copy/compute overlap disappears, no error.
 - Pinned memory: the OS promises not to move those pages → direct, asynchronous DMA at full PCIe speed.
-- Costs: taken away from the OS (over-pinning starves the system); allocation is slow (do it once); containers may cap it — check `ulimit -l` on Vast; never modify/free a pinned buffer until the async copy reading it has finished (wait on its event).
+- Costs: taken away from the OS (over-pinning starves the system); allocation is slow (do it once); never modify/free a pinned buffer until the async copy reading it has finished (wait on its event).
+- CUDA pins through the driver (`cudaHostAlloc`), not `mlock`, so `ulimit -l` is not the usual limit, and torch raises if pinning fails. The silent version is a copy from a tensor that was never pinned, such as a slice of a memory-mapped safetensors file: check `is_pinned()` and whether `copy_(non_blocking=True)` returns immediately (`bench.py pcie` reports both).
 
 ```python
 cpu_w = torch.empty(shape, dtype=torch.bfloat16, pin_memory=True)
@@ -91,7 +93,7 @@ with torch.cuda.stream(copy_stream):
     ready_event.record()
 ```
 
-First experiment on the GPU box: time a 200 MB copy pageable vs pinned → also gives the measured H2D bandwidth for part 1.
+First experiment on the GPU box: `task1_budget/bench.py pcie` times a 192.5 MiB layer copy pinned / pageable / memmap while GEMMs run → also gives the measured H2D bandwidth for part 1.
 
 ## 9. Layer streaming vs L2L (two different things)
 

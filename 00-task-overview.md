@@ -13,11 +13,11 @@ Train **Qwen/Qwen3-4B (non-thinking mode)** with **GRPO + LoRA** (no SFT stage) 
 
 ## The five parts
 
-1. **Memory and time budget** — predict GPU + CPU RAM per term and step time from PCIe bandwidth *before* running; then compare with measured allocated / reserved / nvidia-smi and time; explain the gaps. Decide how many layers stay resident. → see `02-memory-time-budget.md`.
+1. **Memory and time budget** — predict GPU + CPU RAM per term and step time from PCIe bandwidth *before* running; then compare with measured allocated / reserved / nvidia-smi and time; explain the gaps. Decide how many layers stay resident. → code in `task1_budget/`, reasoning in `02-memory-time-budget.md`.
 2. **Make it fit**
    - (a) **L2L** — own implementation: weights in pinned CPU memory, current + prefetched layer on GPU, checkpoint at layer boundaries, copy/compute overlap on a separate CUDA stream; also for generation and eval. **Prove equivalence** (logits + gradients vs a non-L2L reference on a small config, justified tolerance). Report how a GRPO step splits between generation and training, and why.
-   - (b) **Streaming** — prompts/rollout data streamed from disk with **deterministic resume** (kill mid-epoch, resume, same samples, no duplicates, no gaps). Merge tensor-by-tensor / shard-by-shard; show the peak.
-   - (c) **DFlash rollouts** — drafter `z-lab/Qwen3-4B-DFlash-b16` (~1 GB, resident) integrated into own L2L loop. Report acceptance length and step time with/without. Show on-policy: verifier uses current LoRA, greedy is token-identical to plain decoding, distribution check for sampling. Measure acceptance vs policy drift.
+   - (b) **Streaming** — prompts/rollout data streamed from disk with **deterministic resume** (kill mid-epoch, resume, same samples, no duplicates, no gaps). Merge (optional per the team) tensor-by-tensor / shard-by-shard; show the peak.
+   - (c) **DFlash rollouts (bonus per the team)** — drafter `z-lab/Qwen3-4B-DFlash-b16` (~1 GB, resident) integrated into own L2L loop. Report acceptance length and step time with/without. Show on-policy: verifier uses current LoRA, greedy is token-identical to plain decoding, distribution check for sampling. Measure acceptance vs policy drift.
 3. **Prove the model actually trained** — rising reward proves nothing (GRPO loss ≈ 0 by construction; reward can be gamed). Compare base / adapter-attached / merged (must match adapter up to noise) / negative control (shuffled rewards or lr=0). Held-out set, confidence intervals. State what the check would NOT detect.
 4. **Silent failures** — across data → tokenizer/template → reward → GRPO → L2L → streaming → DFlash → merge → inference. For each: what can go wrong, how checked, whether Soup's checks (data doctor, pre-flight, `soup ship`) catch it, evidence.
 5. **Verdict** — one call, SHIP or DON'T SHIP, backed by evidence. If DON'T SHIP: exactly what must change.
@@ -42,6 +42,7 @@ Likely live questions: how did you prove training happened; what does your check
 - **DFlash is optional** — a bonus for A/B testing and extra research.
 - **Merge is optional** (still cheap; part 3 references the merged model, so probably do it).
 - Choose the streaming type yourself: **regular** (Soup's `stream_layers`) or **dynamic** (D2). For dynamic, use **10Cache, arXiv 2511.14124** as the basis.
+  - **Decision:** regular streaming is the baseline; **KV-aware dynamic residency** (extra layers resident while the decode KV cache is short, evicted as it grows) is the research arm, adopted only if it wins ≥ 2 % in A/B. Reasoning in `task1_budget/README.md` and `03-prior-work-soup.md` §E.
 - What they really want to see: **how you think, how you form hypotheses, how you run A/B, and whether you have enough hypotheses to close all research questions.**
 - Going beyond the task is welcome; documenting all improvements is a plus.
 - Questions are welcome; not everything working is OK.
@@ -62,3 +63,5 @@ Likely live questions: how did you prove training happened; what does your check
 - `02-memory-time-budget.md` — part 1 broken into steps, with formulas and Qwen3-4B numbers
 - `03-prior-work-soup.md` — the paper's lessons and traps, Soup repo findings, internal D2 / L2L docs, 10Cache
 - `04-plan-and-hypotheses.md` — build order, hypothesis table, A/B methodology, checklists
+- `task1_budget/` — Part 1 code: `budget.py` (ledger, time model, arms), `bench.py` (GPU measurements), `config.yaml`, `results/predicted.md`, README with the pre-registered hypotheses
+- `DFlash.md` — DFlash notes; `dynamic_stream.md`, `dynamic_stream_2.md`, `l2l_context.md` — the team's internal docs (Russian)

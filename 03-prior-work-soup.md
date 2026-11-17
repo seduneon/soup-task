@@ -69,7 +69,7 @@ At 32B/72B NF4: forward bit-exact, loss matched to every digit, **gradients wron
 - Scope: dense Transformers SFT, single CUDA device, fixed batch, disk source. **Incompatible with L2L**, per_expert, activation offload.
 - Results worth remembering: 7B bf16 on 4090 (10 GiB soft cap) step −15.8 to −31.3% at batch 1; **physical RTX 3060 Ti 8 GiB, 8B bf16, 4 resident layers: only −2.39%**; 32B: caches sped up the step but lost on full short-run time; Qwen3-32B NF4 reuse picked regular streaming and won (−4.47%).
 - For models that fit in RAM, keep weights in RAM. → For Qwen3-4B (6.8 GiB store, ≥16 GB host) the SSD tier and RAM hotset are moot; remaining knobs are GPU-resident layers and activation retention.
-- Research gap for this task: D2 is measured on SFT. GRPO has a transfer-bound generation phase and a compute-bound training phase → **phase-aware placement** is a hypothesis worth testing.
+- Research gap for this task: D2 is measured on SFT and fixes its plan for the whole run. GRPO has a transfer-bound decode phase whose memory use changes inside the step (the KV cache grows) → **KV-aware dynamic residency** is the hypothesis we test (H6).
 
 ## D. Internal doc: L2L context (soup-rnd main)
 
@@ -99,7 +99,17 @@ At 32B/72B NF4: forward bit-exact, loss matched to every digit, **gradients wron
 - Profiles tensor execution order → prefetch policies (move before needed).
 - Pinned CPU buffers sized by the tensor-size distribution, reused to cut allocation overhead.
 - Reports up to 2× training speedup, up to 86.6× GPU cache hit rate, 2.15× CPU and 1.33× GPU memory utilisation vs prior offloading.
-- (Only the abstract was read so far — read the full PDF for the placement policy / cost model.)
+- Read in full (HTML version). What it actually does:
+  - Offloads **model states** (fp16 params and grads, fp32 Adam states) across GPU / pinned CPU / NVMe; activations are handled separately.
+  - **Profiling:** one dry-run iteration with forward/backward hooks records each tensor's execution order, size and timing into a prefetch table. Prefetch is triggered by hooks (layer order), not wall-clock time.
+  - **Placement:** no cost model. A priority rule ("GPU, then CPU, then NVMe"), with buffer counts per size class: GPU_BUFFER_COUNT[s] = min(TSD[s]·gpu_avl / s, c_s), TSD[s] = s·c_s / total.
+  - **Pinned pool:** allocated once before training, partitioned by size class, reused (pinned ≈ 2.4× faster than pageable in their Table 2).
+  - **Results:** about 2× faster than ZeRO-Infinity on 6–7B models; up to 86.6× GPU cache hit rate.
+  - **Stated limits:** static graphs only, single GPU, dense models, **inference / KV cache / prefill-decode not evaluated**, heuristic without optimality analysis.
+- How it applies to Qwen3-4B GRPO:
+  - All weights fit in pinned RAM, so the NVMe tier and the RAM hotset are moot.
+  - The fixed layer order, the pinned pool allocated once (our 2 prefetch buffers) and hook/order-driven prefetch are already the engine design.
+  - The part it leaves open is exactly GRPO's decode phase: memory changes inside the step as the KV cache grows. That is our dynamic arm (`task1_budget/README.md`, H6): residency follows the free memory during decode, KV pages are carved from evicted layer buffers, and the plan comes from the ledger rather than a profiling run.
 
 ## F. DFlash (z-lab)
 

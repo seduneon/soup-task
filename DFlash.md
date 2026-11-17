@@ -1,4 +1,4 @@
-# Claude explains DFlash
+# DFlash (bonus arm per the team)
 
 DFlash does use a second, small model, so I put that badly last time. It's just not an independent model. I read DFlash's actual code (`dflash.py` in the drafter repo), so the explanation below follows what it really does.
 
@@ -75,7 +75,7 @@ with torch.cuda.stream(copy_stream):
 **Costs:**
 - Pinned RAM is taken away from the OS, so pinning too much can starve the system.
 - Allocating it is slow, so do it once at startup.
-- Containers often cap it. Check `ulimit -l` on your Vast box, because pinning 7 GB may fail there.
+- CUDA pins through the driver, not `mlock`, so `ulimit -l` is not the usual limit, and torch raises if pinning fails. The silent failure is copying from a tensor that was never pinned (for example a slice of a memory-mapped safetensors file): `non_blocking=True` then quietly runs synchronously. Check `is_pinned()`; `task1_budget/bench.py pcie` also reports it.
 - Never overwrite or free a pinned buffer until the copy reading from it has finished. Wait on the event first.
 
 **A good first experiment on the GPU box:** copy a 200 MB tensor to the GPU from pageable memory and from pinned memory, and time both. You'll see the speed difference, and you get the measured PCIe bandwidth that part 1's time model needs.
