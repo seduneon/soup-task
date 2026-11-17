@@ -40,6 +40,7 @@ def main():
     ap.add_argument("--temperature", type=float, default=0.0)
     ap.add_argument("--max-new", type=int, default=512)
     ap.add_argument("--batch", type=int, default=16, help="sequences per decode batch")
+    ap.add_argument("--max-prompt", type=int, default=256, help="P of the memory plan; longer prompts abort")
     ap.add_argument("--reward", default="math_boxed")
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--dtype", default="bfloat16")
@@ -69,6 +70,8 @@ def evaluate(args):
     eos = {tok.convert_tokens_to_ids("<|im_end|>"), tok.convert_tokens_to_ids("<|endoftext|>")}
     gen = torch.Generator(device=eng.device).manual_seed(args.seed)
     reward_fn = REWARDS[args.reward]
+    too_long = {r["id"]: n for r in recs if (n := len(encode(tok, r["prompt"]))) > args.max_prompt}
+    assert not too_long, f"prompts longer than --max-prompt={args.max_prompt} tokens: {too_long}"
     jobs = [(r, j) for r in recs for j in range(args.k)]
     rows, t0 = [], time.time()
     for a in range(0, len(jobs), args.batch):

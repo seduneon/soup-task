@@ -153,6 +153,9 @@ def run(cfg, out):
     for step in range(step0, cfg["steps"]):
         recs = stream.next(cfg["prompts"])
         prompts = [encode(tok, r["prompt"]) for r in recs for _ in range(cfg["G"])]
+        too_long = {r["id"]: len(p) for r, p in zip(recs, prompts[::cfg["G"]]) if len(p) > cfg["max_prompt"]}
+        assert not too_long, (f"prompts longer than max_prompt={cfg['max_prompt']} tokens {too_long}: the memory "
+                              f"plan assumes P <= max_prompt (filter with prepare_data.py --max-prompt-tokens)")
         loads0, passes0 = eng.loads, eng.passes
         with phases("rollout"):
             ro = generate(eng, prompts, cfg["max_new"], eos, pad, temperature=cfg["temperature"], top_p=cfg["top_p"],

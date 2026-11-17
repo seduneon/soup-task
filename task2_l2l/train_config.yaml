@@ -26,6 +26,7 @@ chunk: 256
 prompts: 2
 G: 8
 max_new: 512
+max_prompt: 256           # P of the memory plan: a longer templated prompt aborts the step
 temperature: 1.0
 top_p: 1.0
 reward: math_boxed

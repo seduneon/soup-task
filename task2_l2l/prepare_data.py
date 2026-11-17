@@ -13,6 +13,12 @@ the last \\boxed{} of the reference solution. Items whose gold answer is not a n
 \\pi, tuples, matrices, base-n) are dropped BEFORE sampling: a string comparison of LaTeX would give false
 zeros (\\frac{\\sqrt3}{3} vs \\frac{1}{\\sqrt3}), i.e. reward noise. This biases the set towards numeric
 problems; the dropped share is printed and must be reported.
+
+Prompt length: every item whose templated prompt (chat template + PROMPT_SUFFIX, exactly what train.py feeds
+the model) is longer than --max-prompt-tokens is dropped BEFORE sampling, in both splits. The memory budget
+sizes the KV cache and activations for P = 256 prompt tokens (task1_budget/config.yaml), and a batch is padded
+to its longest prompt, so one long prompt would push the whole step over the 8 GB cap. The dropped share is
+printed (math35 loses its longest problems: a bias to report alongside the numeric-only one).
 """
 import argparse
 import hashlib
@@ -24,6 +30,7 @@ import pandas as pd
 
 from data_stream import write_jsonl_shards
 from reward import as_number, boxed_all, normalize
+from train import encode
 
 HERE = Path(__file__).parent
 SOURCES = {
@@ -49,8 +56,12 @@ def main():
     ap.add_argument("--n-heldout", type=int, default=500)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", default=HERE / "data")
+    ap.add_argument("--max-prompt-tokens", type=int, default=256, help="P of the memory budget")
+    ap.add_argument("--tokenizer", default="Qwen/Qwen3-4B", help="any Qwen3 size: same tokenizer")
     args = ap.parse_args()
     from huggingface_hub import hf_hub_download
+    from transformers import AutoTokenizer
+    tok = AutoTokenizer.from_pretrained(args.tokenizer)
     src = SOURCES[args.source]
     frames = {s: pd.read_parquet(hf_hub_download(src["repo"], src[s], repo_type="dataset")) for s in ("train", "test")}
     rng = random.Random(args.seed)
@@ -64,6 +75,10 @@ def main():
             n0 = len(cand)
             cand = [i for i in cand if as_number(normalize(src["answer"](df.iloc[i]))) is not None]
             print(f"{split}: kept {len(cand)} of {n0} items with a numeric gold answer ({1 - len(cand) / n0:.1%} dropped)")
+        n0 = len(cand)
+        cand = [i for i in cand if len(encode(tok, df.iloc[i][src["question"]])) <= args.max_prompt_tokens]
+        print(f"{split}: kept {len(cand)} of {n0} items with a templated prompt <= {args.max_prompt_tokens} tokens "
+              f"({1 - len(cand) / n0:.1%} dropped)")
         if split == "train":  # a question that is also in the test split never enters train (MATH has some)
             n0 = len(cand)
             cand = [i for i in cand if qhash(df.iloc[i][src["question"]]) not in test_q]
