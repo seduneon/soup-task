@@ -1,0 +1,40 @@
+# GRPO on Qwen3-4B under the 8 GB cap. Knobs mirror task1_budget/config.yaml (the predicted arm).
+model: Qwen/Qwen3-4B
+layers: null              # null = all 36; a smaller number truncates (debug only)
+device: cuda
+dtype: bfloat16
+data_dir: data/gsm8k/train   # *.jsonl shards with {id, prompt, answer} (prepare_data.py)
+out_dir: runs/main
+seed: 0
+
+# memory plan (Part 1: 20 resident / 16 streamed at prompts=2, G=8, P=256, C=512)
+resident: 20
+n_buffers: 2
+streaming: regular        # regular | dynamic (paged KV + residency follows free memory during decode)
+profile_overlap: true     # CUDA events per layer copy / compute wait -> train_log "overlap" (off for timing A/B if it costs)
+reward_shuffle: false     # Part 3 negative control run: true
+cap_mib: 8192
+cap_offset_mib: 0         # ballast footprint when a >8 GB card is capped with ballast.py (it prints the value)
+strict_cap: false         # true: abort the run when a phase ends above the cap (device-wide used - offset)
+reserve_mib: 512
+headroom_mib: 400         # dynamic arm: transient per decode pass (logits, repeat_kv, page concat)
+prefill_mb: 2
+train_mb: 1
+chunk: 256
+
+# GRPO
+prompts: 2
+G: 8
+max_new: 512
+temperature: 1.0
+top_p: 1.0
+reward: math_boxed
+adv_std: true
+norm: seq                 # seq (GRPO) | token (DAPO)
+beta: 0.0                 # KL to the reference; > 0 adds the ref log-prob pass
+lr: 2.0e-5               # LoRA ~10x a full fine-tune GRPO lr (~1e-6..2e-6); tune on the first steps
+clip: 1.0
+lora_r: 16
+lora_alpha: 32
+steps: 60
+save_every: 1
