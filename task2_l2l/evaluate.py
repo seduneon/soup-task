@@ -11,7 +11,10 @@ reported with format and truncation rates separately from correctness.
 """
 import argparse
 import json
+import os
 import time
+
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")  # same allocator as train.py
 from pathlib import Path
 
 import torch

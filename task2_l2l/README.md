@@ -151,6 +151,19 @@ learning signal per step". Here that is restored directly: prompts per step go 2
 17-token answers, giving ~1.3 prompts with mixed rewards per step, ~5× answer-only GSM8K. The length confound
 is gone: failures are wrong expressions, not truncation. Part 3 reports +/- items and * or / items separately.
 
+**Smoke runs (3 steps, Countdown-3, B = 32):**
+- **Budget at 25 resident:** predicted peak 7603 MiB. Measured 7835 MiB against the 7840 MiB CUDA ceiling (CUDA
+  reports 7840 of the card's 8192), with 17 allocator retries/step: each decode token grew the KV cache by 2 MB,
+  missed, flushed the cache and retried. That rollout took 17 s, against 3 s without retries. The ledger
+  under-counts by ~230 MiB, about the `repeat_kv` and logits transients noted above.
+- **24 resident, A/B on the allocator:**
+  - default: 2–6 retries per step, peak 7773 MiB;
+  - `expandable_segments:True`: 0 retries, peak 7789 MiB.
+  - Identical rewards and gradient norms, identical step times (29 / 28 / 12 s, mean 23 s vs 22.2 s predicted).
+- `train.py` and `evaluate.py` now default to `expandable_segments`, and `attempts.jsonl` records it. Bench
+  numbers were measured without it.
+- Slow steps come from one rambling completion that hits max_new: the batch waits for its longest sequence.
+
 ## Independent review (second Opus 5.5 instance, fresh context) and what was done
 
 | # | Finding | Status |

@@ -26,6 +26,10 @@ import signal
 import time
 from pathlib import Path
 
+# Before torch touches CUDA. A/B on the 3070 at 24 resident: allocator retries 2-6/step -> 0, rewards and grad
+# norms identical, step time unchanged (README). Set here, not in a launch command, so no run can miss it.
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+
 import torch
 import yaml
 
@@ -154,6 +158,7 @@ def run(cfg, out):
         atomic_write_bytes(ledger, "".join(keep).encode())
     append_jsonl(out / "attempts.jsonl", {"time": time.time(), "pid": os.getpid(),
                                           "event": "resume" if step0 else "start", "step": step0,
+                                          "alloc_conf": os.environ.get("PYTORCH_CUDA_ALLOC_CONF", ""),
                                           "stream": stream.state_dict()})
     say(f"{'resume' if step0 else 'start'} at step {step0} of {cfg['steps']}"
         f"{' (reward_shuffle control)' if cfg.get('reward_shuffle') else ''}")

@@ -8,7 +8,7 @@ out_dir: runs/main
 seed: 0
 
 # memory plan (Part 1 re-run for Countdown-3: task1_budget/config_countdown.yaml -> 25 resident, 22 s/step)
-resident: 25
+resident: 24                # budget said 25; smoke run hit 7835 of 7840 MiB with 17 retries/step (README)
 n_buffers: 2
 streaming: regular        # regular | dynamic (paged KV + residency follows free memory during decode)
 profile_overlap: true     # CUDA events per layer copy / compute wait -> train_log "overlap" (off for timing A/B if it costs)
