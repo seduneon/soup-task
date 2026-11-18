@@ -24,12 +24,20 @@ Still running (idle): `ssh -p 27529 root@ssh4.vast.ai`. Everything needed is on 
 be destroyed once the user agrees (destroying it is the user's call). Only `adapter.pt` of main/control/random
 also exist locally (not in git).
 
-## Next steps
-1. User review of `REPORT.md`. It is ~2.5k words with dense tables: probably over 3 pages printed; trim §4
-   rows or move detail to an appendix if so.
-2. Optional, only if time: a second seed of main and control (the R2 comparison rests on one seed each);
-   max_new 256 eval of the control (its 0.404 is truncation-limited); DFlash (optional per the team, not done).
-3. Submit: report + repo link by email reply to the team (the user sends it).
+## Progress: ~90 % done
+All required parts (1–5) are measured, analysed and written up. What is left is editing and submitting.
+
+## Next steps (in order)
+1. **Trim `REPORT.md` to ≤ 3 pages** (required). It is ~2.5k words with dense tables. Shorten §4 (silent-failure
+   table) and the evidence index, or move detail to `docs/APPENDIX.md`. Keep every number traceable to
+   `task2_l2l/results/analysis.md`; don't change numbers by hand (rerun `analyze.py` if needed).
+2. **User reads the report** and prepares for the live discussion (25 % of the grade): why DON'T SHIP, the
+   shuffled control, two-tag hedging, length bias, bf16 merge rounding, what to fix first (one answer tag,
+   token-level loss normalisation, fewer zero-variance groups, ≥ 3 seeds, unmerged or fp32 merge).
+3. **Decide on the Vast box** (user's call). Destroy it if no optional runs are wanted; it costs money while idle.
+4. Optional, only if time and the box is up: a second seed of main and control (R2 rests on one seed each);
+   max_new 256 eval of the control (its 0.404 is truncation-limited). DFlash: optional per the team, skipped.
+5. **Submit**: report + repo link by email reply to the team (the user sends it).
 
 ## Settled decisions
 - Dataset: **Countdown-3** (`data/countdown3`, `reward: countdown`, `prompt_style: plain`, `max_new: 128`);
