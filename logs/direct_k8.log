@@ -1,0 +1,59 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 3906.04it/s]
+batch 1/32: 5 s, pass so far 0.688, alloc retries 0
+batch 2/32: 10 s, pass so far 0.344, alloc retries 0
+batch 3/32: 15 s, pass so far 0.229, alloc retries 0
+batch 4/32: 19 s, pass so far 0.188, alloc retries 0
+batch 5/32: 24 s, pass so far 0.150, alloc retries 0
+batch 6/32: 29 s, pass so far 0.125, alloc retries 0
+batch 7/32: 34 s, pass so far 0.107, alloc retries 0
+batch 8/32: 38 s, pass so far 0.102, alloc retries 0
+batch 9/32: 43 s, pass so far 0.090, alloc retries 0
+batch 10/32: 48 s, pass so far 0.125, alloc retries 0
+batch 11/32: 53 s, pass so far 0.114, alloc retries 0
+batch 12/32: 57 s, pass so far 0.104, alloc retries 0
+batch 13/32: 62 s, pass so far 0.096, alloc retries 0
+batch 14/32: 67 s, pass so far 0.089, alloc retries 0
+batch 15/32: 71 s, pass so far 0.113, alloc retries 0
+batch 16/32: 76 s, pass so far 0.129, alloc retries 0
+batch 17/32: 81 s, pass so far 0.121, alloc retries 0
+batch 18/32: 85 s, pass so far 0.115, alloc retries 0
+batch 19/32: 90 s, pass so far 0.109, alloc retries 0
+batch 20/32: 95 s, pass so far 0.103, alloc retries 0
+batch 21/32: 100 s, pass so far 0.098, alloc retries 0
+batch 22/32: 104 s, pass so far 0.094, alloc retries 0
+batch 23/32: 109 s, pass so far 0.090, alloc retries 0
+batch 24/32: 113 s, pass so far 0.086, alloc retries 0
+batch 25/32: 118 s, pass so far 0.083, alloc retries 0
+batch 26/32: 122 s, pass so far 0.079, alloc retries 0
+batch 27/32: 127 s, pass so far 0.076, alloc retries 0
+batch 28/32: 132 s, pass so far 0.074, alloc retries 0
+batch 29/32: 137 s, pass so far 0.078, alloc retries 0
+batch 30/32: 141 s, pass so far 0.075, alloc retries 0
+batch 31/32: 146 s, pass so far 0.079, alloc retries 0
+batch 32/32: 151 s, pass so far 0.078, alloc retries 0
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": null,
+ "data": "data/gsm8k/train",
+ "n_items": 64,
+ "k": 8,
+ "temperature": 1.0,
+ "prompt_style": "direct",
+ "max_new": 32,
+ "pass_rate": 0.078125,
+ "ci95": [
+  0.02734375,
+  0.138671875
+ ],
+ "has_box_rate": 0.125,
+ "truncated_rate": 0.87890625,
+ "mean_length": 29.755859375,
+ "seconds": 150.61342525482178,
+ "zero_var_group_frac": 0.859375,
+ "alloc_conf": "",
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 5638.13037109375,
+ "gpu_reserved_peak_mib": 5922.0
+}
+EXIT_CODE=0

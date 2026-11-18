@@ -1,0 +1,12 @@
+2026-11-18T09:30:39Z == ctx: {'ctx_mib': 233}
+2026-11-18T09:30:39Z {'device_before': 9, 'context': 199, 'first_bf16_matmul': 331, 'first_sdpa': 333, 'after_free': 233}
+2026-11-18T09:30:42Z == pcie: {'h2d_gbps': 25.54}
+2026-11-18T09:30:42Z {'h2d_pinned_idle': {'median_gbps': 25.56, 'best_gbps': 25.58, 'host_ms': 0.036, 'src_pinned': True}, 'h2d_pinned_under_gemm': {'median_gbps': 25.54, 'best_gbps': 25.56, 'host_ms': 0.047, 'src_pinned': True}, 'h2d_pageable_under_gemm': {'median_gbps': 20.1, 'best_gbps': 20.12, 'host_ms': 10.043, 'src_pinned': False}, 'h2d_mmap_under_gemm (page cache warm)': {'median_gbps': 8.98, 'best_gbps': 9.01, 'host_ms': 22.528, 'src_pinned': False}, 'd2h_pinned': {'median_gbps': 25.14, 'best_gbps': 25.18, 'host_ms': 0.035, 'src_pinned': False}, 'link': {'current_gen_width': ['4', '16'], 'max_gen_width': ['4', '16']}, 'clocks': {'sm_mhz': '1860', 'temp_c': '47', 'pstate': 'P2'}}
+2026-11-18T09:30:42Z == vram: {'vram_gbps': 334.2}
+2026-11-18T09:30:42Z {'layer_read_gbps_16tok': 334.2, 'clocks': {'sm_mhz': '1860', 'temp_c': '47', 'pstate': 'P2'}}
+2026-11-18T09:30:45Z == gemm: {'tflops': 42.29}
+2026-11-18T09:30:45Z {'tflops': {'16/q_proj': 5.06, '16/k_proj': 2.28, '16/o_proj': 6.05, '16/gate_proj': 5.74, '16/down_proj': 6.29, '12288/q_proj': 41.79, '12288/k_proj': 39.26, '12288/o_proj': 42.47, '12288/gate_proj': 42.18, '12288/down_proj': 43.37}, 'layer_tflops_16tok': 5.39, 'clocks_before': {'sm_mhz': '1860', 'temp_c': '47', 'pstate': 'P2'}, 'clocks_after': {'sm_mhz': '1890', 'temp_c': '54', 'pstate': 'P2'}}
+2026-11-18T09:30:45Z == overhead: {'overhead_ms': 0.655}
+2026-11-18T09:30:45Z {'tiny_lora_b16_t1_ctx512': 0.655, 'full_decode_b16_t1_ctx512': 0.934, 'clocks': {'sm_mhz': '1890', 'temp_c': '54', 'pstate': 'P2'}}
+2026-11-18T09:30:45Z wrote /workspace/soup-task/task1_budget/results/measured_hw.yaml
+2026-11-18T09:30:45Z next: python budget.py --hw results/measured_hw.yaml --tag predicted_measured_hw

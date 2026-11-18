@@ -1,0 +1,59 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 3709.80it/s]
+batch 1/32: 4 s, pass so far 0.500, alloc retries 0
+batch 2/32: 6 s, pass so far 0.750, alloc retries 0
+batch 3/32: 22 s, pass so far 0.583, alloc retries 0
+batch 4/32: 26 s, pass so far 0.438, alloc retries 0
+batch 5/32: 28 s, pass so far 0.525, alloc retries 0
+batch 6/32: 31 s, pass so far 0.594, alloc retries 0
+batch 7/32: 33 s, pass so far 0.589, alloc retries 0
+batch 8/32: 36 s, pass so far 0.516, alloc retries 0
+batch 9/32: 38 s, pass so far 0.493, alloc retries 0
+batch 10/32: 41 s, pass so far 0.494, alloc retries 0
+batch 11/32: 77 s, pass so far 0.483, alloc retries 0
+batch 12/32: 95 s, pass so far 0.484, alloc retries 0
+batch 13/32: 98 s, pass so far 0.447, alloc retries 0
+batch 14/32: 101 s, pass so far 0.424, alloc retries 0
+batch 15/32: 103 s, pass so far 0.396, alloc retries 0
+batch 16/32: 106 s, pass so far 0.387, alloc retries 0
+batch 17/32: 124 s, pass so far 0.423, alloc retries 0
+batch 18/32: 127 s, pass so far 0.399, alloc retries 0
+batch 19/32: 130 s, pass so far 0.382, alloc retries 0
+batch 20/32: 148 s, pass so far 0.384, alloc retries 0
+batch 21/32: 150 s, pass so far 0.366, alloc retries 0
+batch 22/32: 186 s, pass so far 0.358, alloc retries 0
+batch 23/32: 203 s, pass so far 0.348, alloc retries 0
+batch 24/32: 205 s, pass so far 0.349, alloc retries 0
+batch 25/32: 208 s, pass so far 0.347, alloc retries 0
+batch 26/32: 210 s, pass so far 0.334, alloc retries 0
+batch 27/32: 226 s, pass so far 0.333, alloc retries 0
+batch 28/32: 229 s, pass so far 0.324, alloc retries 0
+batch 29/32: 244 s, pass so far 0.341, alloc retries 0
+batch 30/32: 246 s, pass so far 0.344, alloc retries 0
+batch 31/32: 259 s, pass so far 0.343, alloc retries 0
+batch 32/32: 276 s, pass so far 0.340, alloc retries 0
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": null,
+ "data": "data/countdown3/train",
+ "n_items": 64,
+ "k": 8,
+ "temperature": 1.0,
+ "prompt_style": "plain",
+ "max_new": 256,
+ "pass_rate": 0.33984375,
+ "ci95": [
+  0.2421875,
+  0.443359375
+ ],
+ "has_box_rate": 1.0,
+ "truncated_rate": 0.005859375,
+ "mean_length": 20.583984375,
+ "seconds": 275.8330612182617,
+ "zero_var_group_frac": 0.65625,
+ "alloc_conf": "",
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 5977.486328125,
+ "gpu_reserved_peak_mib": 6830.0
+}
+EXIT_CODE=0

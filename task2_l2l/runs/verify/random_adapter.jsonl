@@ -1,0 +1,500 @@
+{"id": "countdown3-heldout-0", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>14 + 62 - 2</answer>"}
+{"id": "countdown3-heldout-1", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>83 - 54 - 82</answer>"}
+{"id": "countdown3-heldout-2", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 20, "text": "<answer>99 - 84 - 54 / 9</answer>"}
+{"id": "countdown3-heldout-3", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>78 - (47 - 39)</answer>"}
+{"id": "countdown3-heldout-4", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>48 - 46 + 13</answer>"}
+{"id": "countdown3-heldout-5", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>55 - 33 + 24</answer>"}
+{"id": "countdown3-heldout-6", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>92 - 38 - 16</answer>"}
+{"id": "countdown3-heldout-7", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 76, "text": "<answer>48 - 38 - (96 / 12)</answer>  \n\nWait, that uses 12 which isn't in the original numbers. Let me correct that.\n\nActually, using only 38, 48, and 96:\n\n<answer>(96 - 48) - 38</answer>"}
+{"id": "countdown3-heldout-8", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>8 * 2 + 29</answer>"}
+{"id": "countdown3-heldout-9", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 22, "text": "<answer>(49 - 27) - (47 / 47)</answer>"}
+{"id": "countdown3-heldout-10", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>60 / (20 - 2)</answer>"}
+{"id": "countdown3-heldout-11", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>64 - 47 - 61</answer>"}
+{"id": "countdown3-heldout-12", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>74 - 32 - 21</answer>"}
+{"id": "countdown3-heldout-13", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 22, "text": "<answer>(69 - 65) + (34 / 17)</answer>"}
+{"id": "countdown3-heldout-14", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>23 + 17 + 23</answer>"}
+{"id": "countdown3-heldout-15", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>27 * (12 - 96 / 12)</answer>"}
+{"id": "countdown3-heldout-16", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>83 - (16 / 14)</answer>"}
+{"id": "countdown3-heldout-17", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>57 - 24 / 4</answer>"}
+{"id": "countdown3-heldout-18", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>65 - (34 - 32)</answer>"}
+{"id": "countdown3-heldout-19", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 9, "text": "<answer>36</answer>"}
+{"id": "countdown3-heldout-20", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>84 + 14 - 78</answer>"}
+{"id": "countdown3-heldout-21", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>88 - 63 - 3</answer>"}
+{"id": "countdown3-heldout-22", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>79 - 44 - 57</answer>"}
+{"id": "countdown3-heldout-23", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>79 - 62 + 53</answer>"}
+{"id": "countdown3-heldout-24", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>3 * 48 - 27</answer>"}
+{"id": "countdown3-heldout-25", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>88 + (55 - 45)</answer>"}
+{"id": "countdown3-heldout-26", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>17 + 74 - 15</answer>"}
+{"id": "countdown3-heldout-27", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>35 - 25 - 30 / 30</answer>"}
+{"id": "countdown3-heldout-28", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>88 + (11 - 3)</answer>"}
+{"id": "countdown3-heldout-29", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>72 - 26 - 3</answer>"}
+{"id": "countdown3-heldout-30", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>60 + 30 / 3</answer>"}
+{"id": "countdown3-heldout-31", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>88 - 95 + 11</answer>"}
+{"id": "countdown3-heldout-32", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>55 + (47 - 3)</answer>"}
+{"id": "countdown3-heldout-33", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>86 - 16 - 2</answer>"}
+{"id": "countdown3-heldout-34", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>60 + (90 - 46)</answer>"}
+{"id": "countdown3-heldout-35", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>66 + 17 - 10</answer>"}
+{"id": "countdown3-heldout-36", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>71 - 38 - 19</answer>"}
+{"id": "countdown3-heldout-37", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 20, "text": "<answer>8 * (14 - (35 / 5))</answer>"}
+{"id": "countdown3-heldout-38", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>64 + (95 - 64)</answer>"}
+{"id": "countdown3-heldout-39", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>5 * 14 + 27</answer>"}
+{"id": "countdown3-heldout-40", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>81 - (7 + 4)</answer>"}
+{"id": "countdown3-heldout-41", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>65 - 96 / 20</answer>"}
+{"id": "countdown3-heldout-42", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>66 - 53 - 28</answer>"}
+{"id": "countdown3-heldout-43", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>84 - 48 / 42</answer>"}
+{"id": "countdown3-heldout-44", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(68 + 32) - 40</answer>"}
+{"id": "countdown3-heldout-45", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>68 - 37 - 2</answer>"}
+{"id": "countdown3-heldout-46", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>42 - (40 / 30)</answer>"}
+{"id": "countdown3-heldout-47", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>86 - 62 - 10</answer>"}
+{"id": "countdown3-heldout-48", "sample": 0, "reward": 0.0, "has_box": true, "finished": false, "length": 128, "text": "<answer>77 - 42 - 62 + 42</answer>  \n*(Note: This expression is not valid as it repeats 42. Let's correct it.)*\n\n<answer>(77 - 42) - (62 / 2)</answer>  \n*(Note: 2 is not one of the given numbers. Let's try again.)*\n\n<answer>77 - (62 + 42)</answer>  \nThis equals 77 - 104 = -27, not 57.\n\nLet's try:\n\n<answer>"}
+{"id": "countdown3-heldout-49", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 9, "text": "<answer>95</answer>"}
+{"id": "countdown3-heldout-50", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>54 + (20 - 7)</answer>"}
+{"id": "countdown3-heldout-51", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>(99 - 60) - 6</answer>"}
+{"id": "countdown3-heldout-52", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>36 - 25 + 12</answer>"}
+{"id": "countdown3-heldout-53", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>60 - 25 - 20</answer>"}
+{"id": "countdown3-heldout-54", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>(31 + 29) + (20 / 5)</answer>"}
+{"id": "countdown3-heldout-55", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>68 - 63 - 18</answer>"}
+{"id": "countdown3-heldout-56", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>75 - 74 - 51</answer>"}
+{"id": "countdown3-heldout-57", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>89 - 53 - 16</answer>"}
+{"id": "countdown3-heldout-58", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>75 - 25 + 18</answer>"}
+{"id": "countdown3-heldout-59", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>8 + 19 + 8</answer>"}
+{"id": "countdown3-heldout-60", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>76 + (73 - 54)</answer>"}
+{"id": "countdown3-heldout-61", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>56 - (41 - 3)</answer>"}
+{"id": "countdown3-heldout-62", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>64 - 62 - 19</answer>"}
+{"id": "countdown3-heldout-63", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>47 - 42 - 35</answer>"}
+{"id": "countdown3-heldout-64", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>56 + 27 + (62 - 62)</answer>"}
+{"id": "countdown3-heldout-65", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>99 - 38 - 59</answer>"}
+{"id": "countdown3-heldout-66", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>88 - 59 - 91 / 13</answer>"}
+{"id": "countdown3-heldout-67", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>36 - 24 - (39 / 13)</answer>"}
+{"id": "countdown3-heldout-68", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>88 - (22 + 81)</answer>"}
+{"id": "countdown3-heldout-69", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>74 + (61 - 50)</answer>"}
+{"id": "countdown3-heldout-70", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>62 + (94 - 47)</answer>"}
+{"id": "countdown3-heldout-71", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>(90 / 15) + 5</answer>"}
+{"id": "countdown3-heldout-72", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>8 * 13 - 73</answer>"}
+{"id": "countdown3-heldout-73", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>68 - 67 - 60</answer>"}
+{"id": "countdown3-heldout-74", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>65 + (99 - 5)</answer>"}
+{"id": "countdown3-heldout-75", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>36 + 28 - 17</answer>"}
+{"id": "countdown3-heldout-76", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>64 - 53 - 56 / 56</answer>"}
+{"id": "countdown3-heldout-77", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>60 + (55 - 43)</answer>"}
+{"id": "countdown3-heldout-78", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(65 - 47) - 33</answer>"}
+{"id": "countdown3-heldout-79", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(69 - 39) - 20</answer>"}
+{"id": "countdown3-heldout-80", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>42 - (91 / 13)</answer>"}
+{"id": "countdown3-heldout-81", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>40 - 20 - 3</answer>"}
+{"id": "countdown3-heldout-82", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>57 - (50 - 38)</answer>"}
+{"id": "countdown3-heldout-83", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>60 + (46 - 19)</answer>"}
+{"id": "countdown3-heldout-84", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>96 - 89 - 25</answer>"}
+{"id": "countdown3-heldout-85", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>46 - 30 / 2</answer>"}
+{"id": "countdown3-heldout-86", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>81 - 73 + 69</answer>"}
+{"id": "countdown3-heldout-87", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>84 - 46 - 7</answer>"}
+{"id": "countdown3-heldout-88", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>77 - 69 - 60 / 60</answer>"}
+{"id": "countdown3-heldout-89", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>72 - 30 - 3</answer>"}
+{"id": "countdown3-heldout-90", "sample": 0, "reward": 0.0, "has_box": true, "finished": false, "length": 128, "text": "<answer>36 + 39 + 9</answer>  \n**Wait, that's incorrect** because we are only allowed to use the numbers 36, 39, and 30 exactly once.\n\nLet's find the correct expression:\n\nWe need to use **36, 39, and 30** exactly once with **+ - * / and parentheses** to make **90**.\n\nTry this:\n\n**(39 + 30) + 36 = 69 + 36 = 105** \u2192 too big.\n\nTry:\n\n**(39 -"}
+{"id": "countdown3-heldout-91", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>60 - 51 - 22</answer>"}
+{"id": "countdown3-heldout-92", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>80 / (16 - 14)</answer>"}
+{"id": "countdown3-heldout-93", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(97 - 94) + 41</answer>"}
+{"id": "countdown3-heldout-94", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 9, "text": "<answer>64</answer>"}
+{"id": "countdown3-heldout-95", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>43 - 15 / 3</answer>"}
+{"id": "countdown3-heldout-96", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 9, "text": "<answer>21</answer>"}
+{"id": "countdown3-heldout-97", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>48 + 42 - 6</answer>"}
+{"id": "countdown3-heldout-98", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>87 - 45 - 23</answer>"}
+{"id": "countdown3-heldout-99", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>86 - (82 - 69)</answer>"}
+{"id": "countdown3-heldout-100", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>54 - (9 / 7)</answer>"}
+{"id": "countdown3-heldout-101", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>89 - 67 - 36</answer>"}
+{"id": "countdown3-heldout-102", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(69 - 32) - 13</answer>"}
+{"id": "countdown3-heldout-103", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>81 - 15 - 1</answer>"}
+{"id": "countdown3-heldout-104", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>92 + (99 - 85)</answer>"}
+{"id": "countdown3-heldout-105", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>62 - 2 - 1</answer>"}
+{"id": "countdown3-heldout-106", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>49 + 21 - 6</answer>"}
+{"id": "countdown3-heldout-107", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>50 - 59 + 25</answer>"}
+{"id": "countdown3-heldout-108", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>59 + 4 - 26</answer>"}
+{"id": "countdown3-heldout-109", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>83 - (39 - 32)</answer>"}
+{"id": "countdown3-heldout-110", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 22, "text": "<answer>(96 - 75) - (73 / 73)</answer>"}
+{"id": "countdown3-heldout-111", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 19, "text": "<answer>27 - 21 - (2 / 2)</answer>"}
+{"id": "countdown3-heldout-112", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>65 - 61 - 24</answer>"}
+{"id": "countdown3-heldout-113", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>51 + (47 - 17)</answer>"}
+{"id": "countdown3-heldout-114", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>73 - 55 - 1</answer>"}
+{"id": "countdown3-heldout-115", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>60 - 27 / 3</answer>"}
+{"id": "countdown3-heldout-116", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>78 - (45 - 37)</answer>"}
+{"id": "countdown3-heldout-117", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>84 + 15 - 15</answer>"}
+{"id": "countdown3-heldout-118", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>85 + (90 - 81) / 9</answer>"}
+{"id": "countdown3-heldout-119", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>14 + 98 - 14</answer>"}
+{"id": "countdown3-heldout-120", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>84 + (92 - 14)</answer>"}
+{"id": "countdown3-heldout-121", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>72 - 26 - 17</answer>"}
+{"id": "countdown3-heldout-122", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 20, "text": "<answer>81 - 57 - (57 / 3)</answer>"}
+{"id": "countdown3-heldout-123", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>86 - 82 + 35</answer>"}
+{"id": "countdown3-heldout-124", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>96 - 33 - 11</answer>"}
+{"id": "countdown3-heldout-125", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>65 - (68 - 52)</answer>"}
+{"id": "countdown3-heldout-126", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>87 - 74 - 69</answer>"}
+{"id": "countdown3-heldout-127", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>35 + (31 - 30)</answer>"}
+{"id": "countdown3-heldout-128", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>8 * 92 - 17</answer>"}
+{"id": "countdown3-heldout-129", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>46 - 36 - 27</answer>"}
+{"id": "countdown3-heldout-130", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>70 - 47 - 20</answer>"}
+{"id": "countdown3-heldout-131", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>99 - 20 - 3</answer>"}
+{"id": "countdown3-heldout-132", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>69 + 93 - 3</answer>"}
+{"id": "countdown3-heldout-133", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>93 - 58 - 4</answer>"}
+{"id": "countdown3-heldout-134", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>53 + (95 - 93)</answer>"}
+{"id": "countdown3-heldout-135", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>74 - 63 / 9</answer>"}
+{"id": "countdown3-heldout-136", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>75 + 17 + 38</answer>"}
+{"id": "countdown3-heldout-137", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>71 - 30 - 28</answer>"}
+{"id": "countdown3-heldout-138", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>74 - (70 - 20)</answer>"}
+{"id": "countdown3-heldout-139", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>47 - 26 - 11</answer>"}
+{"id": "countdown3-heldout-140", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>85 - (25 - 19)</answer>"}
+{"id": "countdown3-heldout-141", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>98 - 53 - 26</answer>"}
+{"id": "countdown3-heldout-142", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>89 - 46 - 15</answer>"}
+{"id": "countdown3-heldout-143", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>70 + (11 - 3)</answer>"}
+{"id": "countdown3-heldout-144", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>87 - 42 / 3</answer>"}
+{"id": "countdown3-heldout-145", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>61 - 58 - 26</answer>"}
+{"id": "countdown3-heldout-146", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>64 - 59 - 39</answer>"}
+{"id": "countdown3-heldout-147", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>96 - 71 - 25</answer>"}
+{"id": "countdown3-heldout-148", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>35 + (39 - 29)</answer>"}
+{"id": "countdown3-heldout-149", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>26 + (23 - 8)</answer>"}
+{"id": "countdown3-heldout-150", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 12, "text": "<answer>3 * 23</answer>"}
+{"id": "countdown3-heldout-151", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>69 + (19 - 3)</answer>"}
+{"id": "countdown3-heldout-152", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>61 - (27 - 25)</answer>"}
+{"id": "countdown3-heldout-153", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>79 - 13 - 2</answer>"}
+{"id": "countdown3-heldout-154", "sample": 0, "reward": 0.0, "has_box": true, "finished": false, "length": 128, "text": "<answer>(99 - 95) + (32 / 8)</answer>  \n\n**Note:** The original numbers given are 99, 95, and 32. However, the expression above uses 8, which is not one of the given numbers. Let me correct that.\n\nTo use **only** 99, 95, and 32, and get 36, here's a valid expression:\n\n<answer>(99 - 95) + (32 / 8)</answer> is invalid because 8 is not in the original set.\n\nLet"}
+{"id": "countdown3-heldout-155", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>75 - 74 - 35</answer>"}
+{"id": "countdown3-heldout-156", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>89 - 46 - 1</answer>"}
+{"id": "countdown3-heldout-157", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>82 - 50 - 34</answer>"}
+{"id": "countdown3-heldout-158", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>97 - 10 - 1</answer>"}
+{"id": "countdown3-heldout-159", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>67 - 37 - 11</answer>"}
+{"id": "countdown3-heldout-160", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>42 - 11 + 9</answer>"}
+{"id": "countdown3-heldout-161", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>52 - (50 - 44)</answer>"}
+{"id": "countdown3-heldout-162", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>99 - 88 + 53</answer>"}
+{"id": "countdown3-heldout-163", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>96 - 14 - 2</answer>"}
+{"id": "countdown3-heldout-164", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>64 / (27 - 23)</answer>"}
+{"id": "countdown3-heldout-165", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>83 + (73 - 62)</answer>"}
+{"id": "countdown3-heldout-166", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>54 - (92 - 1)</answer>"}
+{"id": "countdown3-heldout-167", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>89 - (91 - 55)</answer>"}
+{"id": "countdown3-heldout-168", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>33 + 32 - 10</answer>"}
+{"id": "countdown3-heldout-169", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>65 + 36 - 61</answer>"}
+{"id": "countdown3-heldout-170", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>41 - 41 + 19</answer>"}
+{"id": "countdown3-heldout-171", "sample": 0, "reward": 0.0, "has_box": true, "finished": false, "length": 128, "text": "<answer>54 - 35 - 25 + 25</answer>  \n*(Note: This expression is not valid as it repeats 25. Let's correct it.)*\n\n<answer>(54 - 35) - (25 / 5)</answer>  \n*(Note: 5 is not in the given numbers. Let's try again.)*\n\n<answer>54 - (35 + 25)</answer>  \nThis equals 54 - 60 = -6, not 44.\n\nLet's try:\n\n<answer>54 -"}
+{"id": "countdown3-heldout-172", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>64 + 9 - 7</answer>"}
+{"id": "countdown3-heldout-173", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>68 - 34 - 12</answer>"}
+{"id": "countdown3-heldout-174", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>8 * 14 - 41</answer>"}
+{"id": "countdown3-heldout-175", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>76 - 43 - 10</answer>"}
+{"id": "countdown3-heldout-176", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>27 + 15 - 2</answer>"}
+{"id": "countdown3-heldout-177", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>76 + 7 - 3</answer>"}
+{"id": "countdown3-heldout-178", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>40 + 41 + (96 / 96)</answer>"}
+{"id": "countdown3-heldout-179", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>98 - 91 - 14</answer>"}
+{"id": "countdown3-heldout-180", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>72 + 32 - 6</answer>"}
+{"id": "countdown3-heldout-181", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>60 + (57 - 48)</answer>"}
+{"id": "countdown3-heldout-182", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>85 - 14 - 13</answer>"}
+{"id": "countdown3-heldout-183", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>48 - 28 - 10</answer>"}
+{"id": "countdown3-heldout-184", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>56 + 17 + (50 / 50)</answer>"}
+{"id": "countdown3-heldout-185", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>40 - 27 / 3</answer>"}
+{"id": "countdown3-heldout-186", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>63 - 29 - 3</answer>"}
+{"id": "countdown3-heldout-187", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>84 - 80 - 28</answer>"}
+{"id": "countdown3-heldout-188", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>79 + 49 - 32</answer>"}
+{"id": "countdown3-heldout-189", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(69 - 44) + 67</answer>"}
+{"id": "countdown3-heldout-190", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>83 - 65 - 2</answer>"}
+{"id": "countdown3-heldout-191", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>81 - (59 - 49)</answer>"}
+{"id": "countdown3-heldout-192", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>81 - 43 - 28</answer>"}
+{"id": "countdown3-heldout-193", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>76 + (72 - 57)</answer>"}
+{"id": "countdown3-heldout-194", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>34 - 10 - 32</answer>"}
+{"id": "countdown3-heldout-195", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>84 - 93 + 26</answer>"}
+{"id": "countdown3-heldout-196", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>71 - 19 - 3</answer>"}
+{"id": "countdown3-heldout-197", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>72 - 15 - 1</answer>"}
+{"id": "countdown3-heldout-198", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>62 + (47 - 15)</answer>"}
+{"id": "countdown3-heldout-199", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>54 - 29 - 39</answer>"}
+{"id": "countdown3-heldout-200", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>57 + (54 / 3)</answer>"}
+{"id": "countdown3-heldout-201", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>64 - 25 - (29 - 25)</answer>"}
+{"id": "countdown3-heldout-202", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>99 - 22 - 4</answer>"}
+{"id": "countdown3-heldout-203", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>36 + 14 - 3</answer>"}
+{"id": "countdown3-heldout-204", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>88 - 59 - 42</answer>"}
+{"id": "countdown3-heldout-205", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>79 - 24 - 17</answer>"}
+{"id": "countdown3-heldout-206", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>54 - 29 - 9</answer>"}
+{"id": "countdown3-heldout-207", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>35 + 31 - 6</answer>"}
+{"id": "countdown3-heldout-208", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(26 + 13) - 10</answer>"}
+{"id": "countdown3-heldout-209", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>83 - 76 - 53</answer>"}
+{"id": "countdown3-heldout-210", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>45 + 92 - 91</answer>"}
+{"id": "countdown3-heldout-211", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>46 + (35 - 22)</answer>"}
+{"id": "countdown3-heldout-212", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>76 - (76 / 73)</answer>"}
+{"id": "countdown3-heldout-213", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>47 + (39 - 22)</answer>"}
+{"id": "countdown3-heldout-214", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>46 + 6 + 41</answer>"}
+{"id": "countdown3-heldout-215", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>22 + (99 - 21)</answer>"}
+{"id": "countdown3-heldout-216", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>75 - 21 - 18</answer>"}
+{"id": "countdown3-heldout-217", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>44 - (44 / 42)</answer>"}
+{"id": "countdown3-heldout-218", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>64 - 40 + 28</answer>"}
+{"id": "countdown3-heldout-219", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>86 + (19 - 7)</answer>"}
+{"id": "countdown3-heldout-220", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>92 - 87 + 69</answer>"}
+{"id": "countdown3-heldout-221", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>82 - 66 - 33</answer>"}
+{"id": "countdown3-heldout-222", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>71 - 96 + 53</answer>"}
+{"id": "countdown3-heldout-223", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>42 - 13 - 1</answer>"}
+{"id": "countdown3-heldout-224", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>68 - 53 - 66 / 66</answer>"}
+{"id": "countdown3-heldout-225", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>47 - (44 - 35)</answer>"}
+{"id": "countdown3-heldout-226", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>42 + 5 + 3</answer>"}
+{"id": "countdown3-heldout-227", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>81 - (82 - 78)</answer>"}
+{"id": "countdown3-heldout-228", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>82 - 79 - 32</answer>"}
+{"id": "countdown3-heldout-229", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>65 + 18 + 49</answer>"}
+{"id": "countdown3-heldout-230", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>98 - 23 - 5</answer>"}
+{"id": "countdown3-heldout-231", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>93 - 76 - 91</answer>"}
+{"id": "countdown3-heldout-232", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>87 - 18 - 29</answer>"}
+{"id": "countdown3-heldout-233", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>42 - 41 + 17</answer>"}
+{"id": "countdown3-heldout-234", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>7 * 14 - 69</answer>"}
+{"id": "countdown3-heldout-235", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 22, "text": "<answer>(76 - 68) + (19 / 19)</answer>"}
+{"id": "countdown3-heldout-236", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>13 * 6 + 11</answer>"}
+{"id": "countdown3-heldout-237", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>74 - 31 - 2</answer>"}
+{"id": "countdown3-heldout-238", "sample": 0, "reward": 0.0, "has_box": true, "finished": false, "length": 128, "text": "<answer>56 + 17 + 12</answer>  \n**Wait, that's incorrect** \u2014 we must use **only** the numbers 56, 51, and 17, each exactly once.\n\nLet's try:\n\n<answer>(56 + 17) + (51 - 51)</answer>  \nNo, that's not valid \u2014 we can't reuse 51.\n\nTry this:\n\n<answer>56 + (51 - 17)</answer>  \nThat equals 56 + 34 = 90 \u2014 too high.\n\n"}
+{"id": "countdown3-heldout-239", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>53 - 36 - 1</answer>"}
+{"id": "countdown3-heldout-240", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>11 * 7 + 1</answer>"}
+{"id": "countdown3-heldout-241", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>89 - 50 - 32</answer>"}
+{"id": "countdown3-heldout-242", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>53 + (50 - 23)</answer>"}
+{"id": "countdown3-heldout-243", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>29 - (24 / 7)</answer>"}
+{"id": "countdown3-heldout-244", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(76 - 38) - 21</answer>"}
+{"id": "countdown3-heldout-245", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 20, "text": "<answer>51 + 27 + (16 / 2)</answer>"}
+{"id": "countdown3-heldout-246", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>45 - (43 - 35)</answer>"}
+{"id": "countdown3-heldout-247", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>88 - 61 - 98 / 98</answer>"}
+{"id": "countdown3-heldout-248", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>89 + 27 - 26</answer>"}
+{"id": "countdown3-heldout-249", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>84 - 67 - 2</answer>"}
+{"id": "countdown3-heldout-250", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>38 - 5 - 3</answer>"}
+{"id": "countdown3-heldout-251", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>90 - 57 - 4</answer>"}
+{"id": "countdown3-heldout-252", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>82 - 77 + 71</answer>"}
+{"id": "countdown3-heldout-253", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>53 - (21 - 15)</answer>"}
+{"id": "countdown3-heldout-254", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>43 - (43 - 33)</answer>"}
+{"id": "countdown3-heldout-255", "sample": 0, "reward": 1.0, "has_box": true, "finished": false, "length": 128, "text": "<answer>95 - 66 - 75 + 66</answer>  \n*(Note: This expression is not valid as it repeats 66. Let's correct it.)*\n\n<answer>(95 - 66) - (75 - 66)</answer>  \n*(Still not correct. Let's find a valid expression.)*\n\n<answer>95 - (75 - 66)</answer>  \nThis equals 95 - 9 = 86.  \n**Correct expression:**  \n<answer>95 - (75 - 66"}
+{"id": "countdown3-heldout-256", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>8 * 72 - 5</answer>"}
+{"id": "countdown3-heldout-257", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>82 + 31 - 20</answer>"}
+{"id": "countdown3-heldout-258", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>83 - 43 - 27</answer>"}
+{"id": "countdown3-heldout-259", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>60 + (44 - 29)</answer>"}
+{"id": "countdown3-heldout-260", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>13 + 50 - 10</answer>"}
+{"id": "countdown3-heldout-261", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>36 + 35 - 19</answer>"}
+{"id": "countdown3-heldout-262", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>96 - 42 - 8</answer>"}
+{"id": "countdown3-heldout-263", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>75 - 28 - 5</answer>"}
+{"id": "countdown3-heldout-264", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>13 * 4 - 6</answer>"}
+{"id": "countdown3-heldout-265", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>88 - 90 + 38</answer>"}
+{"id": "countdown3-heldout-266", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>56 - (49 / 7)</answer>"}
+{"id": "countdown3-heldout-267", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(70 - 26) - 70</answer>"}
+{"id": "countdown3-heldout-268", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>63 - 58 + 45</answer>"}
+{"id": "countdown3-heldout-269", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>70 + 36 / 4</answer>"}
+{"id": "countdown3-heldout-270", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>91 - 55 - 81</answer>"}
+{"id": "countdown3-heldout-271", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>83 - 65 - 59</answer>"}
+{"id": "countdown3-heldout-272", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>75 - 58 - 40</answer>"}
+{"id": "countdown3-heldout-273", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>93 - 21 - 7</answer>"}
+{"id": "countdown3-heldout-274", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>10 + 71 - 19</answer>"}
+{"id": "countdown3-heldout-275", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>63 - 13 - 11</answer>"}
+{"id": "countdown3-heldout-276", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>61 - 26 - 9</answer>"}
+{"id": "countdown3-heldout-277", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>80 / 14 - 56</answer>"}
+{"id": "countdown3-heldout-278", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>70 - 54 - 42</answer>"}
+{"id": "countdown3-heldout-279", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>85 - 54 / 6</answer>"}
+{"id": "countdown3-heldout-280", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>82 - 23 - 21</answer>"}
+{"id": "countdown3-heldout-281", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>50 + (42 - 31)</answer>"}
+{"id": "countdown3-heldout-282", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>55 - (51 - 42)</answer>"}
+{"id": "countdown3-heldout-283", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 20, "text": "<answer>80 - 75 - (27 / 9)</answer>"}
+{"id": "countdown3-heldout-284", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(94 - 60) - 59</answer>"}
+{"id": "countdown3-heldout-285", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>72 + 12 - 9</answer>"}
+{"id": "countdown3-heldout-286", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>50 - 95 + 19</answer>"}
+{"id": "countdown3-heldout-287", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 9, "text": "<answer>51</answer>"}
+{"id": "countdown3-heldout-288", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>73 - 7 - 6</answer>"}
+{"id": "countdown3-heldout-289", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>8 * 13 - 6</answer>"}
+{"id": "countdown3-heldout-290", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>90 - 45 - 19</answer>"}
+{"id": "countdown3-heldout-291", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>83 - 14 - 12</answer>"}
+{"id": "countdown3-heldout-292", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>57 - 24 - 2</answer>"}
+{"id": "countdown3-heldout-293", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 14, "text": "<answer>3 * 9 + 2</answer>"}
+{"id": "countdown3-heldout-294", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>(49 - 33) - (28 / 7)</answer>"}
+{"id": "countdown3-heldout-295", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>48 + 24 / 6</answer>"}
+{"id": "countdown3-heldout-296", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>(76 - 40) - (36 / 6)</answer>"}
+{"id": "countdown3-heldout-297", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 22, "text": "<answer>(19 + 14) * 26 / 26</answer>"}
+{"id": "countdown3-heldout-298", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>93 - 94 + 13</answer>"}
+{"id": "countdown3-heldout-299", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>52 + (39 - 16)</answer>"}
+{"id": "countdown3-heldout-300", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>73 + 42 - 71</answer>"}
+{"id": "countdown3-heldout-301", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>95 - 62 - 90 / 90</answer>"}
+{"id": "countdown3-heldout-302", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>41 + (16 / 2)</answer>"}
+{"id": "countdown3-heldout-303", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>40 - (26 / 4)</answer>"}
+{"id": "countdown3-heldout-304", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>99 - 98 - 17</answer>"}
+{"id": "countdown3-heldout-305", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>53 - 35 / 5</answer>"}
+{"id": "countdown3-heldout-306", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>26 + 16 - 2</answer>"}
+{"id": "countdown3-heldout-307", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>96 - (91 - 13)</answer>"}
+{"id": "countdown3-heldout-308", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 9, "text": "<answer>88</answer>"}
+{"id": "countdown3-heldout-309", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>55 - 17 - 6</answer>"}
+{"id": "countdown3-heldout-310", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>50 + (81 - 27)</answer>"}
+{"id": "countdown3-heldout-311", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>53 - 22 - 3</answer>"}
+{"id": "countdown3-heldout-312", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>73 + (92 - 46)</answer>"}
+{"id": "countdown3-heldout-313", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>51 + 10 + 33</answer>"}
+{"id": "countdown3-heldout-314", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>89 - (82 - 41)</answer>"}
+{"id": "countdown3-heldout-315", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>66 - 50 - 61</answer>"}
+{"id": "countdown3-heldout-316", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>84 - 38 - 36</answer>"}
+{"id": "countdown3-heldout-317", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>71 - 68 - 38</answer>"}
+{"id": "countdown3-heldout-318", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>90 + 51 - 50</answer>"}
+{"id": "countdown3-heldout-319", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>61 - (53 / 2)</answer>"}
+{"id": "countdown3-heldout-320", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>99 - 66 - 91 / 13</answer>"}
+{"id": "countdown3-heldout-321", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>8 * (96 - 40)</answer>"}
+{"id": "countdown3-heldout-322", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>64 + (40 - 23)</answer>"}
+{"id": "countdown3-heldout-323", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>61 - 44 - 4</answer>"}
+{"id": "countdown3-heldout-324", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>98 - 55 - 24</answer>"}
+{"id": "countdown3-heldout-325", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>93 - 40 - 69</answer>"}
+{"id": "countdown3-heldout-326", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>80 - 33 - 10</answer>"}
+{"id": "countdown3-heldout-327", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>62 - 39 - 27</answer>"}
+{"id": "countdown3-heldout-328", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>25 + (28 - 20)</answer>"}
+{"id": "countdown3-heldout-329", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>59 - (36 - 28)</answer>"}
+{"id": "countdown3-heldout-330", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>47 - (92 - 8)</answer>"}
+{"id": "countdown3-heldout-331", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>66 + (61 - 41)</answer>"}
+{"id": "countdown3-heldout-332", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>25 + 41 - 7</answer>"}
+{"id": "countdown3-heldout-333", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>65 - 45 / 2</answer>"}
+{"id": "countdown3-heldout-334", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>93 - 88 - 76</answer>"}
+{"id": "countdown3-heldout-335", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>53 - (92 - 50)</answer>"}
+{"id": "countdown3-heldout-336", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>15 * 5 + 7</answer>"}
+{"id": "countdown3-heldout-337", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>38 + 30 + 24</answer>"}
+{"id": "countdown3-heldout-338", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>49 + 22 + 2</answer>"}
+{"id": "countdown3-heldout-339", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>75 + 90 - 91</answer>"}
+{"id": "countdown3-heldout-340", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>55 + (29 - 52)</answer>"}
+{"id": "countdown3-heldout-341", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(97 - 69) - 40</answer>"}
+{"id": "countdown3-heldout-342", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>69 + (33 - 24)</answer>"}
+{"id": "countdown3-heldout-343", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>75 - 93 + 6</answer>"}
+{"id": "countdown3-heldout-344", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>68 - 29 - 2</answer>"}
+{"id": "countdown3-heldout-345", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>20 + 6 + 1</answer>"}
+{"id": "countdown3-heldout-346", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>30 - (33 - 10)</answer>"}
+{"id": "countdown3-heldout-347", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>86 - 64 - 2</answer>"}
+{"id": "countdown3-heldout-348", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>73 + (27 - 17)</answer>"}
+{"id": "countdown3-heldout-349", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>6 * 57 - 26</answer>"}
+{"id": "countdown3-heldout-350", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>69 + 36 - 61</answer>"}
+{"id": "countdown3-heldout-351", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>82 - 72 - 67</answer>"}
+{"id": "countdown3-heldout-352", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>42 - 38 - 3</answer>"}
+{"id": "countdown3-heldout-353", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>53 + 2 + 2</answer>"}
+{"id": "countdown3-heldout-354", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>97 - 67 - 11</answer>"}
+{"id": "countdown3-heldout-355", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(68 - 30) - 27</answer>"}
+{"id": "countdown3-heldout-356", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>71 - 62 - 23</answer>"}
+{"id": "countdown3-heldout-357", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>98 - 78 - 48</answer>"}
+{"id": "countdown3-heldout-358", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>41 - (36 / 4)</answer>"}
+{"id": "countdown3-heldout-359", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(70 - 53) - 34</answer>"}
+{"id": "countdown3-heldout-360", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>62 - 45 - 21</answer>"}
+{"id": "countdown3-heldout-361", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>55 + 25 - 22</answer>"}
+{"id": "countdown3-heldout-362", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>90 / 9 + 70</answer>"}
+{"id": "countdown3-heldout-363", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>45 + (44 - 20)</answer>"}
+{"id": "countdown3-heldout-364", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>82 - 22 - 2</answer>"}
+{"id": "countdown3-heldout-365", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>37 - 15 - 1</answer>"}
+{"id": "countdown3-heldout-366", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>82 - 30 - 4</answer>"}
+{"id": "countdown3-heldout-367", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>73 - 22 - 5</answer>"}
+{"id": "countdown3-heldout-368", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 14, "text": "<answer>5 * (7 + 4)</answer>"}
+{"id": "countdown3-heldout-369", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>81 - 58 + 39</answer>"}
+{"id": "countdown3-heldout-370", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>85 - 99 + 27</answer>"}
+{"id": "countdown3-heldout-371", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>80 - 59 - 14</answer>"}
+{"id": "countdown3-heldout-372", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>71 - (69 - 23)</answer>"}
+{"id": "countdown3-heldout-373", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>65 + (55 - 22)</answer>"}
+{"id": "countdown3-heldout-374", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>41 - 73 / 4</answer>"}
+{"id": "countdown3-heldout-375", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>77 + (56 - 42)</answer>"}
+{"id": "countdown3-heldout-376", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>59 - (56 - 17)</answer>"}
+{"id": "countdown3-heldout-377", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>10 + 10 + 99</answer>"}
+{"id": "countdown3-heldout-378", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>45 + 13 - (44 / 44)</answer>"}
+{"id": "countdown3-heldout-379", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>90 - 75 - 40 / 10</answer>"}
+{"id": "countdown3-heldout-380", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>54 + 56 - (97 - 97)</answer>"}
+{"id": "countdown3-heldout-381", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>51 - 20 + 33</answer>"}
+{"id": "countdown3-heldout-382", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>14 * 7 + 27</answer>"}
+{"id": "countdown3-heldout-383", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>73 - 32 - 15</answer>"}
+{"id": "countdown3-heldout-384", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>84 - 64 - 61</answer>"}
+{"id": "countdown3-heldout-385", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 19, "text": "<answer>8 + 3 + 69 - 69</answer>"}
+{"id": "countdown3-heldout-386", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>89 - 25 - 24</answer>"}
+{"id": "countdown3-heldout-387", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>87 - 63 - 18</answer>"}
+{"id": "countdown3-heldout-388", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>87 - 4 - 2</answer>"}
+{"id": "countdown3-heldout-389", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>8 * 5 + 18</answer>"}
+{"id": "countdown3-heldout-390", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>67 + (37 - 21)</answer>"}
+{"id": "countdown3-heldout-391", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>70 - 26 - 1</answer>"}
+{"id": "countdown3-heldout-392", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>(64 - 46) + (42 / 6)</answer>"}
+{"id": "countdown3-heldout-393", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>(93 - 71) - (46 / 2)</answer>"}
+{"id": "countdown3-heldout-394", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>66 + 9 - 25</answer>"}
+{"id": "countdown3-heldout-395", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>85 - 66 - 12</answer>"}
+{"id": "countdown3-heldout-396", "sample": 0, "reward": 0.0, "has_box": true, "finished": false, "length": 128, "text": "<answer>(76 - 74) + (62 / 2)</answer>  \n\n**Note:** The expression as written uses 76, 74, and 62, but the division by 2 is not part of the original numbers. It seems there may be a mistake in the problem setup, as 62 divided by 2 is not allowed unless 2 is introduced. However, if we strictly use only 74, 76, and 62, and must use each exactly once, then the correct expression that equals 31 is:\n\n<answer>(76"}
+{"id": "countdown3-heldout-397", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>80 + 10 + 1</answer>"}
+{"id": "countdown3-heldout-398", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>60 + 32 - 5</answer>"}
+{"id": "countdown3-heldout-399", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>(35 - 21) - (4)</answer>"}
+{"id": "countdown3-heldout-400", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>57 + (99 - 51)</answer>"}
+{"id": "countdown3-heldout-401", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>70 + (90 - 63)</answer>"}
+{"id": "countdown3-heldout-402", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>96 - 31 - 16</answer>"}
+{"id": "countdown3-heldout-403", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>53 + (93 - 35)</answer>"}
+{"id": "countdown3-heldout-404", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(74 - 36) - 17</answer>"}
+{"id": "countdown3-heldout-405", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>72 - 48 - 15</answer>"}
+{"id": "countdown3-heldout-406", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>62 + 24 + 2</answer>"}
+{"id": "countdown3-heldout-407", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>83 - 74 - 43</answer>"}
+{"id": "countdown3-heldout-408", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>62 - 21 - 1</answer>"}
+{"id": "countdown3-heldout-409", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>24 + (98 - 6)</answer>"}
+{"id": "countdown3-heldout-410", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>51 + (31 - 30)</answer>"}
+{"id": "countdown3-heldout-411", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>78 - (60 / 60)</answer>"}
+{"id": "countdown3-heldout-412", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>81 - 69 - 24</answer>"}
+{"id": "countdown3-heldout-413", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>46 - 6 / 2</answer>"}
+{"id": "countdown3-heldout-414", "sample": 0, "reward": 0.0, "has_box": true, "finished": false, "length": 128, "text": "<answer>49 + 20 + 5</answer>  \n*(Note: The number 5 is not in the original set, so this is incorrect. Let's correct it using the given numbers 20, 45, 49.)*\n\n<answer>(49 + 20) + (45 - 20)</answer>  \n*(Still not correct. Let's find the correct expression.)*\n\nWe need to use **20, 45, 49** exactly once with **+, -, *, /, and parentheses** to get **74**.\n\n"}
+{"id": "countdown3-heldout-415", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(74 - 37) - 12</answer>"}
+{"id": "countdown3-heldout-416", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>48 - 29 - 7</answer>"}
+{"id": "countdown3-heldout-417", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>87 - 94 + 31</answer>"}
+{"id": "countdown3-heldout-418", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>66 - 8 / 2</answer>"}
+{"id": "countdown3-heldout-419", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>87 - 57 - 11</answer>"}
+{"id": "countdown3-heldout-420", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>85 + (15 - 4)</answer>"}
+{"id": "countdown3-heldout-421", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 22, "text": "<answer>(88 - 76) + (33 / 33)</answer>"}
+{"id": "countdown3-heldout-422", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>25 + (98 - 23)</answer>"}
+{"id": "countdown3-heldout-423", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>63 - 46 - 2</answer>"}
+{"id": "countdown3-heldout-424", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>18 + 35 + 12</answer>"}
+{"id": "countdown3-heldout-425", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>42 + 23 - 2</answer>"}
+{"id": "countdown3-heldout-426", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>85 + (93 - 11)</answer>"}
+{"id": "countdown3-heldout-427", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>93 - 72 - 4</answer>"}
+{"id": "countdown3-heldout-428", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>66 + (22 - 10)</answer>"}
+{"id": "countdown3-heldout-429", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>64 - (39 - 38)</answer>"}
+{"id": "countdown3-heldout-430", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>88 - 54 - 65</answer>"}
+{"id": "countdown3-heldout-431", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>78 - 46 - 35</answer>"}
+{"id": "countdown3-heldout-432", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>27 + (47 - 26)</answer>"}
+{"id": "countdown3-heldout-433", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>(47 - 28) * 3</answer>"}
+{"id": "countdown3-heldout-434", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>50 - 38 - 1</answer>"}
+{"id": "countdown3-heldout-435", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>71 + (92 - 57)</answer>"}
+{"id": "countdown3-heldout-436", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>33 - 24 + 29</answer>"}
+{"id": "countdown3-heldout-437", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>72 + 12 + 1</answer>"}
+{"id": "countdown3-heldout-438", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>90 + (76 - 6)</answer>"}
+{"id": "countdown3-heldout-439", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>61 - 27 - 41</answer>"}
+{"id": "countdown3-heldout-440", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>82 - 54 - 31</answer>"}
+{"id": "countdown3-heldout-441", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>78 - (67 - 2)</answer>"}
+{"id": "countdown3-heldout-442", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>87 - 42 - 71</answer>"}
+{"id": "countdown3-heldout-443", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>60 + (59 - 55)</answer>"}
+{"id": "countdown3-heldout-444", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>17 + (10 - 3)</answer>"}
+{"id": "countdown3-heldout-445", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>79 - (70 - 68)</answer>"}
+{"id": "countdown3-heldout-446", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>(60 - 30) - (46 / 2)</answer>"}
+{"id": "countdown3-heldout-447", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>16 + 19 + 1</answer>"}
+{"id": "countdown3-heldout-448", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 22, "text": "<answer>(97 - 57) - (16 / 16)</answer>"}
+{"id": "countdown3-heldout-449", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>59 - 55 - 7</answer>"}
+{"id": "countdown3-heldout-450", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>81 + 47 - 33</answer>"}
+{"id": "countdown3-heldout-451", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>89 - 66 - 93</answer>"}
+{"id": "countdown3-heldout-452", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>90 - 34 - 4</answer>"}
+{"id": "countdown3-heldout-453", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>80 - 36 - 28</answer>"}
+{"id": "countdown3-heldout-454", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>22 + 2 + 20</answer>"}
+{"id": "countdown3-heldout-455", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>70 + 28 + 1</answer>"}
+{"id": "countdown3-heldout-456", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>42 + 98 - 14</answer>"}
+{"id": "countdown3-heldout-457", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>69 - 96 / 14</answer>"}
+{"id": "countdown3-heldout-458", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>81 - 90 + 30</answer>"}
+{"id": "countdown3-heldout-459", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(96 - 31) - 17</answer>"}
+{"id": "countdown3-heldout-460", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>(68 - 15 - 19)</answer>"}
+{"id": "countdown3-heldout-461", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>86 - 15 - 6</answer>"}
+{"id": "countdown3-heldout-462", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>52 - 45 - 5</answer>"}
+{"id": "countdown3-heldout-463", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>19 + (94 - 16)</answer>"}
+{"id": "countdown3-heldout-464", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 19, "text": "<answer>22 * (6 - 11/11)</answer>"}
+{"id": "countdown3-heldout-465", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>22 + 2 + 21</answer>"}
+{"id": "countdown3-heldout-466", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>70 - 66 - 38</answer>"}
+{"id": "countdown3-heldout-467", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>28 - 10 + 5</answer>"}
+{"id": "countdown3-heldout-468", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 22, "text": "<answer>(71 - 65) + (66 / 66)</answer>"}
+{"id": "countdown3-heldout-469", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>82 - (51 - 44)</answer>"}
+{"id": "countdown3-heldout-470", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>25 - (13 - 9)</answer>"}
+{"id": "countdown3-heldout-471", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>80 - (80 - 61)</answer>"}
+{"id": "countdown3-heldout-472", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>49 - 46 - 11</answer>"}
+{"id": "countdown3-heldout-473", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>58 - 17 - 6</answer>"}
+{"id": "countdown3-heldout-474", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 15, "text": "<answer>14 + 7 + 6</answer>"}
+{"id": "countdown3-heldout-475", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>84 - 33 - 4</answer>"}
+{"id": "countdown3-heldout-476", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>80 - 12 - 5</answer>"}
+{"id": "countdown3-heldout-477", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>73 - 56 - 41</answer>"}
+{"id": "countdown3-heldout-478", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>8 * (34 - 68)</answer>"}
+{"id": "countdown3-heldout-479", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>(70 + 70) - (91 / 7)</answer>"}
+{"id": "countdown3-heldout-480", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>57 - 47 - 35</answer>"}
+{"id": "countdown3-heldout-481", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>56 - 56 + 17</answer>"}
+{"id": "countdown3-heldout-482", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>59 - 25 - 3</answer>"}
+{"id": "countdown3-heldout-483", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>82 - 94 / 4</answer>"}
+{"id": "countdown3-heldout-484", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>89 - 52 - 4</answer>"}
+{"id": "countdown3-heldout-485", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>75 - 45 + 39</answer>"}
+{"id": "countdown3-heldout-486", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>26 + 91 - 17</answer>"}
+{"id": "countdown3-heldout-487", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 22, "text": "<answer>(42 + 26) + (32 - 32)</answer>"}
+{"id": "countdown3-heldout-488", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>85 - 71 - 15</answer>"}
+{"id": "countdown3-heldout-489", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 21, "text": "<answer>(90 - 78) - (32 / 8)</answer>"}
+{"id": "countdown3-heldout-490", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>67 + (90 - 60)</answer>"}
+{"id": "countdown3-heldout-491", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>49 - (48 / 33)</answer>"}
+{"id": "countdown3-heldout-492", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>16 + (15 - 8)</answer>"}
+{"id": "countdown3-heldout-493", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>87 - (72 - 59)</answer>"}
+{"id": "countdown3-heldout-494", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 18, "text": "<answer>(78 - 47) - 10</answer>"}
+{"id": "countdown3-heldout-495", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>93 - 58 - 93</answer>"}
+{"id": "countdown3-heldout-496", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>83 - 76 - 43</answer>"}
+{"id": "countdown3-heldout-497", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 16, "text": "<answer>64 - 12 + 1</answer>"}
+{"id": "countdown3-heldout-498", "sample": 0, "reward": 0.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>80 - 40 - 35</answer>"}
+{"id": "countdown3-heldout-499", "sample": 0, "reward": 1.0, "has_box": true, "finished": true, "length": 17, "text": "<answer>71 + (51 / 51)</answer>"}

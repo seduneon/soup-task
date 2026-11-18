@@ -1,0 +1,261 @@
+/venv/main/bin/python /workspace/soup-task/task2_l2l/evaluate.py --model Qwen/Qwen3-4B --out runs/verify/base --data data/countdown3/heldout --n 500 --k 1 --temperature 0.0 --max-new 128 --reward countdown --prompt-style plain --device cuda --dtype bfloat16 --resident 24 --batch 16 --seed 0
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 4228.56it/s]
+batch 1/32: 15 s, pass so far 0.125, alloc retries 0
+batch 2/32: 18 s, pass so far 0.156, alloc retries 0
+batch 3/32: 20 s, pass so far 0.250, alloc retries 0
+batch 4/32: 35 s, pass so far 0.234, alloc retries 0
+batch 5/32: 49 s, pass so far 0.225, alloc retries 0
+batch 6/32: 63 s, pass so far 0.271, alloc retries 0
+batch 7/32: 66 s, pass so far 0.277, alloc retries 0
+batch 8/32: 68 s, pass so far 0.297, alloc retries 0
+batch 9/32: 71 s, pass so far 0.299, alloc retries 0
+batch 10/32: 85 s, pass so far 0.300, alloc retries 0
+batch 11/32: 99 s, pass so far 0.318, alloc retries 0
+batch 12/32: 102 s, pass so far 0.339, alloc retries 0
+batch 13/32: 104 s, pass so far 0.351, alloc retries 0
+batch 14/32: 106 s, pass so far 0.357, alloc retries 0
+batch 15/32: 121 s, pass so far 0.346, alloc retries 0
+batch 16/32: 123 s, pass so far 0.332, alloc retries 0
+batch 17/32: 125 s, pass so far 0.346, alloc retries 0
+batch 18/32: 128 s, pass so far 0.340, alloc retries 0
+batch 19/32: 130 s, pass so far 0.336, alloc retries 0
+batch 20/32: 132 s, pass so far 0.328, alloc retries 0
+batch 21/32: 135 s, pass so far 0.333, alloc retries 0
+batch 22/32: 137 s, pass so far 0.330, alloc retries 0
+batch 23/32: 152 s, pass so far 0.332, alloc retries 0
+batch 24/32: 154 s, pass so far 0.331, alloc retries 0
+batch 25/32: 168 s, pass so far 0.328, alloc retries 0
+batch 26/32: 183 s, pass so far 0.325, alloc retries 0
+batch 27/32: 185 s, pass so far 0.324, alloc retries 0
+batch 28/32: 188 s, pass so far 0.321, alloc retries 0
+batch 29/32: 191 s, pass so far 0.321, alloc retries 0
+batch 30/32: 193 s, pass so far 0.317, alloc retries 0
+batch 31/32: 196 s, pass so far 0.319, alloc retries 0
+batch 32/32: 198 s, pass so far 0.318, alloc retries 0
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": null,
+ "data": "data/countdown3/heldout",
+ "n_items": 500,
+ "k": 1,
+ "temperature": 0.0,
+ "prompt_style": "plain",
+ "max_new": 128,
+ "pass_rate": 0.318,
+ "ci95": [
+  0.278,
+  0.362
+ ],
+ "has_box_rate": 1.0,
+ "truncated_rate": 0.02,
+ "mean_length": 19.092,
+ "seconds": 197.78389191627502,
+ "zero_var_group_frac": null,
+ "alloc_conf": "expandable_segments:True",
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 6460.3720703125,
+ "gpu_reserved_peak_mib": 6492.0
+}
+/venv/main/bin/python /workspace/soup-task/task2_l2l/evaluate.py --model Qwen/Qwen3-4B --out runs/verify/adapter --data data/countdown3/heldout --n 500 --k 1 --temperature 0.0 --max-new 128 --reward countdown --prompt-style plain --device cuda --dtype bfloat16 --resident 24 --batch 16 --seed 0 --adapter runs/main/adapter.pt
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 4106.83it/s]
+batch 1/32: 10 s, pass so far 0.500, alloc retries 0
+batch 2/32: 26 s, pass so far 0.625, alloc retries 0
+batch 3/32: 43 s, pass so far 0.562, alloc retries 0
+batch 4/32: 59 s, pass so far 0.547, alloc retries 0
+batch 5/32: 76 s, pass so far 0.525, alloc retries 0
+batch 6/32: 92 s, pass so far 0.458, alloc retries 0
+batch 7/32: 109 s, pass so far 0.429, alloc retries 0
+batch 8/32: 125 s, pass so far 0.430, alloc retries 0
+batch 9/32: 142 s, pass so far 0.424, alloc retries 0
+batch 10/32: 158 s, pass so far 0.431, alloc retries 0
+batch 11/32: 175 s, pass so far 0.438, alloc retries 0
+batch 12/32: 191 s, pass so far 0.443, alloc retries 0
+batch 13/32: 207 s, pass so far 0.442, alloc retries 0
+batch 14/32: 224 s, pass so far 0.446, alloc retries 0
+batch 15/32: 240 s, pass so far 0.433, alloc retries 0
+batch 16/32: 257 s, pass so far 0.426, alloc retries 0
+batch 17/32: 273 s, pass so far 0.430, alloc retries 0
+batch 18/32: 290 s, pass so far 0.434, alloc retries 0
+batch 19/32: 306 s, pass so far 0.438, alloc retries 0
+batch 20/32: 319 s, pass so far 0.425, alloc retries 0
+batch 21/32: 335 s, pass so far 0.429, alloc retries 0
+batch 22/32: 352 s, pass so far 0.420, alloc retries 0
+batch 23/32: 368 s, pass so far 0.424, alloc retries 0
+batch 24/32: 385 s, pass so far 0.424, alloc retries 0
+batch 25/32: 401 s, pass so far 0.422, alloc retries 0
+batch 26/32: 418 s, pass so far 0.421, alloc retries 0
+batch 27/32: 434 s, pass so far 0.426, alloc retries 0
+batch 28/32: 451 s, pass so far 0.426, alloc retries 0
+batch 29/32: 467 s, pass so far 0.429, alloc retries 0
+batch 30/32: 484 s, pass so far 0.429, alloc retries 0
+batch 31/32: 500 s, pass so far 0.433, alloc retries 0
+batch 32/32: 516 s, pass so far 0.430, alloc retries 0
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": "runs/main/adapter.pt",
+ "data": "data/countdown3/heldout",
+ "n_items": 500,
+ "k": 1,
+ "temperature": 0.0,
+ "prompt_style": "plain",
+ "max_new": 128,
+ "pass_rate": 0.43,
+ "ci95": [
+  0.386,
+  0.472
+ ],
+ "has_box_rate": 1.0,
+ "truncated_rate": 0.108,
+ "mean_length": 34.414,
+ "seconds": 516.188707113266,
+ "zero_var_group_frac": null,
+ "alloc_conf": "expandable_segments:True",
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 6562.4970703125,
+ "gpu_reserved_peak_mib": 6590.0
+}
+/venv/main/bin/python /workspace/soup-task/task2_l2l/evaluate.py --model Qwen/Qwen3-4B --out runs/verify/control --data data/countdown3/heldout --n 500 --k 1 --temperature 0.0 --max-new 128 --reward countdown --prompt-style plain --device cuda --dtype bfloat16 --resident 24 --batch 16 --seed 0 --adapter runs/control/adapter.pt
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 4066.61it/s]
+batch 1/32: 17 s, pass so far 0.312, alloc retries 0
+batch 2/32: 34 s, pass so far 0.312, alloc retries 0
+batch 3/32: 50 s, pass so far 0.354, alloc retries 0
+batch 4/32: 67 s, pass so far 0.312, alloc retries 0
+batch 5/32: 83 s, pass so far 0.300, alloc retries 0
+batch 6/32: 100 s, pass so far 0.292, alloc retries 0
+batch 7/32: 116 s, pass so far 0.304, alloc retries 0
+batch 8/32: 133 s, pass so far 0.312, alloc retries 0
+batch 9/32: 149 s, pass so far 0.340, alloc retries 0
+batch 10/32: 166 s, pass so far 0.350, alloc retries 0
+batch 11/32: 182 s, pass so far 0.364, alloc retries 0
+batch 12/32: 199 s, pass so far 0.375, alloc retries 0
+batch 13/32: 215 s, pass so far 0.375, alloc retries 0
+batch 14/32: 232 s, pass so far 0.379, alloc retries 0
+batch 15/32: 248 s, pass so far 0.375, alloc retries 0
+batch 16/32: 265 s, pass so far 0.375, alloc retries 0
+batch 17/32: 281 s, pass so far 0.382, alloc retries 0
+batch 18/32: 298 s, pass so far 0.392, alloc retries 0
+batch 19/32: 315 s, pass so far 0.398, alloc retries 0
+batch 20/32: 331 s, pass so far 0.391, alloc retries 0
+batch 21/32: 348 s, pass so far 0.399, alloc retries 0
+batch 22/32: 364 s, pass so far 0.398, alloc retries 0
+batch 23/32: 381 s, pass so far 0.402, alloc retries 0
+batch 24/32: 397 s, pass so far 0.404, alloc retries 0
+batch 25/32: 414 s, pass so far 0.403, alloc retries 0
+batch 26/32: 431 s, pass so far 0.406, alloc retries 0
+batch 27/32: 447 s, pass so far 0.407, alloc retries 0
+batch 28/32: 464 s, pass so far 0.400, alloc retries 0
+batch 29/32: 480 s, pass so far 0.405, alloc retries 0
+batch 30/32: 497 s, pass so far 0.402, alloc retries 0
+batch 31/32: 513 s, pass so far 0.405, alloc retries 0
+batch 32/32: 529 s, pass so far 0.404, alloc retries 0
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": "runs/control/adapter.pt",
+ "data": "data/countdown3/heldout",
+ "n_items": 500,
+ "k": 1,
+ "temperature": 0.0,
+ "prompt_style": "plain",
+ "max_new": 128,
+ "pass_rate": 0.404,
+ "ci95": [
+  0.358,
+  0.444
+ ],
+ "has_box_rate": 0.442,
+ "truncated_rate": 0.558,
+ "mean_length": 119.444,
+ "seconds": 529.1661462783813,
+ "zero_var_group_frac": null,
+ "alloc_conf": "expandable_segments:True",
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 6562.4970703125,
+ "gpu_reserved_peak_mib": 6590.0
+}
+{
+ "n_items": 500,
+ "arms": {
+  "base": {
+   "pass_rate": 0.318,
+   "ci95": [
+    0.278,
+    0.362
+   ],
+   "has_box_rate": 1.0,
+   "truncated_rate": 0.02,
+   "mean_length": 19.092
+  },
+  "adapter": {
+   "pass_rate": 0.43,
+   "ci95": [
+    0.386,
+    0.472
+   ],
+   "has_box_rate": 1.0,
+   "truncated_rate": 0.108,
+   "mean_length": 34.414
+  },
+  "control": {
+   "pass_rate": 0.404,
+   "ci95": [
+    0.358,
+    0.444
+   ],
+   "has_box_rate": 0.442,
+   "truncated_rate": 0.558,
+   "mean_length": 119.444
+  }
+ },
+ "pairs": {
+  "adapter-base": {
+   "n": 500,
+   "diff": 0.112,
+   "ci95": [
+    0.06,
+    0.162
+   ],
+   "a_better": 121,
+   "b_better": 65
+  },
+  "adapter-control": {
+   "n": 500,
+   "diff": 0.026,
+   "ci95": [
+    -0.018,
+    0.07
+   ],
+   "a_better": 70,
+   "b_better": 57
+  },
+  "control-base": {
+   "n": 500,
+   "diff": 0.086,
+   "ci95": [
+    0.036,
+    0.134
+   ],
+   "a_better": 102,
+   "b_better": 59
+  },
+  "adapter-base|both_boxed": {
+   "n": 500,
+   "diff": 0.112,
+   "ci95": [
+    0.06,
+    0.162
+   ],
+   "a_better": 121,
+   "b_better": 65
+  }
+ },
+ "checks": {
+  "R1_effect": true,
+  "R2_not_generic": false,
+  "R4_not_format": true
+ },
+ "verdict": "NO VERDICT (missing arm)"
+}
+EXIT_CODE=0

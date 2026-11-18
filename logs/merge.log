@@ -1,0 +1,16 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 4080.46it/s]
+13:29:41 shard model-00001-of-00003.safetensors written (111 tensors merged so far, 7 s)
+13:29:49 shard model-00002-of-00003.safetensors written (250 tensors merged so far, 15 s)
+13:29:49 shard model-00003-of-00003.safetensors written (252 tensors merged so far, 15 s)
+{
+ "merged_tensors": 252,
+ "seconds": 14.98865818977356,
+ "host_peak_rss_mib": 8641.484375,
+ "largest_input_shard_mib": 3802.729148864746,
+ "changed_frac_min": 0.06815005093812943,
+ "changed_frac_mean": 0.1788189967295953,
+ "delta_kept_min": 0.5021433234214783,
+ "gpu_alloc_peak_mib": 440.87548828125,
+ "gpu_reserved_peak_mib": 454.0
+}
+EXIT_CODE=0

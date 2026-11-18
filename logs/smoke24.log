@@ -1,0 +1,27 @@
+11:37:26 loading Qwen/Qwen3-4B (resident 24, streaming regular) -> runs/smoke24
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 4113.27it/s]
+11:37:30 start at step 0 of 3
+11:37:30 step 0: rollout (4 prompts x G=8, max_new 128)
+[W1118 11:37:40.524668624 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 41943040 bytes (free: 24772608, total: 8221425664).
+[W1118 11:37:47.739314300 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 54525952 bytes (free: 5898240, total: 8221425664).
+11:37:48 step 0: rollout done in 19 s, reward 0.219; training
+[W1118 11:37:58.437367755 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 2097152 bytes (free: 1703936, total: 8221425664).
+11:37:59 step 0 done in 29 s | reward 0.219 zero-var groups 0.75 | grad 1.81 | len 20 trunc 0.03 | peak 7467 MiB retries 3 | ETA 1 min (2 steps)
+11:38:00 step 0: checkpoint saved
+11:38:00 step 1: rollout (4 prompts x G=8, max_new 128)
+[W1118 11:38:02.042840619 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 25165824 bytes (free: 10092544, total: 8221425664).
+[W1118 11:38:07.197410897 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 35651584 bytes (free: 28966912, total: 8221425664).
+[W1118 11:38:11.337075307 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 44040192 bytes (free: 1703936, total: 8221425664).
+[W1118 11:38:14.455609607 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 50331648 bytes (free: 26869760, total: 8221425664).
+[W1118 11:38:16.552369880 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 54525952 bytes (free: 37355520, total: 8221425664).
+11:38:18 step 1: rollout done in 18 s, reward 0.250; training
+[W1118 11:38:21.086364231 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 79691776 bytes (free: 70909952, total: 8221425664).
+11:38:28 step 1 done in 28 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 19 trunc 0.03 | peak 7773 MiB retries 6 | ETA 0 min (1 steps)
+11:38:29 step 1: checkpoint saved
+11:38:29 step 2: rollout (4 prompts x G=8, max_new 128)
+[W1118 11:38:30.349048127 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 23068672 bytes (free: 14286848, total: 8221425664).
+11:38:33 step 2: rollout done in 4 s, reward 0.406; training
+[W1118 11:38:40.689067411 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 2097152 bytes (free: 1703936, total: 8221425664).
+11:38:41 step 2 done in 12 s | reward 0.406 zero-var groups 0.75 | grad 0.922 | len 17 trunc 0.00 | peak 7703 MiB retries 2 | ETA 0 min (0 steps)
+11:38:42 step 2: checkpoint saved
+EXIT_CODE=0

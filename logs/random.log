@@ -1,0 +1,132 @@
+wrote runs/random/adapter.pt: 252 pairs, norms matched per tensor
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 4182.59it/s]
+batch 1/32: 11 s, pass so far 0.188, alloc retries 0
+batch 2/32: 14 s, pass so far 0.188, alloc retries 0
+batch 3/32: 17 s, pass so far 0.271, alloc retries 0
+batch 4/32: 33 s, pass so far 0.266, alloc retries 0
+batch 5/32: 36 s, pass so far 0.250, alloc retries 0
+batch 6/32: 53 s, pass so far 0.281, alloc retries 0
+batch 7/32: 56 s, pass so far 0.286, alloc retries 0
+batch 8/32: 59 s, pass so far 0.305, alloc retries 0
+batch 9/32: 61 s, pass so far 0.306, alloc retries 0
+batch 10/32: 78 s, pass so far 0.306, alloc retries 0
+batch 11/32: 94 s, pass so far 0.318, alloc retries 0
+batch 12/32: 97 s, pass so far 0.339, alloc retries 0
+batch 13/32: 100 s, pass so far 0.346, alloc retries 0
+batch 14/32: 103 s, pass so far 0.353, alloc retries 0
+batch 15/32: 119 s, pass so far 0.342, alloc retries 0
+batch 16/32: 136 s, pass so far 0.336, alloc retries 0
+batch 17/32: 138 s, pass so far 0.349, alloc retries 0
+batch 18/32: 141 s, pass so far 0.344, alloc retries 0
+batch 19/32: 144 s, pass so far 0.336, alloc retries 0
+batch 20/32: 147 s, pass so far 0.328, alloc retries 0
+batch 21/32: 150 s, pass so far 0.333, alloc retries 0
+batch 22/32: 153 s, pass so far 0.330, alloc retries 0
+batch 23/32: 155 s, pass so far 0.332, alloc retries 0
+batch 24/32: 158 s, pass so far 0.331, alloc retries 0
+batch 25/32: 175 s, pass so far 0.328, alloc retries 0
+batch 26/32: 191 s, pass so far 0.325, alloc retries 0
+batch 27/32: 194 s, pass so far 0.324, alloc retries 0
+batch 28/32: 197 s, pass so far 0.321, alloc retries 0
+batch 29/32: 200 s, pass so far 0.321, alloc retries 0
+batch 30/32: 203 s, pass so far 0.319, alloc retries 0
+batch 31/32: 207 s, pass so far 0.321, alloc retries 0
+batch 32/32: 209 s, pass so far 0.320, alloc retries 0
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": "runs/random/adapter.pt",
+ "data": "data/countdown3/heldout",
+ "n_items": 500,
+ "k": 1,
+ "temperature": 0.0,
+ "prompt_style": "plain",
+ "max_new": 128,
+ "pass_rate": 0.32,
+ "ci95": [
+  0.28,
+  0.3620499999999997
+ ],
+ "has_box_rate": 1.0,
+ "truncated_rate": 0.016,
+ "mean_length": 18.786,
+ "seconds": 208.78761839866638,
+ "zero_var_group_frac": null,
+ "alloc_conf": "expandable_segments:True",
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 6562.4970703125,
+ "gpu_reserved_peak_mib": 6590.0
+}
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 3932.04it/s]
+14:14:00 shard model-00001-of-00003.safetensors written (111 tensors merged so far, 7 s)
+14:14:07 shard model-00002-of-00003.safetensors written (250 tensors merged so far, 15 s)
+14:14:08 shard model-00003-of-00003.safetensors written (252 tensors merged so far, 15 s)
+{
+ "merged_tensors": 252,
+ "seconds": 14.82467269897461,
+ "host_peak_rss_mib": 8640.09765625,
+ "largest_input_shard_mib": 3802.729148864746,
+ "changed_frac_min": 0.06959991902112961,
+ "changed_frac_mean": 0.18526653720745964,
+ "delta_kept_min": 0.4904603958129883,
+ "gpu_alloc_peak_mib": 440.87548828125,
+ "gpu_reserved_peak_mib": 454.0
+}
+batch 1/32: 13 s, pass so far 0.188, alloc retries 0
+batch 2/32: 15 s, pass so far 0.188, alloc retries 0
+batch 3/32: 18 s, pass so far 0.271, alloc retries 0
+batch 4/32: 32 s, pass so far 0.250, alloc retries 0
+batch 5/32: 35 s, pass so far 0.237, alloc retries 0
+batch 6/32: 49 s, pass so far 0.271, alloc retries 0
+batch 7/32: 52 s, pass so far 0.277, alloc retries 0
+batch 8/32: 54 s, pass so far 0.297, alloc retries 0
+batch 9/32: 56 s, pass so far 0.299, alloc retries 0
+batch 10/32: 71 s, pass so far 0.300, alloc retries 0
+batch 11/32: 85 s, pass so far 0.312, alloc retries 0
+batch 12/32: 87 s, pass so far 0.333, alloc retries 0
+batch 13/32: 90 s, pass so far 0.341, alloc retries 0
+batch 14/32: 92 s, pass so far 0.348, alloc retries 0
+batch 15/32: 106 s, pass so far 0.338, alloc retries 0
+batch 16/32: 120 s, pass so far 0.332, alloc retries 0
+batch 17/32: 123 s, pass so far 0.346, alloc retries 0
+batch 18/32: 125 s, pass so far 0.340, alloc retries 0
+batch 19/32: 128 s, pass so far 0.336, alloc retries 0
+batch 20/32: 130 s, pass so far 0.328, alloc retries 0
+batch 21/32: 132 s, pass so far 0.333, alloc retries 0
+batch 22/32: 135 s, pass so far 0.330, alloc retries 0
+batch 23/32: 137 s, pass so far 0.332, alloc retries 0
+batch 24/32: 139 s, pass so far 0.331, alloc retries 0
+batch 25/32: 153 s, pass so far 0.328, alloc retries 0
+batch 26/32: 168 s, pass so far 0.325, alloc retries 0
+batch 27/32: 170 s, pass so far 0.324, alloc retries 0
+batch 28/32: 173 s, pass so far 0.321, alloc retries 0
+batch 29/32: 175 s, pass so far 0.323, alloc retries 0
+batch 30/32: 178 s, pass so far 0.319, alloc retries 0
+batch 31/32: 181 s, pass so far 0.321, alloc retries 0
+batch 32/32: 183 s, pass so far 0.320, alloc retries 0
+{
+ "model": "/dev/shm/merged_random",
+ "adapter": null,
+ "data": "data/countdown3/heldout",
+ "n_items": 500,
+ "k": 1,
+ "temperature": 0.0,
+ "prompt_style": "plain",
+ "max_new": 128,
+ "pass_rate": 0.32,
+ "ci95": [
+  0.28,
+  0.362
+ ],
+ "has_box_rate": 1.0,
+ "truncated_rate": 0.018,
+ "mean_length": 19.09,
+ "seconds": 182.53102111816406,
+ "zero_var_group_frac": null,
+ "alloc_conf": "expandable_segments:True",
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 6460.3720703125,
+ "gpu_reserved_peak_mib": 6492.0
+}
+EXIT_CODE=0

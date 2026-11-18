@@ -1,0 +1,32 @@
+2026-11-18T09:39:46Z START --data data/gsm8k/heldout --n 100 --out runs/base/gsm8k_greedy
+2026-11-18T09:39:49Z Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 3754.64it/s]
+2026-11-18T09:40:42Z [W1118 09:40:42.166568793 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 56623104 bytes (free: 52035584, total: 8221425664).
+2026-11-18T09:41:05Z [W1118 09:41:05.746311963 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 75497472 bytes (free: 68812800, total: 8221425664).
+2026-11-18T09:42:28Z [W1118 09:42:28.048979552 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 23068672 bytes (free: 7995392, total: 8221425664).
+2026-11-18T09:43:14Z [W1118 09:43:14.985053639 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 60817408 bytes (free: 60424192, total: 8221425664).
+2026-11-18T09:47:47Z {
+2026-11-18T09:47:47Z  "model": "Qwen/Qwen3-4B",
+2026-11-18T09:47:47Z  "adapter": null,
+2026-11-18T09:47:47Z  "data": "data/gsm8k/heldout",
+2026-11-18T09:47:47Z  "n_items": 100,
+2026-11-18T09:47:47Z  "k": 1,
+2026-11-18T09:47:47Z  "temperature": 0.0,
+2026-11-18T09:47:47Z  "pass_rate": 0.94,
+2026-11-18T09:47:47Z  "ci95": [
+2026-11-18T09:47:47Z   0.89,
+2026-11-18T09:47:47Z   0.98
+2026-11-18T09:47:47Z  ],
+2026-11-18T09:47:47Z  "has_box_rate": 0.98,
+2026-11-18T09:47:47Z  "truncated_rate": 0.03,
+2026-11-18T09:47:47Z  "mean_length": 250.73,
+2026-11-18T09:47:47Z  "seconds": 475.1034851074219,
+2026-11-18T09:47:47Z  "gpu_alloc_peak_mib": 6597.20458984375,
+2026-11-18T09:47:47Z  "gpu_reserved_peak_mib": 7594.0
+2026-11-18T09:47:47Z }
+2026-11-18T09:47:49Z EXIT=0 --data data/gsm8k/heldout --n 100 --out runs/base/gsm8k_greedy
+2026-11-18T09:47:49Z START --data data/gsm8k/train --n 64 --k 8 --temperature 1 --out runs/base/gsm8k_k8
+2026-11-18T09:47:52Z Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 3752.28it/s]
+2026-11-18T09:48:19Z [W1118 09:48:19.635876083 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 20971520 bytes (free: 12189696, total: 8221425664).
+2026-11-18T09:49:09Z [W1118 09:49:09.822541503 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 56623104 bytes (free: 14286848, total: 8221425664).
+2026-11-18T09:52:35Z [W1118 09:52:35.106029803 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 73400320 bytes (free: 41549824, total: 8221425664).
+2026-11-18T09:54:06Z STOPPED by decision: GSM8K greedy 0.94 (CI 0.89-0.98) fails the 30-70% rule; k=8 run skipped

@@ -1,0 +1,404 @@
+11:44:17 loading Qwen/Qwen3-4B (resident 24, streaming regular) -> runs/main
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 4071.35it/s]
+11:44:20 start at step 0 of 100
+11:44:20 step 0: rollout (4 prompts x G=8, max_new 128)
+11:44:39 step 0: rollout done in 19 s, reward 0.219; training
+11:44:49 step 0 done in 29 s | reward 0.219 zero-var groups 0.75 | grad 1.81 | len 20 trunc 0.03 | peak 7763 MiB retries 0 | ETA 48 min (99 steps)
+11:44:51 step 0: checkpoint saved
+11:44:51 step 1: rollout (4 prompts x G=8, max_new 128)
+11:45:08 step 1: rollout done in 18 s, reward 0.250; training
+11:45:18 step 1 done in 27 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 19 trunc 0.03 | peak 7783 MiB retries 0 | ETA 47 min (98 steps)
+11:45:19 step 1: checkpoint saved
+11:45:19 step 2: rollout (4 prompts x G=8, max_new 128)
+11:45:23 step 2: rollout done in 4 s, reward 0.406; training
+11:45:31 step 2 done in 12 s | reward 0.406 zero-var groups 0.75 | grad 0.922 | len 17 trunc 0.00 | peak 7789 MiB retries 0 | ETA 38 min (97 steps)
+11:45:32 step 2: checkpoint saved
+11:45:32 step 3: rollout (4 prompts x G=8, max_new 128)
+11:45:36 step 3: rollout done in 4 s, reward 0.469; training
+11:45:44 step 3 done in 12 s | reward 0.469 zero-var groups 0.50 | grad 1.3 | len 17 trunc 0.00 | peak 7791 MiB retries 0 | ETA 33 min (96 steps)
+11:45:45 step 3: checkpoint saved
+11:45:45 step 4: rollout (4 prompts x G=8, max_new 128)
+11:46:02 step 4: rollout done in 16 s, reward 0.469; training
+11:46:11 step 4 done in 26 s | reward 0.469 zero-var groups 0.75 | grad 0.935 | len 20 trunc 0.00 | peak 7791 MiB retries 0 | ETA 35 min (95 steps)
+11:46:12 step 4: checkpoint saved
+11:46:12 step 5: rollout (4 prompts x G=8, max_new 128)
+11:46:30 step 5: rollout done in 18 s, reward 0.656; training
+11:46:40 step 5 done in 28 s | reward 0.656 zero-var groups 0.50 | grad 1.78 | len 20 trunc 0.03 | peak 7791 MiB retries 0 | ETA 36 min (94 steps)
+11:46:41 step 5: checkpoint saved
+11:46:41 step 6: rollout (4 prompts x G=8, max_new 128)
+11:46:59 step 6: rollout done in 18 s, reward 0.375; training
+11:47:10 step 6 done in 28 s | reward 0.375 zero-var groups 0.50 | grad 1.24 | len 28 trunc 0.06 | peak 7791 MiB retries 0 | ETA 37 min (93 steps)
+11:47:11 step 6: checkpoint saved
+11:47:11 step 7: rollout (4 prompts x G=8, max_new 128)
+11:47:15 step 7: rollout done in 4 s, reward 0.500; training
+11:47:23 step 7 done in 12 s | reward 0.500 zero-var groups 0.50 | grad 0.856 | len 17 trunc 0.00 | peak 7791 MiB retries 0 | ETA 35 min (92 steps)
+11:47:24 step 7: checkpoint saved
+11:47:24 step 8: rollout (4 prompts x G=8, max_new 128)
+11:47:41 step 8: rollout done in 18 s, reward 0.250; training
+11:47:51 step 8 done in 28 s | reward 0.250 zero-var groups 0.50 | grad 2.08 | len 29 trunc 0.09 | peak 7791 MiB retries 0 | ETA 36 min (91 steps)
+11:47:53 step 8: checkpoint saved
+11:47:53 step 9: rollout (4 prompts x G=8, max_new 128)
+11:48:10 step 9: rollout done in 18 s, reward 0.281; training
+11:48:20 step 9 done in 27 s | reward 0.281 zero-var groups 0.75 | grad 0.973 | len 21 trunc 0.03 | peak 7791 MiB retries 0 | ETA 36 min (90 steps)
+11:48:21 step 9: checkpoint saved
+11:48:21 step 10: rollout (4 prompts x G=8, max_new 128)
+11:48:34 step 10: rollout done in 12 s, reward 0.312; training
+11:48:43 step 10 done in 21 s | reward 0.312 zero-var groups 0.25 | grad 2.17 | len 20 trunc 0.00 | peak 7791 MiB retries 0 | ETA 35 min (89 steps)
+11:48:44 step 10: checkpoint saved
+11:48:44 step 11: rollout (4 prompts x G=8, max_new 128)
+11:48:47 step 11: rollout done in 3 s, reward 0.375; training
+11:48:56 step 11 done in 12 s | reward 0.375 zero-var groups 0.50 | grad 1.24 | len 17 trunc 0.00 | peak 7791 MiB retries 0 | ETA 34 min (88 steps)
+11:48:57 step 11: checkpoint saved
+11:48:57 step 12: rollout (4 prompts x G=8, max_new 128)
+11:49:15 step 12: rollout done in 18 s, reward 0.312; training
+11:49:24 step 12 done in 28 s | reward 0.312 zero-var groups 0.25 | grad 1.67 | len 25 trunc 0.06 | peak 7791 MiB retries 0 | ETA 34 min (87 steps)
+11:49:26 step 12: checkpoint saved
+11:49:26 step 13: rollout (4 prompts x G=8, max_new 128)
+11:49:43 step 13: rollout done in 18 s, reward 0.344; training
+11:49:53 step 13 done in 27 s | reward 0.344 zero-var groups 0.50 | grad 1.47 | len 26 trunc 0.06 | peak 7791 MiB retries 0 | ETA 34 min (86 steps)
+11:49:54 step 13: checkpoint saved
+11:49:54 step 14: rollout (4 prompts x G=8, max_new 128)
+11:50:12 step 14: rollout done in 18 s, reward 0.719; training
+11:50:22 step 14 done in 28 s | reward 0.719 zero-var groups 0.50 | grad 1.47 | len 24 trunc 0.06 | peak 7791 MiB retries 0 | ETA 34 min (85 steps)
+11:50:23 step 14: checkpoint saved
+11:50:23 step 15: rollout (4 prompts x G=8, max_new 128)
+11:50:41 step 15: rollout done in 18 s, reward 0.625; training
+11:50:51 step 15 done in 28 s | reward 0.625 zero-var groups 0.00 | grad 3.5 | len 23 trunc 0.06 | peak 7791 MiB retries 0 | ETA 34 min (84 steps)
+11:50:52 step 15: checkpoint saved
+11:50:52 step 16: rollout (4 prompts x G=8, max_new 128)
+11:51:10 step 16: rollout done in 18 s, reward 0.062; training
+11:51:19 step 16 done in 28 s | reward 0.062 zero-var groups 0.75 | grad 2.73 | len 24 trunc 0.06 | peak 7791 MiB retries 0 | ETA 34 min (83 steps)
+11:51:20 step 16: checkpoint saved
+11:51:20 step 17: rollout (4 prompts x G=8, max_new 128)
+11:51:24 step 17: rollout done in 4 s, reward 0.844; training
+11:51:32 step 17 done in 12 s | reward 0.844 zero-var groups 0.50 | grad 1.49 | len 17 trunc 0.00 | peak 7791 MiB retries 0 | ETA 33 min (82 steps)
+11:51:34 step 17: checkpoint saved
+11:51:34 step 18: rollout (4 prompts x G=8, max_new 128)
+11:51:37 step 18: rollout done in 3 s, reward 0.438; training
+11:51:45 step 18 done in 11 s | reward 0.438 zero-var groups 0.75 | grad 2.2 | len 17 trunc 0.00 | peak 7791 MiB retries 0 | ETA 32 min (81 steps)
+11:51:46 step 18: checkpoint saved
+11:51:46 step 19: rollout (4 prompts x G=8, max_new 128)
+11:51:50 step 19: rollout done in 4 s, reward 0.125; training
+11:51:58 step 19 done in 12 s | reward 0.125 zero-var groups 0.75 | grad 1 | len 20 trunc 0.00 | peak 7791 MiB retries 0 | ETA 31 min (80 steps)
+11:51:59 step 19: checkpoint saved
+11:51:59 step 20: rollout (4 prompts x G=8, max_new 128)
+11:52:03 step 20: rollout done in 4 s, reward 0.406; training
+11:52:11 step 20 done in 12 s | reward 0.406 zero-var groups 0.75 | grad 0.903 | len 17 trunc 0.00 | peak 7791 MiB retries 0 | ETA 30 min (79 steps)
+11:52:12 step 20: checkpoint saved
+11:52:12 step 21: rollout (4 prompts x G=8, max_new 128)
+11:52:16 step 21: rollout done in 4 s, reward 0.875; training
+11:52:24 step 21 done in 12 s | reward 0.875 zero-var groups 0.75 | grad 1.34 | len 18 trunc 0.00 | peak 7791 MiB retries 0 | ETA 29 min (78 steps)
+11:52:25 step 21: checkpoint saved
+11:52:25 step 22: rollout (4 prompts x G=8, max_new 128)
+11:52:29 step 22: rollout done in 4 s, reward 0.219; training
+11:52:37 step 22 done in 12 s | reward 0.219 zero-var groups 0.50 | grad 0.795 | len 18 trunc 0.00 | peak 7791 MiB retries 0 | ETA 28 min (77 steps)
+11:52:39 step 22: checkpoint saved
+11:52:39 step 23: rollout (4 prompts x G=8, max_new 128)
+11:52:56 step 23: rollout done in 18 s, reward 0.250; training
+11:53:06 step 23 done in 27 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 19 trunc 0.03 | peak 7791 MiB retries 0 | ETA 28 min (76 steps)
+11:53:07 step 23: checkpoint saved
+11:53:07 step 24: rollout (4 prompts x G=8, max_new 128)
+11:53:25 step 24: rollout done in 18 s, reward 0.562; training
+11:53:35 step 24 done in 27 s | reward 0.562 zero-var groups 0.75 | grad 0.907 | len 21 trunc 0.03 | peak 7791 MiB retries 0 | ETA 28 min (75 steps)
+11:53:36 step 24: checkpoint saved
+11:53:36 step 25: rollout (4 prompts x G=8, max_new 128)
+11:53:53 step 25: rollout done in 18 s, reward 0.031; training
+11:54:03 step 25 done in 27 s | reward 0.031 zero-var groups 0.75 | grad 0.992 | len 21 trunc 0.03 | peak 7791 MiB retries 0 | ETA 28 min (74 steps)
+11:54:04 step 25: checkpoint saved
+11:54:04 step 26: rollout (4 prompts x G=8, max_new 128)
+11:54:22 step 26: rollout done in 18 s, reward 0.312; training
+11:54:32 step 26 done in 27 s | reward 0.312 zero-var groups 0.75 | grad 0.481 | len 24 trunc 0.03 | peak 7791 MiB retries 0 | ETA 28 min (73 steps)
+11:54:33 step 26: checkpoint saved
+11:54:33 step 27: rollout (4 prompts x G=8, max_new 128)
+11:54:51 step 27: rollout done in 18 s, reward 0.812; training
+11:55:00 step 27 done in 27 s | reward 0.812 zero-var groups 0.75 | grad 0.641 | len 28 trunc 0.06 | peak 7791 MiB retries 0 | ETA 27 min (72 steps)
+11:55:02 step 27: checkpoint saved
+11:55:02 step 28: rollout (4 prompts x G=8, max_new 128)
+11:55:19 step 28: rollout done in 18 s, reward 0.594; training
+11:55:29 step 28 done in 27 s | reward 0.594 zero-var groups 0.25 | grad 1.27 | len 21 trunc 0.03 | peak 7791 MiB retries 0 | ETA 27 min (71 steps)
+11:55:30 step 28: checkpoint saved
+11:55:30 step 29: rollout (4 prompts x G=8, max_new 128)
+11:55:48 step 29: rollout done in 18 s, reward 0.344; training
+11:55:58 step 29 done in 27 s | reward 0.344 zero-var groups 0.50 | grad 0.92 | len 38 trunc 0.19 | peak 7791 MiB retries 0 | ETA 27 min (70 steps)
+11:55:59 step 29: checkpoint saved
+11:55:59 step 30: rollout (4 prompts x G=8, max_new 128)
+11:56:17 step 30: rollout done in 18 s, reward 0.375; training
+11:56:27 step 30 done in 27 s | reward 0.375 zero-var groups 0.50 | grad 2.4 | len 23 trunc 0.03 | peak 7791 MiB retries 0 | ETA 27 min (69 steps)
+11:56:28 step 30: checkpoint saved
+11:56:28 step 31: rollout (4 prompts x G=8, max_new 128)
+11:56:45 step 31: rollout done in 18 s, reward 0.312; training
+11:56:55 step 31 done in 27 s | reward 0.312 zero-var groups 0.75 | grad 0.665 | len 23 trunc 0.03 | peak 7791 MiB retries 0 | ETA 27 min (68 steps)
+11:56:56 step 31: checkpoint saved
+11:56:56 step 32: rollout (4 prompts x G=8, max_new 128)
+11:57:14 step 32: rollout done in 18 s, reward 0.406; training
+11:57:24 step 32 done in 27 s | reward 0.406 zero-var groups 0.75 | grad 1.77 | len 26 trunc 0.06 | peak 7791 MiB retries 0 | ETA 27 min (67 steps)
+11:57:25 step 32: checkpoint saved
+11:57:25 step 33: rollout (4 prompts x G=8, max_new 128)
+11:57:42 step 33: rollout done in 18 s, reward 0.375; training
+11:57:52 step 33 done in 27 s | reward 0.375 zero-var groups 0.50 | grad 1.08 | len 28 trunc 0.09 | peak 7791 MiB retries 0 | ETA 26 min (66 steps)
+11:57:53 step 33: checkpoint saved
+11:57:53 step 34: rollout (4 prompts x G=8, max_new 128)
+11:58:11 step 34: rollout done in 18 s, reward 0.750; training
+11:58:21 step 34 done in 27 s | reward 0.750 zero-var groups 0.50 | grad 2.18 | len 32 trunc 0.03 | peak 7791 MiB retries 0 | ETA 26 min (65 steps)
+11:58:22 step 34: checkpoint saved
+11:58:22 step 35: rollout (4 prompts x G=8, max_new 128)
+11:58:26 step 35: rollout done in 3 s, reward 0.438; training
+11:58:34 step 35 done in 12 s | reward 0.438 zero-var groups 0.25 | grad 1.86 | len 17 trunc 0.00 | peak 7791 MiB retries 0 | ETA 25 min (64 steps)
+11:58:35 step 35: checkpoint saved
+11:58:35 step 36: rollout (4 prompts x G=8, max_new 128)
+11:58:53 step 36: rollout done in 18 s, reward 0.562; training
+11:59:02 step 36 done in 27 s | reward 0.562 zero-var groups 0.50 | grad 1.39 | len 26 trunc 0.03 | peak 7791 MiB retries 0 | ETA 25 min (63 steps)
+11:59:04 step 36: checkpoint saved
+11:59:04 step 37: rollout (4 prompts x G=8, max_new 128)
+11:59:20 step 37: rollout done in 17 s, reward 0.312; training
+11:59:30 step 37 done in 26 s | reward 0.312 zero-var groups 0.75 | grad 0.805 | len 20 trunc 0.00 | peak 7791 MiB retries 0 | ETA 25 min (62 steps)
+11:59:31 step 37: checkpoint saved
+11:59:31 step 38: rollout (4 prompts x G=8, max_new 128)
+11:59:48 step 38: rollout done in 18 s, reward 0.250; training
+11:59:58 step 38 done in 27 s | reward 0.250 zero-var groups 0.50 | grad 1.18 | len 50 trunc 0.25 | peak 7791 MiB retries 0 | ETA 24 min (61 steps)
+11:59:59 step 38: checkpoint saved
+11:59:59 step 39: rollout (4 prompts x G=8, max_new 128)
+12:00:17 step 39: rollout done in 18 s, reward 0.688; training
+12:00:27 step 39 done in 27 s | reward 0.688 zero-var groups 0.50 | grad 0.837 | len 24 trunc 0.06 | peak 7791 MiB retries 0 | ETA 24 min (60 steps)
+12:00:28 step 39: checkpoint saved
+12:00:28 step 40: rollout (4 prompts x G=8, max_new 128)
+12:00:46 step 40: rollout done in 18 s, reward 0.344; training
+12:00:55 step 40 done in 27 s | reward 0.344 zero-var groups 0.50 | grad 0.599 | len 25 trunc 0.03 | peak 7791 MiB retries 0 | ETA 24 min (59 steps)
+12:00:57 step 40: checkpoint saved
+12:00:57 step 41: rollout (4 prompts x G=8, max_new 128)
+12:01:00 step 41: rollout done in 3 s, reward 0.500; training
+12:01:08 step 41 done in 11 s | reward 0.500 zero-var groups 1.00 | grad 0 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 23 min (58 steps)
+12:01:09 step 41: checkpoint saved
+12:01:09 step 42: rollout (4 prompts x G=8, max_new 128)
+12:01:13 step 42: rollout done in 3 s, reward 0.719; training
+12:01:21 step 42 done in 12 s | reward 0.719 zero-var groups 0.75 | grad 1.43 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 23 min (57 steps)
+12:01:22 step 42: checkpoint saved
+12:01:22 step 43: rollout (4 prompts x G=8, max_new 128)
+12:01:40 step 43: rollout done in 18 s, reward 0.562; training
+12:01:49 step 43 done in 27 s | reward 0.562 zero-var groups 0.50 | grad 0.538 | len 39 trunc 0.12 | peak 7793 MiB retries 0 | ETA 22 min (56 steps)
+12:01:51 step 43: checkpoint saved
+12:01:51 step 44: rollout (4 prompts x G=8, max_new 128)
+12:01:54 step 44: rollout done in 3 s, reward 0.500; training
+12:02:02 step 44 done in 12 s | reward 0.500 zero-var groups 1.00 | grad 0 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 22 min (55 steps)
+12:02:03 step 44: checkpoint saved
+12:02:03 step 45: rollout (4 prompts x G=8, max_new 128)
+12:02:07 step 45: rollout done in 3 s, reward 0.500; training
+12:02:15 step 45 done in 11 s | reward 0.500 zero-var groups 1.00 | grad 0 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 21 min (54 steps)
+12:02:16 step 45: checkpoint saved
+12:02:16 step 46: rollout (4 prompts x G=8, max_new 128)
+12:02:19 step 46: rollout done in 3 s, reward 0.750; training
+12:02:28 step 46 done in 12 s | reward 0.750 zero-var groups 0.50 | grad 2.83 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 20 min (53 steps)
+12:02:29 step 46: checkpoint saved
+12:02:29 step 47: rollout (4 prompts x G=8, max_new 128)
+12:02:40 step 47: rollout done in 11 s, reward 0.438; training
+12:02:49 step 47 done in 20 s | reward 0.438 zero-var groups 0.50 | grad 2.14 | len 18 trunc 0.00 | peak 7793 MiB retries 0 | ETA 20 min (52 steps)
+12:02:50 step 47: checkpoint saved
+12:02:50 step 48: rollout (4 prompts x G=8, max_new 128)
+12:02:53 step 48: rollout done in 3 s, reward 0.562; training
+12:03:01 step 48 done in 11 s | reward 0.562 zero-var groups 0.50 | grad 1.24 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 19 min (51 steps)
+12:03:02 step 48: checkpoint saved
+12:03:02 step 49: rollout (4 prompts x G=8, max_new 128)
+12:03:06 step 49: rollout done in 3 s, reward 0.250; training
+12:03:14 step 49 done in 12 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 19 min (50 steps)
+12:03:15 step 49: checkpoint saved
+12:03:15 step 50: rollout (4 prompts x G=8, max_new 128)
+12:03:18 step 50: rollout done in 3 s, reward 0.156; training
+12:03:27 step 50 done in 11 s | reward 0.156 zero-var groups 0.50 | grad 3.71 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 18 min (49 steps)
+12:03:28 step 50: checkpoint saved
+12:03:28 step 51: rollout (4 prompts x G=8, max_new 128)
+12:03:31 step 51: rollout done in 3 s, reward 0.750; training
+12:03:39 step 51 done in 12 s | reward 0.750 zero-var groups 1.00 | grad 0 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 18 min (48 steps)
+12:03:41 step 51: checkpoint saved
+12:03:41 step 52: rollout (4 prompts x G=8, max_new 128)
+12:03:44 step 52: rollout done in 3 s, reward 0.188; training
+12:03:52 step 52 done in 11 s | reward 0.188 zero-var groups 0.75 | grad 2.08 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 17 min (47 steps)
+12:03:53 step 52: checkpoint saved
+12:03:53 step 53: rollout (4 prompts x G=8, max_new 128)
+12:03:56 step 53: rollout done in 3 s, reward 0.562; training
+12:04:05 step 53 done in 12 s | reward 0.562 zero-var groups 0.75 | grad 0.884 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 17 min (46 steps)
+12:04:06 step 53: checkpoint saved
+12:04:06 step 54: rollout (4 prompts x G=8, max_new 128)
+12:04:09 step 54: rollout done in 3 s, reward 0.250; training
+12:04:17 step 54 done in 11 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 16 min (45 steps)
+12:04:18 step 54: checkpoint saved
+12:04:18 step 55: rollout (4 prompts x G=8, max_new 128)
+12:04:22 step 55: rollout done in 3 s, reward 0.500; training
+12:04:30 step 55 done in 12 s | reward 0.500 zero-var groups 1.00 | grad 0 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 16 min (44 steps)
+12:04:31 step 55: checkpoint saved
+12:04:31 step 56: rollout (4 prompts x G=8, max_new 128)
+12:04:35 step 56: rollout done in 3 s, reward 0.906; training
+12:04:43 step 56 done in 11 s | reward 0.906 zero-var groups 0.50 | grad 2.28 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 15 min (43 steps)
+12:04:44 step 56: checkpoint saved
+12:04:44 step 57: rollout (4 prompts x G=8, max_new 128)
+12:04:47 step 57: rollout done in 3 s, reward 0.000; training
+12:04:56 step 57 done in 12 s | reward 0.000 zero-var groups 1.00 | grad 0 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 15 min (42 steps)
+12:04:57 step 57: checkpoint saved
+12:04:57 step 58: rollout (4 prompts x G=8, max_new 128)
+12:05:00 step 58: rollout done in 3 s, reward 0.344; training
+12:05:08 step 58 done in 12 s | reward 0.344 zero-var groups 0.75 | grad 2.01 | len 14 trunc 0.00 | peak 7793 MiB retries 0 | ETA 14 min (41 steps)
+12:05:09 step 58: checkpoint saved
+12:05:09 step 59: rollout (4 prompts x G=8, max_new 128)
+12:05:13 step 59: rollout done in 3 s, reward 0.500; training
+12:05:21 step 59 done in 12 s | reward 0.500 zero-var groups 1.00 | grad 0 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 14 min (40 steps)
+12:05:22 step 59: checkpoint saved
+12:05:22 step 60: rollout (4 prompts x G=8, max_new 128)
+12:05:25 step 60: rollout done in 3 s, reward 0.219; training
+12:05:34 step 60 done in 11 s | reward 0.219 zero-var groups 0.75 | grad 1.31 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 14 min (39 steps)
+12:05:35 step 60: checkpoint saved
+12:05:35 step 61: rollout (4 prompts x G=8, max_new 128)
+12:05:38 step 61: rollout done in 3 s, reward 0.750; training
+12:05:46 step 61 done in 11 s | reward 0.750 zero-var groups 1.00 | grad 0 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 13 min (38 steps)
+12:05:47 step 61: checkpoint saved
+12:05:47 step 62: rollout (4 prompts x G=8, max_new 128)
+12:06:05 step 62: rollout done in 18 s, reward 0.250; training
+12:06:15 step 62 done in 27 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 42 trunc 0.19 | peak 7793 MiB retries 0 | ETA 13 min (37 steps)
+12:06:16 step 62: checkpoint saved
+12:06:16 step 63: rollout (4 prompts x G=8, max_new 128)
+12:06:19 step 63: rollout done in 3 s, reward 0.594; training
+12:06:27 step 63 done in 11 s | reward 0.594 zero-var groups 0.75 | grad 2.62 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 12 min (36 steps)
+12:06:28 step 63: checkpoint saved
+12:06:28 step 64: rollout (4 prompts x G=8, max_new 128)
+12:06:32 step 64: rollout done in 3 s, reward 0.656; training
+12:06:40 step 64 done in 11 s | reward 0.656 zero-var groups 0.75 | grad 1.08 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 12 min (35 steps)
+12:06:41 step 64: checkpoint saved
+12:06:41 step 65: rollout (4 prompts x G=8, max_new 128)
+12:06:45 step 65: rollout done in 3 s, reward 0.531; training
+12:06:53 step 65 done in 11 s | reward 0.531 zero-var groups 0.75 | grad 0.631 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 12 min (34 steps)
+12:06:54 step 65: checkpoint saved
+12:06:54 step 66: rollout (4 prompts x G=8, max_new 128)
+12:07:11 step 66: rollout done in 18 s, reward 0.281; training
+12:07:21 step 66 done in 27 s | reward 0.281 zero-var groups 0.75 | grad 0.303 | len 66 trunc 0.41 | peak 7793 MiB retries 0 | ETA 11 min (33 steps)
+12:07:23 step 66: checkpoint saved
+12:07:23 step 67: rollout (4 prompts x G=8, max_new 128)
+12:07:26 step 67: rollout done in 3 s, reward 0.250; training
+12:07:34 step 67 done in 11 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 11 min (32 steps)
+12:07:35 step 67: checkpoint saved
+12:07:35 step 68: rollout (4 prompts x G=8, max_new 128)
+12:07:44 step 68: rollout done in 8 s, reward 0.250; training
+12:07:52 step 68 done in 17 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 18 trunc 0.00 | peak 7793 MiB retries 0 | ETA 11 min (31 steps)
+12:07:54 step 68: checkpoint saved
+12:07:54 step 69: rollout (4 prompts x G=8, max_new 128)
+12:08:11 step 69: rollout done in 18 s, reward 0.562; training
+12:08:21 step 69 done in 27 s | reward 0.562 zero-var groups 0.50 | grad 3.33 | len 20 trunc 0.03 | peak 7793 MiB retries 0 | ETA 10 min (30 steps)
+12:08:22 step 69: checkpoint saved
+12:08:22 step 70: rollout (4 prompts x G=8, max_new 128)
+12:08:26 step 70: rollout done in 3 s, reward 0.500; training
+12:08:34 step 70 done in 12 s | reward 0.500 zero-var groups 1.00 | grad 0 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 10 min (29 steps)
+12:08:35 step 70: checkpoint saved
+12:08:35 step 71: rollout (4 prompts x G=8, max_new 128)
+12:08:53 step 71: rollout done in 18 s, reward 0.469; training
+12:09:03 step 71 done in 27 s | reward 0.469 zero-var groups 0.75 | grad 2.41 | len 23 trunc 0.03 | peak 7793 MiB retries 0 | ETA 10 min (28 steps)
+12:09:04 step 71: checkpoint saved
+12:09:04 step 72: rollout (4 prompts x G=8, max_new 128)
+12:09:22 step 72: rollout done in 18 s, reward 0.750; training
+12:09:32 step 72 done in 28 s | reward 0.750 zero-var groups 1.00 | grad 0 | len 41 trunc 0.19 | peak 7793 MiB retries 0 | ETA 9 min (27 steps)
+12:09:33 step 72: checkpoint saved
+12:09:33 step 73: rollout (4 prompts x G=8, max_new 128)
+12:09:51 step 73: rollout done in 18 s, reward 0.250; training
+12:10:00 step 73 done in 27 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 24 trunc 0.06 | peak 7793 MiB retries 0 | ETA 9 min (26 steps)
+12:10:02 step 73: checkpoint saved
+12:10:02 step 74: rollout (4 prompts x G=8, max_new 128)
+12:10:05 step 74: rollout done in 3 s, reward 0.000; training
+12:10:13 step 74 done in 11 s | reward 0.000 zero-var groups 1.00 | grad 0 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 9 min (25 steps)
+12:10:14 step 74: checkpoint saved
+12:10:14 step 75: rollout (4 prompts x G=8, max_new 128)
+12:10:32 step 75: rollout done in 18 s, reward 0.406; training
+12:10:41 step 75 done in 27 s | reward 0.406 zero-var groups 0.75 | grad 2.93 | len 31 trunc 0.09 | peak 7793 MiB retries 0 | ETA 8 min (24 steps)
+12:10:43 step 75: checkpoint saved
+12:10:43 step 76: rollout (4 prompts x G=8, max_new 128)
+12:11:00 step 76: rollout done in 18 s, reward 0.250; training
+12:11:10 step 76 done in 27 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 34 trunc 0.16 | peak 7793 MiB retries 0 | ETA 8 min (23 steps)
+12:11:11 step 76: checkpoint saved
+12:11:11 step 77: rollout (4 prompts x G=8, max_new 128)
+12:11:29 step 77: rollout done in 18 s, reward 0.344; training
+12:11:38 step 77 done in 27 s | reward 0.344 zero-var groups 0.75 | grad 0.207 | len 40 trunc 0.12 | peak 7793 MiB retries 0 | ETA 8 min (22 steps)
+12:11:40 step 77: checkpoint saved
+12:11:40 step 78: rollout (4 prompts x G=8, max_new 128)
+12:11:43 step 78: rollout done in 3 s, reward 0.500; training
+12:11:51 step 78 done in 12 s | reward 0.500 zero-var groups 1.00 | grad 0 | len 17 trunc 0.00 | peak 7793 MiB retries 0 | ETA 7 min (21 steps)
+12:11:52 step 78: checkpoint saved
+12:11:52 step 79: rollout (4 prompts x G=8, max_new 128)
+12:12:10 step 79: rollout done in 18 s, reward 0.531; training
+12:12:20 step 79 done in 27 s | reward 0.531 zero-var groups 0.75 | grad 3.4 | len 22 trunc 0.03 | peak 7793 MiB retries 0 | ETA 7 min (20 steps)
+12:12:21 step 79: checkpoint saved
+12:12:21 step 80: rollout (4 prompts x G=8, max_new 128)
+12:12:39 step 80: rollout done in 18 s, reward 0.250; training
+12:12:49 step 80 done in 28 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 31 trunc 0.09 | peak 7793 MiB retries 0 | ETA 7 min (19 steps)
+12:12:50 step 80: checkpoint saved
+12:12:50 step 81: rollout (4 prompts x G=8, max_new 128)
+12:13:07 step 81: rollout done in 18 s, reward 0.781; training
+12:13:17 step 81 done in 27 s | reward 0.781 zero-var groups 0.75 | grad 2.26 | len 27 trunc 0.09 | peak 7793 MiB retries 0 | ETA 6 min (18 steps)
+12:13:18 step 81: checkpoint saved
+12:13:18 step 82: rollout (4 prompts x G=8, max_new 128)
+12:13:36 step 82: rollout done in 18 s, reward 0.281; training
+12:13:46 step 82 done in 27 s | reward 0.281 zero-var groups 0.75 | grad 1.72 | len 23 trunc 0.06 | peak 7793 MiB retries 0 | ETA 6 min (17 steps)
+12:13:47 step 82: checkpoint saved
+12:13:47 step 83: rollout (4 prompts x G=8, max_new 128)
+12:13:50 step 83: rollout done in 3 s, reward 0.750; training
+12:13:58 step 83 done in 12 s | reward 0.750 zero-var groups 1.00 | grad 0 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 6 min (16 steps)
+12:13:59 step 83: checkpoint saved
+12:13:59 step 84: rollout (4 prompts x G=8, max_new 128)
+12:14:17 step 84: rollout done in 18 s, reward 0.062; training
+12:14:27 step 84 done in 27 s | reward 0.062 zero-var groups 0.75 | grad 6.27 | len 43 trunc 0.19 | peak 7793 MiB retries 0 | ETA 5 min (15 steps)
+12:14:28 step 84: checkpoint saved
+12:14:28 step 85: rollout (4 prompts x G=8, max_new 128)
+12:14:31 step 85: rollout done in 3 s, reward 0.312; training
+12:14:40 step 85 done in 11 s | reward 0.312 zero-var groups 0.75 | grad 2.47 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 5 min (14 steps)
+12:14:41 step 85: checkpoint saved
+12:14:41 step 86: rollout (4 prompts x G=8, max_new 128)
+12:14:44 step 86: rollout done in 3 s, reward 0.500; training
+12:14:52 step 86 done in 11 s | reward 0.500 zero-var groups 1.00 | grad 0 | len 15 trunc 0.00 | peak 7793 MiB retries 0 | ETA 5 min (13 steps)
+12:14:53 step 86: checkpoint saved
+12:14:53 step 87: rollout (4 prompts x G=8, max_new 128)
+12:15:11 step 87: rollout done in 18 s, reward 0.594; training
+12:15:21 step 87 done in 28 s | reward 0.594 zero-var groups 0.50 | grad 3.04 | len 44 trunc 0.22 | peak 7793 MiB retries 0 | ETA 4 min (12 steps)
+12:15:22 step 87: checkpoint saved
+12:15:22 step 88: rollout (4 prompts x G=8, max_new 128)
+12:15:25 step 88: rollout done in 3 s, reward 0.094; training
+12:15:34 step 88 done in 12 s | reward 0.094 zero-var groups 0.75 | grad 1.01 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 4 min (11 steps)
+12:15:35 step 88: checkpoint saved
+12:15:35 step 89: rollout (4 prompts x G=8, max_new 128)
+12:15:53 step 89: rollout done in 18 s, reward 0.562; training
+12:16:02 step 89 done in 28 s | reward 0.562 zero-var groups 0.75 | grad 0.202 | len 42 trunc 0.22 | peak 7793 MiB retries 0 | ETA 4 min (10 steps)
+12:16:04 step 89: checkpoint saved
+12:16:04 step 90: rollout (4 prompts x G=8, max_new 128)
+12:16:21 step 90: rollout done in 18 s, reward 0.500; training
+12:16:31 step 90 done in 27 s | reward 0.500 zero-var groups 1.00 | grad 0 | len 45 trunc 0.25 | peak 7793 MiB retries 0 | ETA 3 min (9 steps)
+12:16:33 step 90: checkpoint saved
+12:16:33 step 91: rollout (4 prompts x G=8, max_new 128)
+12:16:50 step 91: rollout done in 18 s, reward 0.250; training
+12:17:00 step 91 done in 27 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 28 trunc 0.12 | peak 7793 MiB retries 0 | ETA 3 min (8 steps)
+12:17:01 step 91: checkpoint saved
+12:17:01 step 92: rollout (4 prompts x G=8, max_new 128)
+12:17:05 step 92: rollout done in 3 s, reward 0.688; training
+12:17:13 step 92 done in 12 s | reward 0.688 zero-var groups 0.75 | grad 1.41 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 2 min (7 steps)
+12:17:14 step 92: checkpoint saved
+12:17:14 step 93: rollout (4 prompts x G=8, max_new 128)
+12:17:32 step 93: rollout done in 18 s, reward 0.688; training
+12:17:42 step 93 done in 27 s | reward 0.688 zero-var groups 0.50 | grad 2.68 | len 41 trunc 0.16 | peak 7793 MiB retries 0 | ETA 2 min (6 steps)
+12:17:43 step 93: checkpoint saved
+12:17:43 step 94: rollout (4 prompts x G=8, max_new 128)
+12:17:46 step 94: rollout done in 3 s, reward 0.500; training
+12:17:54 step 94 done in 12 s | reward 0.500 zero-var groups 1.00 | grad 0 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 2 min (5 steps)
+12:17:56 step 94: checkpoint saved
+12:17:56 step 95: rollout (4 prompts x G=8, max_new 128)
+12:17:59 step 95: rollout done in 3 s, reward 0.219; training
+12:18:07 step 95 done in 11 s | reward 0.219 zero-var groups 0.75 | grad 2.43 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 1 min (4 steps)
+12:18:08 step 95: checkpoint saved
+12:18:08 step 96: rollout (4 prompts x G=8, max_new 128)
+12:18:12 step 96: rollout done in 3 s, reward 0.250; training
+12:18:20 step 96 done in 11 s | reward 0.250 zero-var groups 1.00 | grad 0 | len 16 trunc 0.00 | peak 7793 MiB retries 0 | ETA 1 min (3 steps)
+12:18:21 step 96: checkpoint saved
+12:18:21 step 97: rollout (4 prompts x G=8, max_new 128)
+12:18:38 step 97: rollout done in 18 s, reward 0.312; training
+12:18:48 step 97 done in 28 s | reward 0.312 zero-var groups 0.75 | grad 0.712 | len 37 trunc 0.16 | peak 7793 MiB retries 0 | ETA 1 min (2 steps)
+12:18:49 step 97: checkpoint saved
+12:18:49 step 98: rollout (4 prompts x G=8, max_new 128)
+12:19:07 step 98: rollout done in 18 s, reward 0.156; training
+12:19:17 step 98 done in 27 s | reward 0.156 zero-var groups 0.75 | grad 5.79 | len 82 trunc 0.56 | peak 7793 MiB retries 0 | ETA 0 min (1 steps)
+12:19:18 step 98: checkpoint saved
+12:19:18 step 99: rollout (4 prompts x G=8, max_new 128)
+12:19:36 step 99: rollout done in 18 s, reward 0.469; training
+12:19:46 step 99 done in 28 s | reward 0.469 zero-var groups 0.25 | grad 3.63 | len 65 trunc 0.34 | peak 7793 MiB retries 0 | ETA 0 min (0 steps)
+12:19:47 step 99: checkpoint saved
+EXIT_CODE=0

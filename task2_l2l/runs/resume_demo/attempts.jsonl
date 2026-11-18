@@ -1,0 +1,4 @@
+{"time": 1795008909.6092067, "pid": 7428, "event": "start", "step": 0, "alloc_conf": "expandable_segments:True", "stream": {"epoch": 0, "pos": 0, "seed": 0, "N": 1500, "fingerprint": "8e4f6e99fbc87e60"}}
+{"time": 1795009001.260059, "pid": 7526, "event": "resume", "step": 3, "alloc_conf": "expandable_segments:True", "stream": {"epoch": 0, "pos": 12, "seed": 0, "N": 1500, "fingerprint": "8e4f6e99fbc87e60"}}
+{"time": 1795009098.5338712, "pid": 7623, "event": "resume", "step": 6, "alloc_conf": "expandable_segments:True", "stream": {"epoch": 0, "pos": 24, "seed": 0, "N": 1500, "fingerprint": "8e4f6e99fbc87e60"}}
+{"time": 1795009178.2093859, "pid": 7720, "event": "resume", "step": 9, "alloc_conf": "expandable_segments:True", "stream": {"epoch": 0, "pos": 36, "seed": 0, "N": 1500, "fingerprint": "8e4f6e99fbc87e60"}}

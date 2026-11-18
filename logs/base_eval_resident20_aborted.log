@@ -1,0 +1,4 @@
+2026-11-18T09:38:04Z START --data data/gsm8k/heldout --n 100 --out runs/base/gsm8k_greedy
+2026-11-18T09:38:08Z Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 3625.47it/s]
+2026-11-18T09:38:55Z [W1118 09:38:55.815453499 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 52428800 bytes (free: 10092544, total: 8221425664).
+2026-11-18T09:39:14Z [W1118 09:39:14.900977339 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 69206016 bytes (free: 10092544, total: 8221425664).

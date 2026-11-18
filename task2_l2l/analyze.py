@@ -46,7 +46,7 @@ def arm_items(path):
 def part3(args, rep, md):
     vdir = Path(args.verify)
     heldout = {r["id"]: r for f in sorted(Path(args.heldout).glob("*.jsonl")) for r in jl(f)}
-    arms = {nm: arm_items(vdir / f"{nm}.jsonl") for nm in ("base", "adapter", "control", "merged")}
+    arms = {nm: arm_items(vdir / f"{nm}.jsonl") for nm in ("base", "adapter", "control", "merged", "random_adapter", "random_merged")}
     arms = {k: v for k, v in arms.items() if v}
     if "base" not in arms:
         md.append("Part 3: no verify outputs yet.\n")
@@ -73,7 +73,8 @@ def part3(args, rep, md):
     md.append("| pair | subset | n | diff | 95 % CI | a better | b better |")
     md.append("|---|---|---|---|---|---|---|")
     for a, b in (("adapter", "base"), ("adapter", "control"), ("control", "base"), ("merged", "adapter"),
-                 ("merged", "base")):
+                 ("merged", "base"), ("random_adapter", "base"), ("random_merged", "random_adapter"),
+                 ("random_merged", "base")):
         if a not in arms or b not in arms:
             continue
         for s, sub in subsets.items():
@@ -103,6 +104,41 @@ def part3(args, rep, md):
         for i in ex:
             md.append(f"  - `{i}` base: `{arms['base'][i][0]['text'][:80]}` → adapter: "
                       f"`{arms['adapter'][i][0]['text'][:80]}`")
+    md.append("\nGreedy output text identical (fraction of items):\n")
+    names = list(arms)
+    md.append("| | " + " | ".join(names) + " |")
+    md.append("|---" * (len(names) + 1) + "|")
+    ident = {}
+    for a in names:
+        row = []
+        for b in names:
+            f = sum(arms[a][i][0]["text"] == arms[b][i][0]["text"] for i in ids) / len(ids)
+            ident[f"{a}|{b}"] = f
+            row.append(f"{f:.2f}")
+        md.append(f"| {a} | " + " | ".join(row) + " |")
+    out["text_identical"] = ident
+    # The reward grades the LAST <answer>. A user (or any parser taking the first) sees the first one.
+    from reward import _ANSWER, countdown
+    first = {}
+    for nm, it in arms.items():
+        first[nm] = {}
+        for i in ids:
+            tags = _ANSWER.findall(it[i][0]["text"])
+            first[nm][i] = countdown(f"<answer>{tags[0]}</answer>", heldout[i]["answer"])[0] if tags else 0.0
+    md.append("\nRescored on the FIRST `<answer>` (the training reward takes the last one):\n")
+    md.append("| arm | >1 `<answer>` tag | pass, last tag (reward) | pass, first tag |")
+    md.append("|---|---|---|---|")
+    out["first_tag"] = {}
+    for nm, it in arms.items():
+        multi = sum(len(_ANSWER.findall(it[i][0]["text"])) > 1 for i in ids) / len(ids)
+        f = sum(first[nm].values()) / len(ids)
+        out["first_tag"][nm] = {"multi_tag": multi, "pass_first": f}
+        md.append(f"| {nm} | {multi:.3f} | {out['arms'][nm]['all']:.3f} | {f:.3f} |")
+    for a, b in (("adapter", "base"), ("adapter", "control"), ("merged", "base"), ("random_adapter", "base")):
+        if a in arms and b in arms:
+            m, lo, hi = paired_ci([first[a][i] - first[b][i] for i in ids])
+            out["first_tag"][f"{a}-{b}"] = {"diff": m, "ci95": [lo, hi]}
+            md.append(f"- first tag, {a} − {b}: {m:+.3f} [{lo:+.3f}, {hi:+.3f}]")
     rep_v = vdir / "verify_report.json"
     if rep_v.exists():
         v = json.load(open(rep_v))

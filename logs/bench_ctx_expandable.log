@@ -1,0 +1,5 @@
+== ctx: {'ctx_mib': 253}
+{'device_before': 9, 'context': 199, 'first_bf16_matmul': 335, 'first_sdpa': 337, 'after_free': 253}
+wrote /workspace/soup-task/task1_budget/results/measured_hw.yaml
+next: python budget.py --hw results/measured_hw.yaml --tag predicted_measured_hw
+EXIT_CODE=0

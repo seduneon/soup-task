@@ -1,0 +1,23 @@
+2026-11-18T09:54:10Z Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 3787.87it/s]
+2026-11-18T09:55:01Z [W1118 09:55:01.677144815 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 60817408 bytes (free: 45744128, total: 8221425664).
+2026-11-18T09:55:19Z [W1118 09:55:19.342515938 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 75497472 bytes (free: 62521344, total: 8221425664).
+2026-11-18T10:34:27Z {
+2026-11-18T10:34:27Z  "model": "Qwen/Qwen3-4B",
+2026-11-18T10:34:27Z  "adapter": null,
+2026-11-18T10:34:27Z  "data": "data/math35/train",
+2026-11-18T10:34:27Z  "n_items": 64,
+2026-11-18T10:34:27Z  "k": 8,
+2026-11-18T10:34:27Z  "temperature": 1.0,
+2026-11-18T10:34:27Z  "pass_rate": 0.58984375,
+2026-11-18T10:34:27Z  "ci95": [
+2026-11-18T10:34:27Z   0.486279296875,
+2026-11-18T10:34:27Z   0.689453125
+2026-11-18T10:34:27Z  ],
+2026-11-18T10:34:27Z  "has_box_rate": 0.623046875,
+2026-11-18T10:34:27Z  "truncated_rate": 0.40625,
+2026-11-18T10:34:27Z  "mean_length": 411.681640625,
+2026-11-18T10:34:27Z  "seconds": 2414.3349158763885,
+2026-11-18T10:34:27Z  "gpu_alloc_peak_mib": 6542.40380859375,
+2026-11-18T10:34:27Z  "gpu_reserved_peak_mib": 7558.0
+2026-11-18T10:34:27Z }
+ALL_DONE

@@ -1,0 +1,25 @@
+{
+ "model": "/dev/shm/merged_random",
+ "adapter": null,
+ "data": "data/countdown3/heldout",
+ "n_items": 500,
+ "k": 1,
+ "temperature": 0.0,
+ "prompt_style": "plain",
+ "max_new": 128,
+ "pass_rate": 0.32,
+ "ci95": [
+  0.28,
+  0.362
+ ],
+ "has_box_rate": 1.0,
+ "truncated_rate": 0.018,
+ "mean_length": 19.09,
+ "seconds": 182.53102111816406,
+ "zero_var_group_frac": null,
+ "alloc_conf": "expandable_segments:True",
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 6460.3720703125,
+ "gpu_reserved_peak_mib": 6492.0
+}
