@@ -1,0 +1,132 @@
+{
+ "model": "Qwen/Qwen3-4B",
+ "layers": 4,
+ "device": "cuda",
+ "dtype": "bfloat16",
+ "truth": "torch.float32",
+ "B": 4,
+ "S": 42,
+ "loss_tokens": 46,
+ "chunk": 16,
+ "ratio": 1.5,
+ "layer_MiB": 192.51025390625,
+ "torch": "2.14.1+cu132",
+ "hf_max_abs_diff": 0.0,
+ "hf_argmax_agree": 1.0,
+ "logits_bitexact": true,
+ "logits_max_abs_diff": 0.0,
+ "truth_loss": 0.02192787453532219,
+ "grads": {
+  "full batch": {
+   "pass_": true,
+   "agg_err_stream": 0.01647468089981592,
+   "agg_err_ref": 0.016305189886895194,
+   "bitexact": false,
+   "all_nonzero": true,
+   "worst_ratio": 1.2033647274188095,
+   "n": 56,
+   "ref_loss": 0.021723540499806404,
+   "stream_loss": 0.021724402904510498,
+   "copies_per_pass": 4.0,
+   "streamed_layers": 4,
+   "worst_tensors": [
+    {
+     "name": "1_v_proj_A",
+     "err_stream": 0.017081695481874295,
+     "err_ref": 0.014194944468175319,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "3_up_proj_A",
+     "err_stream": 0.014949792676433938,
+     "err_ref": 0.01292875668646493,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "3_q_proj_A",
+     "err_stream": 0.028927197507100856,
+     "err_ref": 0.025288833467308695,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "1_gate_proj_A",
+     "err_stream": 0.021115255422999687,
+     "err_ref": 0.018663529137667344,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "3_v_proj_B",
+     "err_stream": 0.0122301431492271,
+     "err_ref": 0.010927644794246766,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    }
+   ]
+  },
+  "mb=1": {
+   "pass_": true,
+   "agg_err_stream": 0.016380384838178386,
+   "agg_err_ref": 0.016035699923356916,
+   "bitexact": false,
+   "all_nonzero": true,
+   "worst_ratio": 1.2578743291380827,
+   "n": 56,
+   "ref_loss": 0.019426345825195312,
+   "stream_loss": 0.019426345825195312,
+   "copies_per_pass": 4.0,
+   "streamed_layers": 4,
+   "worst_tensors": [
+    {
+     "name": "2_v_proj_A",
+     "err_stream": 0.017651576523276487,
+     "err_ref": 0.014032861720068473,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "3_v_proj_A",
+     "err_stream": 0.012327523370166397,
+     "err_ref": 0.010162958271639329,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "1_down_proj_A",
+     "err_stream": 0.010497725964913851,
+     "err_ref": 0.008884225271723308,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "1_gate_proj_A",
+     "err_stream": 0.023782092243798608,
+     "err_ref": 0.020792057407527324,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "3_v_proj_B",
+     "err_stream": 0.012082137020426912,
+     "err_ref": 0.010646986182390713,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    }
+   ]
+  }
+ },
+ "seconds": 5.194456338882446
+}

@@ -1,0 +1,132 @@
+{
+ "model": "Qwen/Qwen3-0.6B",
+ "layers": 28,
+ "device": "cuda",
+ "dtype": "bfloat16",
+ "truth": "torch.float32",
+ "B": 4,
+ "S": 42,
+ "loss_tokens": 46,
+ "chunk": 16,
+ "ratio": 1.5,
+ "layer_MiB": 30.00439453125,
+ "torch": "2.14.1+cu132",
+ "hf_max_abs_diff": 0.0,
+ "hf_argmax_agree": 1.0,
+ "logits_bitexact": true,
+ "logits_max_abs_diff": 0.0,
+ "truth_loss": 0.5404995083808899,
+ "grads": {
+  "full batch": {
+   "pass_": true,
+   "agg_err_stream": 0.10365360822448665,
+   "agg_err_ref": 0.10749264927997756,
+   "bitexact": false,
+   "all_nonzero": true,
+   "worst_ratio": 1.0681985508755665,
+   "n": 392,
+   "ref_loss": 0.5384572148323059,
+   "stream_loss": 0.5384572744369507,
+   "copies_per_pass": 28.0,
+   "streamed_layers": 28,
+   "worst_tensors": [
+    {
+     "name": "16_v_proj_A",
+     "err_stream": 0.07304351426382365,
+     "err_ref": 0.06838009113837884,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "11_k_proj_A",
+     "err_stream": 0.08350773406056834,
+     "err_ref": 0.07869898475069914,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "9_up_proj_A",
+     "err_stream": 0.07822355663456956,
+     "err_ref": 0.07385650090906422,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "17_k_proj_A",
+     "err_stream": 0.06386744701921086,
+     "err_ref": 0.06033638165964477,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "27_q_proj_A",
+     "err_stream": 0.06484450620258374,
+     "err_ref": 0.061282785308058,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    }
+   ]
+  },
+  "mb=1": {
+   "pass_": true,
+   "agg_err_stream": 0.06100913130558438,
+   "agg_err_ref": 0.05978979519384951,
+   "bitexact": false,
+   "all_nonzero": true,
+   "worst_ratio": 1.198633019829179,
+   "n": 392,
+   "ref_loss": 0.53086918592453,
+   "stream_loss": 0.53086918592453,
+   "copies_per_pass": 28.0,
+   "streamed_layers": 28,
+   "worst_tensors": [
+    {
+     "name": "9_k_proj_A",
+     "err_stream": 0.07453733012694808,
+     "err_ref": 0.06218528014218396,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "2_k_proj_B",
+     "err_stream": 0.06682298573328861,
+     "err_ref": 0.057979836501502374,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "2_k_proj_A",
+     "err_stream": 0.07087880726600636,
+     "err_ref": 0.06199011423459635,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "12_q_proj_A",
+     "err_stream": 0.04484630426490425,
+     "err_ref": 0.0394417082891029,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    },
+    {
+     "name": "18_k_proj_A",
+     "err_stream": 0.08243326138635157,
+     "err_ref": 0.07253457359093143,
+     "ok": true,
+     "bitexact": false,
+     "nonzero": true
+    }
+   ]
+  }
+ },
+ "seconds": 7.552351951599121
+}
