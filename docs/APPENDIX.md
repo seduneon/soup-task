@@ -2,6 +2,15 @@
 
 The long version of `REPORT.md` (same numbers, all from `task2_l2l/results/analysis.md`). `REPORT.md` is the ≤ 3-page submission; this file keeps every table and explanation that did not fit.
 
+**Corrections after a fresh-context review (2026-11-19); where the text below disagrees, these win:**
+- *Shuffled control mechanism:* not the Dr. GRPO length bias. Shuffled advantages are independent of the completion, so the expected gradient is zero under any normalisation, and from step ~40 most control answers hit the 128-token cap anyway. Best explanation: a noise-driven random walk (Adam gives roughly fixed-size steps; ‖ΔW‖ 0.85 vs 1.00 for main) that happened to drift towards longer reasoning. One seed; unproven.
+- *Allocator retries at 25 resident:* 4, 17 and 3 in the three smoke steps, not "17 per step"; "rollout 5.7× slower" compared different batches (the same step at 24 resident with 0 retries took as long). The H6 dynamic blocks had 9 retries each.
+- *Part 1 gaps* should be read at 24 resident: nvidia-smi predicted 7410 vs 7793 measured (+383); decode predicted ~135 ms vs 128 ms; step 23.1 s vs 20.1 s, where the totals agree only by cancellation (decode stops early, training is 1.7× slower than modelled).
+- *× ÷ regression* also appears in the shuffled control (−0.107), so it is not reward-driven.
+- *Root cause:* 72 % zero-variance groups (~1 informative group per step), 50 % of steps gradient-clipped, lr not swept.
+- *`soup ship`:* only its tuned > base leg was evaluated (no general benchmark); Soup was read in source, not run.
+- *Fix 3:* ship the unmerged adapter; an fp32 merged model (~16 GB) doubles streaming for the target user.
+
 
 **Verdict: DON'T SHIP.** The streamed L2L engine works and stays under the cap. The artifact is a different
 matter: its held-out gain cannot be told apart from a shuffled-reward control, and about half of the gain

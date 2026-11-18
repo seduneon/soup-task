@@ -126,8 +126,10 @@ adopted it anyway and doubled the prompts per step (2 → 4) to get the learning
 
 ## Phase 5: smoke runs, first real memory numbers (11-18)
 
-- At 25 resident layers: **7835 of 7840 MiB**, and **17 allocator retries per step**. The allocator ran out,
-  flushed its cache and retried, which made the rollout 5.7× slower **without any error**. That's another silent failure.
+- At 25 resident layers: **7835 of 7840 MiB**, with 4, 17 and 3 allocator retries in the three steps. The
+  allocator ran out, flushed its cache and retried, **without any error**. That's another silent failure.
+  (An earlier draft said "rollout 5.7× slower". That compared two different batches; the same step at
+  24 resident with 0 retries took as long. Retries are a near-OOM warning, not a measured slowdown here.)
 - A/B at 24 resident: default allocator 2–6 retries/step vs `expandable_segments:True` **0 retries**, identical
   rewards and gradient norms. Adopted 24 resident + expandable_segments.
 - **Learned:** "it fits" is not enough. You also have to check `torch.cuda.memory_stats` for retries, because
@@ -182,22 +184,32 @@ about ±5 points.
 What we found by digging (these analyses were **added after reading the outputs**, so they're exploratory, not
 pre-registered; say so if asked):
 1. **The control gained +8.6 of the +11.2 points.** It drifted to long step-by-step reasoning (19 → 119 tokens).
-   *Mechanism:* GRPO divides each answer's loss by its length. With random advantages, a long answer's negative
-   push is spread thinly over many tokens, so length drifts upwards (the length bias described in the Dr. GRPO
-   paper). On Countdown, more reasoning means more correct answers.
+   *Mechanism (corrected after the review):* an earlier draft blamed the Dr. GRPO length bias. That's wrong
+   here. With shuffled rewards the advantage is independent of the completion, so the **expected gradient is
+   zero** under either normalisation (the length bias needs advantage and length to be correlated). Also, from
+   step ~40 most control answers hit the 128-token cap, so all lengths are equal. Better explanation: a **random
+   walk**. Adam scales each step to a roughly fixed size whatever the signal, so pure noise still moves the
+   weights (‖ΔW‖ 0.85 for the control vs 1.00 for main), and the direction it drifted (longer reasoning) happens
+   to score well on Countdown. One seed, so the mechanism is not proven. The control also permuted rewards
+   across the *batch*, so it had only 14 % zero-variance groups vs 72 % in main: more noisy gradient. A
+   within-group permutation would be the tighter control.
 2. **Hedging.** 18 % of adapter outputs give an answer, then "Note: this is wrong…", then a second answer. The
    reward grades the **last** tag, so hedging pays. Graded on the first answer: the gain halves (+0.054).
 3. **× ÷ regression.** It got better on +/− items (+0.19) and worse on × ÷ items (0.129 → 0.036). The aggregate
-   hides it.
+   hides it. The shuffled control regressed on × ÷ just as much (−0.107), so this too is not reward-driven.
 4. **The merge changed the model.** The LoRA update is ~0.08 % of each weight. bf16 can only represent changes
    larger than ~0.39 % of a value, so **82 % of the updated elements round back to the base value**. The merged
    model scores 0.502 against the adapter's 0.430, with only 65 % identical text.
 5. **The adapter is alive.** It changes 84 % of outputs; the random-direction adapter of equal size changes 6 %.
-6. **Training reward was flat** (0.40 → 0.41) and 72 % of groups had zero variance. Most steps carried almost no
-   signal.
+6. **Training reward was flat** (0.40 → 0.41) and 72 % of groups had zero variance: ~1 informative group per
+   step, ~110 in the whole run. The gradient was clipped on 50 % of steps; lr 2e-5 was never swept. **This is
+   the root cause**: the pilot already showed 0.66 zero-variance against our own pre-registered 0.5 limit, and
+   we went ahead (doubling prompts per step was not enough).
 
 **What this check cannot detect:** contamination in pre-training, a scorer bias shared by all arms, regressions
-outside Countdown, effects below ~5 points, sampling behaviour (greedy only), seed variance (one seed per arm).
+outside Countdown, effects below ~5 points, sampling behaviour (greedy only; training ran at T = 1, so a T = 1
+eval is the matching metric), seed variance (one seed per arm). Also: the pre-registered rules **missed the
+multi-answer gaming**; only the post-hoc first-tag rescoring found it.
 
 **Follow-up (11-18 evening): fp32 merge check.** Question: is R3's failure the bf16 cast, or a bug in
 `merge.py`? We evaluated the adapter on fp32 weights, and the adapter merged into fp32 weights in host memory
@@ -226,7 +238,7 @@ or ruled out, along the chain:
 | reward | last-tag rule rewards hedging; parser too strict (`\$18` scored 0) | first-tag rescoring; 32 adversarial tests |
 | GRPO | zero-variance groups give no gradient; random advantages drift length | per-step logs; shuffled control |
 | policy | an easy-item gain hides a hard-item regression | per-subset CIs |
-| L2L memory | pinned memory 2×; allocator retries make the rollout 5.7× slower | review; retry counters |
+| L2L memory | pinned memory 2×; allocator retries near the ceiling (near-OOM warning) | review; retry counters |
 | L2L sync | missing stream dependency, hidden by other syncs | review; GPU equivalence |
 | on-policy | rollout log-prob ≠ training log-prob (max 1.6 nats) | logged every step (harmless at ratio 1) |
 | streaming | duplicates if killed before the first checkpoint | resume test |
@@ -249,12 +261,13 @@ is not:
 4. the merged file users would get is not the policy we evaluated.
 
 **What must change first, and why in this order:**
-1. **Reward and loss**: exactly one answer tag (0 otherwise), and token-level loss normalisation. These remove
-   the two effects that produced the measured gain, so they come first.
-2. **Signal**: keep only prompts the base model solves sometimes (pass rate strictly between 0 and 1 at k = 8),
-   gate on × ÷ separately, ≥ 3 seeds per arm, shuffled control mandatory.
-3. **Artifact**: ship the adapter unmerged or merge into fp32, and gate on merged ≡ adapter.
-4. **Soup**: put the negative control and the merged-vs-adapter check into `soup ship`'s decision.
+1. **Signal** (the root cause): keep only prompts the base model solves sometimes (pass rate strictly between
+   0 and 1 at k = 8); ≥ 3 seeds per arm; shuffled control (permuted within groups) mandatory; add a T = 1 eval.
+2. **Reward**: exactly one answer tag (0 otherwise) removes the hedging; gate on × ÷ separately. Token-level
+   loss normalisation is a hypothesis to A/B, not a proven fix (the length-bias story was wrong, see item 1).
+3. **Artifact**: ship the unmerged adapter (an fp32 merged model is ~16 GB, which doubles streaming for an 8 GB
+   user); gate on merged ≡ adapter at the precision users will run.
+4. **Soup**: put the negative control, merged ≡ adapter and a CI lower bound > 0 into `soup ship`'s decision.
 
 **How to say it in one breath:** the infrastructure is shown correct by the equivalence and resume tests; the
 model is shown not ship-worthy by the controls; `soup ship` would have shipped it.
@@ -274,7 +287,8 @@ The A-B-B-A order cancels slow drift (thermal, page cache) between blocks.
 **Result.** +0.1 % [−0.4 %, +0.8 %], rollouts identical. **Rejected, keep regular.** Why the prediction failed:
 it was made for the GSM8K shape (20 regular layers, long decode, big KV cache). On Countdown we had already hand-
 tuned regular to 24 layers and the KV cache is small, so dynamic could add only **one** layer. That removed one
-copy per pass, but decode time did not move: the paged-KV overhead ate the saving. It also ran at 7839 of 7840 MiB.
+copy per pass, but decode time did not move. Why is **unattributed**: paged-KV overhead, or the allocator
+retries (9 per block) from running at 7839 of 7840 MiB; we did not separate them.
 **Lesson:** a prediction is tied to the workload shape; when the task changed, H6 should have been re-predicted.
 
 **Also note H1 failed:** generation is 55 % of the step, not ≥ 70 %. The cause is understood (decode stops at
@@ -299,9 +313,43 @@ explanation is a good answer.
   per group), and reward can be gamed (hedging here).
 - **Why the shuffled control is the most important check:** it holds everything constant except the
   information in the reward. Any gain it also gets is not learning.
-- **Why length drifts under random rewards:** sequence-normalised loss; long answers dilute their penalty.
+- **Why a reward-free run still changes the model:** shuffled advantages give zero *expected* gradient, but
+  each step is still a noisy step of roughly fixed size under Adam, so the weights random-walk. Which way they
+  drift is luck; here it was longer reasoning, which helps on Countdown. (Not the Dr. GRPO length bias: that
+  needs advantage and length to be correlated.)
 - **Why bf16 swallows the merge:** bf16 has 8 bits of mantissa, so it can't represent a 0.08 % change to a
   weight. The change rounds to zero, or to one full step.
 - **Why decode is the bottleneck:** one generated token = one full pass of copies over PCIe with almost no
   compute to hide them behind. Training has big matrix multiplies that hide 97 % of the copies.
 - **Why 24, not 25, resident layers:** 25 fits on paper but leaves no slack, and the allocator thrashes silently.
+
+---
+
+## Hard questions to expect (from the fresh-context review), with short answers
+
+- **"The training reward at T = 1 was flat, yet greedy eval gained 11 points. What did GRPO optimise?"** The mode
+  of the policy moved; the sampled distribution did not improve. A T = 1 eval (`verify.py --k 4 --temperature 1`)
+  is the matching metric, and we didn't run it.
+- **"Is the shuffled control fair?"** It permutes rewards across the whole batch, so it had only 14 % zero-variance
+  groups vs 72 % in main: ~3× more groups with non-zero (noise) advantages. Permuting *within* groups would keep
+  main's pattern and is the tighter control. Its gain is still informative: noise alone moved the model that far.
+- **"Is hedging really gaming? The second answer is a self-correction."** It's two attempts in one output (an
+  implicit pass@2), and the reward pays for whichever comes last. The user reads the first. The fix is to score
+  conflicting answers as 0, as our GSM8K/MATH parser already did and the Countdown one didn't.
+- **"Why lr 2e-5?"** Not swept; we own that. Under Adam, lr sets how far the weights move regardless of signal, so
+  the bottleneck was signal (72 % zero-variance groups), not lr. Plan: a 3-point sweep on informative prompts only.
+- **"The control is 91 % correct when it answers. Isn't long reasoning the real win?"** Probably. A missing
+  baseline is the base model with a CoT prompt and 512 tokens; it might beat every arm.
+- **"Why did merging *gain* 7 points?"** Unexplained. Outputs sit on near-ties, and the flips happened to land
+  positive. That's a reason to distrust the number, not to ship the merged model.
+- **"One seed, n = 500?"** The CIs cover item sampling only. R2's ±4.4-pt interval can't resolve a 2.6-pt
+  difference, and seed variance is unknown.
+- **"Is the cached decode checked against teacher-forced logits?"** Yes: `tests/test_decode.py` (decode-time
+  log-prob = training rescoring), and the on-policy gap is logged every step (mean 0.008 nats).
+- **"Do you trust your VRAM numbers?"** nvidia-smi sampled every 200 ms for every run is device-wide ground truth;
+  allocated/reserved come from PyTorch. The gap between them (allocator cache + context) is explained in Part 1.
+- **"What would you change in `soup ship`?"** A required shuffled-control arm; merged ≡ adapter at deployment
+  precision; a single-answer rescore; per-subset CIs; and SHIP only if the CI lower bound is > 0, not the point estimate.
+- **"Three days of H100s?"** Fix the signal first (filtered prompts, single-tag reward), then ≥ 3 seeds × {main,
+  within-group shuffled control}, a T = 1 eval and a CoT baseline. Only then DFlash and residency work, because
+  on an H100 the model fits and streaming isn't the bottleneck.
