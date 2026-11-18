@@ -1,0 +1,32 @@
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": "runs/main/adapter.pt",
+ "data": "data/countdown3/heldout",
+ "n_items": 500,
+ "k": 1,
+ "temperature": 0.0,
+ "prompt_style": "plain",
+ "max_new": 128,
+ "pass_rate": 0.37,
+ "ci95": [
+  0.324,
+  0.412
+ ],
+ "has_box_rate": 1.0,
+ "truncated_rate": 0.198,
+ "mean_length": 45.316,
+ "seconds": 1856.6864664554596,
+ "zero_var_group_frac": null,
+ "alloc_conf": "expandable_segments:True",
+ "dtype": "float32",
+ "merge_in_memory": true,
+ "merge_stats": {
+  "merged_tensors": 252,
+  "delta_kept_min": 0.9999919533729553,
+  "delta_kept_mean": 0.9999994524414577
+ },
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 6626.1123046875,
+ "gpu_reserved_peak_mib": 6672.0
+}

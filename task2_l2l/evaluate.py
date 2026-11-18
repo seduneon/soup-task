@@ -52,6 +52,9 @@ def main():
     ap.add_argument("--resident", type=int, default=20)
     ap.add_argument("--layers", type=int)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--merge-in-memory", action="store_true",
+                    help="merge --adapter into the weights at --dtype in host memory and evaluate with the adapter "
+                         "off (float32: a merge with no rounding, isolates merge.py's bf16 cast)")
     ap.add_argument("--out", required=True, help="output prefix: <out>.jsonl and <out>.summary.json")
     args = ap.parse_args()
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
@@ -69,10 +72,13 @@ def evaluate(args):
         assert trained == args.prompt_style, f"adapter trained with prompt_style={trained}, eval asked {args.prompt_style}"
     cfg = dict(model=args.model, layers=args.layers, device=args.device, dtype=args.dtype, seed=args.seed,
                lora_r=ad["r"] if ad else 16, lora_alpha=ad["alpha"] if ad else 32, resident=args.resident, n_buffers=2)
+    if args.merge_in_memory:  # fold the adapter into the host weights at --dtype, then run with the adapter off
+        assert ad, "--merge-in-memory needs --adapter"
+        cfg["merge_adapter"] = ad
     mcfg, tok, eng, lora = build(cfg)
-    if ad:
+    if ad and not args.merge_in_memory:
         lora.load_state_dict(ad["lora"])
-    eng.adapter_enabled = ad is not None
+    eng.adapter_enabled = ad is not None and not args.merge_in_memory
     stream = PromptStream(args.data, shuffle=False)
     recs = stream.next(min(args.n, stream.N))
     eos = {tok.convert_tokens_to_ids("<|im_end|>"), tok.convert_tokens_to_ids("<|endoftext|>")}
@@ -107,7 +113,8 @@ def evaluate(args):
                # dataset rule: groups whose k rewards are all equal give GRPO zero advantage
                "zero_var_group_frac": sum(len(set(v)) == 1 for v in per_item.values()) / len(per_item)
                if args.k > 1 else None,
-               "alloc_conf": alloc_conf()}
+               "alloc_conf": alloc_conf(), "dtype": args.dtype, "merge_in_memory": args.merge_in_memory,
+               "merge_stats": cfg.get("merge_stats")}
     if eng.cuda:
         summary.update(alloc_counters(eng.device))
         summary["gpu_alloc_peak_mib"] = torch.cuda.max_memory_allocated(eng.device) / 2**20

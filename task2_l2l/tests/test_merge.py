@@ -61,3 +61,18 @@ def test_bf16_rounding_swallows_small_deltas(base):
     rs, rl = merge(root / "base16", small, root / "m16s"), merge(root / "base16", large, root / "m16l")
     assert rs["changed_frac_mean"] < 0.2 and rs["delta_kept_min"] < 0.5
     assert rl["changed_frac_mean"] > 0.5
+
+
+def test_in_memory_merge_matches_merge_py(base):
+    """store.merge_lora (evaluate.py --merge-in-memory) == merge.py's output, for an fp32 and a bf16 base."""
+    root, cfg = base
+    lora, ad = adapter(cfg, std=0.05)
+    hf = Qwen3ForCausalLM.from_pretrained(root / "base").to(torch.bfloat16)
+    hf.save_pretrained(root / "base16m", max_shard_size="200KB", safe_serialization=True)
+    for src, dt in (("base", torch.float32), ("base16m", torch.bfloat16)):
+        merge(root / src, ad, root / f"{src}_merged")
+        s = LayerStore.from_safetensors(root / src, L, dt)
+        s.merge_lora(ad)
+        ref = LayerStore.from_safetensors(root / f"{src}_merged", L, dt)
+        for i in range(L):
+            assert torch.equal(s.flat[i], ref.flat[i]), (dt, i)

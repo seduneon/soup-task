@@ -70,6 +70,8 @@ def build(cfg):
     mcfg._attn_implementation = "sdpa"
     dev, dt = torch.device(cfg["device"]), getattr(torch, cfg["dtype"])
     store = LayerStore.from_safetensors(root, mcfg.num_hidden_layers, dt)
+    if cfg.get("merge_adapter"):  # in-memory merge into the store's dtype (evaluate.py --merge-in-memory)
+        cfg["merge_stats"] = store.merge_lora(cfg["merge_adapter"])
     torch.manual_seed(cfg["seed"])  # LoRA A init
     lora = LoRAParams(lora_shapes(mcfg), mcfg.num_hidden_layers, r=cfg["lora_r"], alpha=cfg["lora_alpha"], device=dev)
     eng = StreamedQwen3(mcfg, store, lora, dev, resident=range(cfg["resident"]), n_buffers=cfg["n_buffers"],

@@ -78,6 +78,22 @@ class LayerStore:
         dst.copy_(tensor)
         self.filled[i].add(name)
 
+    def merge_lora(self, ad):
+        """Fold an adapter into the host weights in place: W += (alpha/r)·B·A, computed in fp32 and written in the
+        store dtype. With an fp32 store nothing is rounded, so this isolates merge.py's bf16 cast (Part 3, R3).
+        Returns per-tensor stats. Call before the engine copies anything to the device."""
+        from lora import MODULE_OF
+        lora, scale, stats = ad["lora"], ad["alpha"] / ad["r"], []
+        for i in range(self.n_layers):
+            views = self.views(self.flat[i])
+            for t in ad["targets"]:
+                W = views[f"{MODULE_OF[t]}.{t}.weight"]
+                delta = scale * (lora[f"p.{i}_{t}_B"].float() @ lora[f"p.{i}_{t}_A"].float())
+                new = (W.float() + delta).to(W.dtype)
+                stats.append(float((new.float() - W.float()).norm() / delta.norm().clamp(min=1e-30)))
+                W.copy_(new)
+        return {"merged_tensors": len(stats), "delta_kept_min": min(stats), "delta_kept_mean": sum(stats) / len(stats)}
+
     def check_complete(self):
         names = {name for name, *_ in self.layout}
         missing = [(i, sorted(names - f)) for i, f in enumerate(self.filled) if f != names]

@@ -1,170 +1,120 @@
-# GRPO + LoRA on Qwen3-4B under an 8 GB cap: report
+# GRPO + LoRA on Qwen3-4B under an 8 GB cap
 
-**Verdict: DON'T SHIP.** The streamed L2L engine works and stays under the cap. The artifact is a different
-matter: its held-out gain cannot be told apart from a shuffled-reward control, and about half of the gain
-comes from hedged second answers that the reward allowed. The merged bf16 model is not the adapter that
-was trained. Details in §3 and §5.
+**Verdict: DON'T SHIP the trained artifact** (the LoRA adapter and its merged model). The streamed engine
+works: every phase stays under 8 GB on nvidia-smi, L2L matches a non-streamed reference, resume is exact. The
+model does not. **Why it failed:** (1) a control trained on *shuffled* rewards gained almost as much (+8.6 of
++11.2 pts), so the gain is not shown to come from the reward; (2) the reward graded the *last* `<answer>` tag:
+18 % of outputs hedge with two answers, and graded on the first answer half the gain disappears; (3) it got worse
+on × ÷ items (0.129 → 0.036); (4) the gain is not robust to how the model is run: the merged bf16 model scores
+0.502, the adapter 0.430 in bf16 and 0.374 in fp32. Fixes in §4; full detail in `docs/APPENDIX.md`.
 
-Setup: one Vast.ai RTX 3070 (8 GB physical, so the cap is the hardware; CUDA sees 7840 MiB), PCIe 4.0 x16
-(measured 25.5 GB/s H2D), 31 GB host RAM. Qwen3-4B non-thinking, bf16, LoRA r = 16 on all 7 linears of 36
-layers (33 M params, fp32). GRPO, 4 prompts × G = 8 per step, 100 steps, lr 2e-5, β = 0, seq-normalised loss,
-one update per batch (ratio = 1). Task: **Countdown-3** (reach a target with 3 numbers and + − × ÷;
-verifiable exact-fraction reward on the last `<answer>`; 1500 train / 500 held-out prompts, disjoint).
-Base pass at T = 1: 0.34. GSM8K (0.94 greedy, too easy), MATH 3–5 (41 % truncated at 512 tokens, so the
-reward measured length) and answer-only GSM8K (model ignores the instruction) were rejected on GPU
-pilots before training; see `task2_l2l/README.md`. Engine, GRPO, streaming, merge and checks are our own
-code (`task2_l2l/`); `transformers` supplies only the Qwen3 layer classes, config and tokenizer.
+**Setup.** Vast.ai RTX 3070 (8 GB physical, so the cap is the hardware; CUDA sees 7840 MiB), PCIe 4.0 x16 (25.5 GB/s
+measured), 31 GB RAM. Qwen3-4B non-thinking, bf16; LoRA r = 16 on all 7 linears × 36 layers (33 M params, fp32).
+GRPO: 4 prompts × G = 8, 100 steps, lr 2e-5, β = 0, sequence-normalised loss. **Task: Countdown-3** (reach a target
+with 3 numbers and + − × ÷; exact-fraction reward; 1500 train / 500 held-out, generated, disjoint), chosen on GPU
+pilots: ~20-token answers (each decoded token costs a 128 ms pass over streamed weights), base pass 0.34 at T = 1.
+GSM8K (0.94, no signal) and MATH 3–5 (41 % truncated) were rejected (§3). All engine/GRPO/streaming/merge code is
+ours (`task2_l2l/`); `transformers` supplies only the Qwen3 layer classes and tokenizer.
 
-## 1. Memory and time: predicted vs measured
+## 1. Memory, L2L, streaming (Parts 1–2)
 
-Prediction (`task1_budget/`, committed before the runs, re-run with measured hardware and the Countdown
-shape): 25 resident / 11 streamed layers, peak 7603 MiB (prefill), 22.2 s/step, 76 % generation.
-Smoke runs at 25 resident hit 7835 of 7840 MiB with 17 allocator retries per step (each retry flushed the
-cache: rollout 17 s instead of 3 s), so the main run used **24 resident** + `expandable_segments` (0 retries).
+The budget (`task1_budget/`, committed before any run) predicted 25 resident / 11 streamed layers and a 7603 MiB
+peak. At 25 resident the smoke run hit 7835 of 7840 MiB with 17 allocator retries per step (rollout 5.7× slower),
+so the runs used **24 resident** + `expandable_segments` (0 retries in every run).
 
-| quantity | predicted | measured (main run, 100 steps) | gap explained |
+| quantity | predicted | measured (main run) | why the gap |
 |---|---|---|---|
-| allocated peak | 7410 MiB at 24 resident, minus 233 MiB context = 7177 | **7232 MiB** | +55 MiB (0.8 %): `repeat_kv` and logits transients not in the ledger |
-| reserved peak | — | 7542 MiB | allocator cache: +310 MiB over allocated |
-| nvidia-smi peak (device-wide, sampled every 200 ms in every run) | 7603 at 25 | **7793 MiB** (≤ 7839 in any run) | = reserved 7542 + CUDA context 253 (re-measured with expandable_segments; 233 without) |
-| host RSS | 10.05 GiB | 5.27 GiB | ledger counted a full shard while loading; we read tensor by tensor |
-| decode, per weight pass | 128 ms (11 streamed × 7.9 ms copy; PCIe-bound) | **128 ms** | matches: decode is pure transfer |
-| decode passes / step | 128 (always to max length) | mean 75.6, max 127 | generation stops when the last sequence ends: one long completion sets the step |
-| prefill | 0.56 s | 1.26 s | micro-batches of 2 × 96 tokens: GEMMs far below the 42 TFLOPS measured at 12k rows |
-| train fwd + bwd | 5.3 s | 9.1 s | same: 32 micro-batches of 224 tokens per layer, ×3 passes; FLOP model assumed peak GEMM rate |
-| step | 22.2 s, 76 % generation | mean 20.1 s, median 26.7 s, **55 % generation** | shorter decode, slower training |
-| merge GPU | 0.51 GiB | 441 MiB allocated, 661 MiB nvidia-smi | context; one tensor at a time |
+| allocated peak | 7177 MiB (24 res.) | 7232 MiB | +0.8 %: `repeat_kv` and logits transients not in the ledger |
+| nvidia-smi peak (200 ms samples, every run) | 7603 MiB (25 res.) | **7793 MiB** (≤ 7839 any run) | reserved 7542 + CUDA context 253 |
+| decode, per weight pass | 128 ms (25 res.) | **128 ms** | 12 copies × 7.9 ms (96 ms, PCIe) + resident compute |
+| prefill / train fwd+bwd | 0.56 s / 5.3 s | 1.26 s / 9.1 s | small micro-batches run GEMMs far below the peak rate assumed |
+| step; generation share | 22.2 s; 76 % | 20.1 s mean; **55 %** | generation stops at the longest completion (75.6 of 128 passes) |
+| host RSS | 10.05 GiB | 5.27 GiB | weights read tensor by tensor, not a full shard |
 
-Copy/compute overlap (CUDA events per layer copy vs compute-stream stall): training hides **97 %** of copy
-time (big GEMMs), rollout only **35 %** (a decode pass has ~1 ms of compute per 7.9 ms copy). The L2L
-bottleneck is PCIe during decode, as predicted; one more resident layer would save ~0.9 s/step.
+- **L2L** (`engine.py`): exact-size pinned host buffers; resident slots + 2 rotating prefetch slots; copies on a
+  separate stream ordered by events; boundary checkpoints in pinned host memory; layer-by-layer backward by
+  recompute. One layer loop serves prefill, decode, scoring and training. Overlap: training hides **97 %** of
+  copy time, decode **35 %** (1 ms compute per 7.9 ms copy). **Bottleneck: PCIe in decode, as predicted.**
+- **Equivalence** (`equivalence.py`, GPU, bf16 vs fp32 truth): streamed logits **bit-identical** to resident;
+  LoRA gradients pass err(stream) ≤ 1.5 × err(reference) per tensor (worst 1.26) on Qwen3-0.6B (28 layers
+  streamed) and Qwen3-4B (4 layers). The tolerance is the reference's own bf16 error. A swapped-layer control fails.
+- **Resume** (GPU, `runs/resume_demo`): SIGKILL at 3 points (after an update, mid-rollout, after a checkpoint):
+  sample ledger = uninterrupted run, 0 duplicates, 0 gaps, identical rollout tokens and rewards for all 10 steps.
+- **H6 dynamic-residency A/B** (A-B-B-A, 12 paired steps, identical rollouts): +1 resident layer only, its saved
+  copy eaten by paged-KV overhead: **+0.1 % [−0.4, +0.8]** < 2 % rule → keep regular. H1 (gen ≥ 70 %) also failed (55 %).
+- **Merge** (`merge.py`): tensor by tensor, 15 s, 661 MiB nvidia-smi. **DFlash: not done** (optional per the
+  team); the budget says it pays only above τ = 2.06, since the 1 GB drafter displaces ~10 resident layers.
 
-## 2. L2L, streaming, merge
+## 2. Did the model actually train? (Part 3)
 
-- **L2L engine** (`engine.py`): pinned host store (exact-size `cudaHostRegister`), resident slots + 2 rotating
-  prefetch slots, copies on a separate stream ordered by events, activations checkpointed at layer boundaries
-  (pinned host), layer-by-layer backward by recompute. One layer loop serves prefill, decode (KV cache),
-  scoring and training. GRPO step: rollout (prefill + 1 pass per token) → disk → train forward → backward.
-- **Equivalence** (`equivalence.py`, on the GPU, bf16, truth = fp32): logits streamed vs resident
-  **bit-identical**; LoRA gradients pass `err(stream) ≤ 1.5 · err(reference)` against the fp32 truth, per
-  tensor and in aggregate (worst ratio 1.20–1.26; Qwen3-0.6B 28 layers all streamed, and Qwen3-4B 4 layers).
-  The tolerance is the reference's own bf16 error, so streaming may not add more than half again of it. On
-  CPU 26 tests are bit-exact, with controls that must fail (swapped layers: error 1.13 vs 5e-7).
-- **Deterministic resume, on the GPU** (`runs/resume_demo`): SIGKILL after step 3's update, after step 6's
-  rollout, after step 8's checkpoint; 4 attempts. Sample ledger identical to the uninterrupted main run,
-  0 duplicates, 0 gaps, and **rollout tokens and rewards identical for all 10 steps**. CPU tests also cover
-  an epoch boundary and bit-identical final LoRA.
-- **Merge** (`merge.py`): tensor by tensor, shard by shard; 15 s; GPU peak above; host 8.6 GiB.
-- **DFlash**: not done (optional per the team). The budget predicts it pays only above τ ≈ 2.06 accepted
-  tokens per pass, because the resident drafter (1 GB plus its buffers) displaces ~10 resident layers (25 → 15).
+A rising reward proves nothing (GRPO's loss is ~0 by construction; here reward was flat anyway, 0.40 → 0.41, with
+72 % of groups at zero variance). `verify.py` (rules fixed before any run) compares five arms on 500 held-out items,
+greedy, paired bootstrap 95 % CIs: base, adapter, merged, a **shuffled-reward control** (same pipeline, rewards
+permuted) and a **random-direction adapter** (same per-tensor ‖ΔW‖).
 
-## 3. Did the model actually train?
+| arm | pass | × ÷ items (140) | pass on 1st `<answer>` | >1 `<answer>` | truncated | tokens |
+|---|---|---|---|---|---|---|
+| base | 0.318 | 0.129 | 0.316 | 1.6 % | 2.0 % | 19 |
+| adapter | 0.430 | 0.036 | 0.370 | 18.0 % | 10.8 % | 34 |
+| shuffled control | 0.404 | 0.021 | 0.404 | 0 % | 55.8 % | 119 |
+| merged (bf16) | 0.502 | 0.043 | 0.488 | 7.0 % | 4.2 % | 23 |
+| random direction | 0.320 | 0.129 | 0.316 | 1.4 % | 1.6 % | 19 |
 
-`verify.py` (rules written before any run): base, adapter, merged, shuffled-reward control (same pipeline and
-steps; rewards permuted across the batch), plus a random-direction control (`random_adapter.py`: same
-per-tensor ‖ΔW‖ as the trained adapter, random direction). 500 held-out items, greedy, max 128 tokens, paired
-bootstrap 95 % CIs. Full output: `task2_l2l/results/analysis.md`, `runs/verify/verify_report.json`.
+Rules: **R1** adapter − base > 0: +0.112 [+0.060, +0.162], pass. **R2** adapter − control > 0: +0.026
+[−0.018, +0.070], **fail**. **R3** merged − adapter ∋ 0: +0.072 [+0.040, +0.104], 65 % identical text, **fail** (passes in fp32, item 4).
+**R4** not format-only: every arm uses the tag, pass.
 
-| arm | pass | +/− items (360) | needs × or ÷ (140) | pass, first `<answer>` | >1 `<answer>` | truncated | mean tokens |
-|---|---|---|---|---|---|---|---|
-| base | 0.318 | 0.392 | 0.129 | 0.316 | 1.6 % | 2.0 % | 19 |
-| adapter | 0.430 | 0.583 | 0.036 | 0.370 | 18.0 % | 10.8 % | 34 |
-| shuffled control | 0.404 | 0.553 | 0.021 | 0.404 | 0 % | 55.8 % | 119 |
-| merged (bf16) | 0.502 | 0.681 | 0.043 | 0.488 | 7.0 % | 4.2 % | 23 |
-| random direction, attached | 0.320 | 0.394 | 0.129 | 0.316 | 1.4 % | 1.6 % | 19 |
-| random direction, merged | 0.320 | 0.394 | 0.129 | 0.316 | 1.6 % | 1.8 % | 19 |
+1. **A reward-free run gains almost as much** (control − base +8.6 pts [+3.6, +13.4]). Random advantages are not
+   neutral under sequence normalisation: a long completion spreads its negative advantage over more tokens, so
+   length drifts up (Dr. GRPO's length bias; 19 → 119 tokens), and here longer reasoning is more often right.
+2. **Half the gain is hedging**: an answer, "Note: this is wrong…", a second answer; the reward reads the last.
+   Graded on the first answer (what a user reads): adapter − base +0.054 [0.000, +0.108]; vs control −0.034.
+3. **Worse at × ÷** (−0.093 [−0.157, −0.029]): it won the easy +/− items and the aggregate hides the regression.
+4. **The merge changed the model, and so does precision.** The update is ~0.08 % of a weight, below bf16's
+   half-step (0.39 %): 82 % of elements round back to base. Not eval noise: the random-direction adapter changes
+   6 % of outputs (ours 84 %), and its merge equals its adapter. An **fp32 rerun** (`fp32_check.py`): merged ≡
+   adapter (−0.004 [−0.010, 0.000], 97.6 % identical), so `merge.py` is right; but the *same* adapter scores 0.374
+   in fp32 vs 0.430 in bf16 (−5.6 pts [−8.4, −3.0]). Its greedy outputs flip with numeric precision.
 
-| rule | result | |
-|---|---|---|
-| R1 adapter − base > 0 | +0.112 [+0.060, +0.162] | pass |
-| R2 adapter − control > 0 | +0.026 [−0.018, +0.070] | **fail** |
-| R3 merged − adapter ∋ 0 | +0.072 [+0.040, +0.104]; same text on 65 % of items | **fail** |
-| R4 not format only | every arm answers in the tag; +0.112 | pass |
+**Not detected:** pre-training contamination; scorer bias shared by all arms; regressions outside Countdown;
+effects below ~±5 pts; sampling behaviour (greedy only); seed variance (one run per arm).
 
-What the numbers say:
-1. **The control gained almost as much.** With shuffled rewards the policy drifted to long step-by-step
-   reasoning (19 → 119 tokens): when it finishes it is right 91 % of the time, but 56 % of its answers are
-   cut at 128 tokens. Random advantages are not neutral: under sequence-normalised GRPO, a long completion
-   spreads its negative advantage over more tokens, so length drifts up (the length bias described in the
-   Dr. GRPO paper), and on this model longer = more reasoning = more correct. A reward-free change of style
-   moves held-out accuracy by +8.6 pts [+3.6, +13.4], so a +11 pt gain is not evidence of learning from the reward.
-2. **Half the adapter's gain is hedging.** 18 % of adapter outputs give an answer, a "Note: this is wrong…",
-   then a second answer. The reward grades the last tag. Graded on the first answer (what a user reads),
-   adapter − base is +0.054 [0.000, +0.108] and adapter − control −0.034 [−0.080, +0.012].
-3. **It got worse at × and ÷.** Items that need × or ÷: 0.129 → 0.036 (−0.093 [−0.157, −0.029]). The policy
-   collapsed to +/− expressions, which win often on the easy items. Training reward stayed flat
-   (0.40 → 0.41; 72 % of groups had zero reward variance and gave no gradient).
-4. **The merged model is a different model.** The mean LoRA update is 0.08 % of a weight, below bf16's
-   0.39 % step: 82 % of elements round back to the base value, and the merge keeps only 50–92 % of each
-   tensor's delta (`runs/merge/merge_report.json`). The merged model then scores *higher* than the adapter it
-   came from (+7.2 pts), with fewer hedged answers (7 % vs 18 %). This is not eval noise: the random-direction
-   control, with the same per-tensor ‖ΔW‖, moves nothing (+0.002 [−0.010, +0.014], 94 % identical text to
-   base), and its merge scores the same as its adapter (+0.000 [−0.008, +0.008], 94 % identical text). Rounding the *trained* delta, whose surviving elements are
-   the large ones along a direction the model is sensitive to, produces a different policy. A shipped merged
-   model would not be the policy that was trained or evaluated.
-5. **The adapter is alive and specific.** The trained update changes greedy text on 84 % of items; the
-   random one of equal size on 6 %. So "the adapter did nothing" is ruled out; what it learned is the problem.
+## 3. Silent failures (Part 4): each one finishes without an error
 
-What this check does **not** detect: contamination of the held-out set in pre-training; a bias shared by
-every arm's scorer; regressions outside Countdown (no general benchmark was run); effects below the CI
-half-width (~±5 pts at n = 500); sampling-time behaviour (greedy only); seed variance (one seed per run).
-
-## 4. Silent failures (each one finishes without an error)
-
-| stage | what goes wrong silently | how we checked / evidence | caught by Soup? |
+| stage | what breaks silently | how checked · evidence | Soup check catches it? |
 |---|---|---|---|
-| data | train/held-out overlap inflates the held-out gain | `prepare_countdown.py` asserts disjoint keys; prepare_data drops 7 MATH train items found in test | data doctor: no (template/EOS/roles/input-truncation only) |
-| data → reward | task too easy (GSM8K 0.94): no gradient; or the reward measures length (MATH: 41 % truncated, finished answers 96 % right) | GPU pilots with k = 8 before training: pass rate, zero-variance groups, truncation | no; `soup advise` checks memory/ROI, not reward signal |
-| template | instruction ignored (answer-only GSM8K: 88 % truncated); thinking mode on | pilots; `enable_thinking=False` asserted in train/eval; prompt-style mismatch aborts eval | data doctor checks the chat template renders, not the model's compliance |
-| reward | parser too strict (`\$18`, `1{,}000` scored 0) or too loose; **last-tag rule rewards hedging** (18 % of adapter outputs) | 32 + Countdown adversarial unit tests; first-tag rescoring (§3.2) | no |
-| GRPO | zero-variance groups (72 %) silently give no gradient; random advantages still drift length | logged per step; shuffled-reward control (§3.1) | no |
-| GRPO / policy | gain on easy items hides a regression (× ÷ −9 pts) | per-subset paired CIs | `soup ship` compares one aggregate number |
-| L2L memory | pinned memory 2× the ledger (power-of-two rounding: 9.2 GB vs 3.1); allocator retries (17/step, rollout 5.7× slower) visible only in `torch.cuda.memory_stats`; CUDA sees 7840 of 8192 MiB | review + ledger; retry counter per phase; nvidia-smi at 200 ms | no |
-| L2L sync | prefetch not ordered after the previous pass's compute: hidden by incidental syncs | review; fixed with persistent events; GPU equivalence test | no |
-| on-policy | rollout log-prob ≠ training log-prob (bf16 decode vs recompute): mean 0.008, max 1.6 nats | logged every step (`rollout_vs_train_*`) | no. Harmless at ratio = 1; would bias PPO clipping or a KL term |
-| streaming | duplicate samples when killed before the first checkpoint | test (fixed); GPU kill/resume demo identical to the uninterrupted run | no |
-| merge | **bf16 rounding swallows most of the LoRA delta**: the merged model ≠ the adapter | `merge_report.json` delta_kept / changed_frac; merged vs adapter arm; random-direction control | `soup ship` measures `AdapterChange` but it is "never part of the decision" |
-| eval | cached arm reused across prompt styles | guard in `verify.py` (asserts style and max_new) | no |
-| deps | transformers 5.x changed Qwen3 rotary/layer signatures | pinned 4.52.3 | no |
+| data | too easy (GSM8K 0.94) or reward measures length (MATH 41 % truncated); instruction ignored (88 % truncated) | GPU pilots: pass rate, zero-var groups, truncation | no: data doctor checks template/EOS/roles |
+| reward | **last tag graded: hedging pays (18 %)**; parser too strict (`\$18` → 0) | first-tag rescoring; 32 parser tests | no |
+| GRPO | 72 % zero-variance groups; random advantages drift length | per-step log; shuffled control | no |
+| policy | easy-item gain hides × ÷ regression | per-subset CIs | no: one aggregate |
+| L2L memory | pinned memory 2× ledger (power-of-two rounding); allocator retries, rollout 5.7× slower | exact-size `cudaHostRegister`; retry counter | no |
+| L2L sync | prefetch not ordered after previous compute | review; events; GPU equivalence | no |
+| on-policy | rollout ≠ training log-prob (max 1.6 nats) | logged; harmless at ratio 1 | no |
+| streaming | duplicates if killed before 1st checkpoint | test (fixed); GPU kill demo | no |
+| merge | **bf16 rounding swallows the delta** | `merge_report.json`; merged arm | no: `AdapterChange` never decides |
 
-`soup ship` (read from its source, `utils/ship_verdict.py`): SHIP ⇔ tuned > base on the task metric
-(strict, point estimate unless a noise floor is configured) and no general-benchmark regression. Our adapter
-passes that leg (0.430 > 0.318). Nothing in it compares against a negative control, checks that the merged
-artifact matches the adapter, or rescores the answer the way a user reads it.
+`soup ship` (`utils/ship_verdict.py`): SHIP if tuned > base with no general regression. **This adapter passes
+it** (0.430 > 0.318): nothing there compares to a negative control, checks merged ≡ adapter, or rescores the
+answer a user reads.
 
-## 5. Verdict: DON'T SHIP
+## 4. Verdict: DON'T SHIP, and what must change first (in priority order)
 
-The engineering is sound: under 8 GB on nvidia-smi in every phase, equivalence and resume proven, the time
-model right where it is transfer-bound. The model is not: (1) no gain over a reward-free control; (2) the
-measured gain partly comes from multi-answer hedging and a collapse to +/−; (3) the artifact users would get
-(merged bf16) is not the evaluated policy. What must change first:
-1. Reward: exactly one `<answer>` (0 otherwise), and a length/format penalty or a token-level (Dr. GRPO)
-   loss so random advantages cannot drift length.
-2. Signal: harder-balanced prompts or larger G so fewer groups have zero variance; report × ÷ separately as
-   a gate; more steps, ≥ 3 seeds per arm, and the shuffled control as a required arm.
-3. Ship the adapter unmerged, or merge into fp32 target weights, and gate on merged ≡ adapter (text identity
-   ≥ 99 % at greedy).
-4. Soup: make the negative control and merged-vs-adapter checks part of `soup ship`'s decision.
+1. **Reward:** exactly one `<answer>` tag, else 0. **Loss:** token-level normalisation (Dr. GRPO), so random
+   advantages cannot drift length. These remove the two effects behind the measured gain.
+2. **Signal:** keep only prompts with base pass rate in (0, 1) at k = 8 (72 % of groups were wasted); gate on
+   × ÷ separately; ≥ 3 seeds per arm, with the shuffled control as a required arm.
+3. **Artifact:** ship the adapter unmerged or merged in fp32 (verified ≡ adapter); gate on merged ≡ adapter,
+   and evaluate at the precision users will run, since this policy's score moves 5.6 pts between bf16 and fp32.
+4. **Soup:** make the negative control and the merged-vs-adapter check part of `soup ship`'s decision.
 
-## Surprises and concerns
+**Surprises and concerns.** The shuffled control produced the largest behaviour change of any run and nearly
+the "real" gain; without it this run looks like a clean +11-pt success. Second, numeric precision alone (bf16
+merge, or fp32 compute) moves this policy's score by 6–13 pts: its greedy outputs sit on near-ties. Concerns: one
+seed per arm; greedy only; 128 tokens cut the control's reasoning (0.404 is a lower bound); no general benchmark.
 
-The biggest surprise was the shuffled-reward control: it produced the largest behaviour change of any run
-and a held-out gain close to the "real" one. Without it this run would look like a clean success (+11 pts,
-CI excluding 0). The second was the merge: a delta of 0.08 % of each weight is mostly rounded away in bf16,
-and the result is a different model that happens to score better here. What still concerns me: one seed per
-arm, so the control's length drift may be one outcome of several; greedy only; max 128 tokens cuts the
-control's reasoning, so its 0.404 is a lower bound; and no general benchmark, so regressions outside the task
-are unmeasured.
+**AI tools.** Claude Code (Opus) wrote most code, ran the GPU jobs and drafted this report; a fresh-context
+instance reviewed the engine (6 findings, all fixed, e.g. pinned memory 2×, a missing stream dependency, resume
+duplicates). Human decisions are in git (dataset, pre-registered rules, 24 resident, keeping the merge). The
+tools failed where they predicted rather than measured (training time, first dataset picks).
 
-## AI tools
-
-Claude Code (Opus) wrote most of the code, ran the GPU jobs and drafted this report. A second, fresh-context
-instance reviewed the engine: 6 findings, all fixed (pinned memory 2×, a missing stream dependency, a
-wrong-device stash, reward parser gaps, resume duplicates). Human decisions and corrections are in the git
-history: dataset choice and the rejection of GSM8K/MATH, pre-registered rules, 24 resident layers, keeping the
-merge. Tools were unreliable where they predicted instead of measured (the 5.3 s training estimate; the first
-dataset picks); every number in this report comes from a log in the repo.
-
-Evidence: `logs/` (timestamped), `task2_l2l/runs/*/logs/*.csv` and `runs/verify/*.nvsmi*.csv` (nvidia-smi
-every 200 ms, device-wide and per process), `task2_l2l/verify.py` (Part 3 check), `task2_l2l/equivalence.py`
-+ `tests/` (CPU test suite), `task2_l2l/results/analysis.md` (all numbers above, regenerated by `analyze.py`).
+**Evidence.** `logs/`, nvidia-smi CSVs (200 ms, every run), `verify.py`, `equivalence.py`, `tests/`; numbers in `task2_l2l/results/`.

@@ -1,0 +1,131 @@
+[32mActivated conda/uv virtual environment at [36m/venv/main[0m
+Wed Nov 18 17:50:40 UTC 2026
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 4125.00it/s]
+batch 1/32: 59 s, pass so far 0.500, alloc retries 0
+batch 2/32: 118 s, pass so far 0.562, alloc retries 0
+batch 3/32: 176 s, pass so far 0.458, alloc retries 0
+batch 4/32: 235 s, pass so far 0.422, alloc retries 0
+batch 5/32: 293 s, pass so far 0.375, alloc retries 0
+batch 6/32: 351 s, pass so far 0.344, alloc retries 0
+batch 7/32: 410 s, pass so far 0.330, alloc retries 0
+batch 8/32: 468 s, pass so far 0.336, alloc retries 0
+batch 9/32: 527 s, pass so far 0.340, alloc retries 0
+batch 10/32: 585 s, pass so far 0.344, alloc retries 0
+batch 11/32: 644 s, pass so far 0.352, alloc retries 0
+batch 12/32: 702 s, pass so far 0.359, alloc retries 0
+batch 13/32: 761 s, pass so far 0.370, alloc retries 0
+batch 14/32: 819 s, pass so far 0.375, alloc retries 0
+batch 15/32: 877 s, pass so far 0.362, alloc retries 0
+batch 16/32: 936 s, pass so far 0.359, alloc retries 0
+batch 17/32: 994 s, pass so far 0.360, alloc retries 0
+batch 18/32: 1053 s, pass so far 0.368, alloc retries 0
+batch 19/32: 1111 s, pass so far 0.375, alloc retries 0
+batch 20/32: 1170 s, pass so far 0.359, alloc retries 0
+batch 21/32: 1228 s, pass so far 0.360, alloc retries 0
+batch 22/32: 1286 s, pass so far 0.355, alloc retries 0
+batch 23/32: 1345 s, pass so far 0.361, alloc retries 0
+batch 24/32: 1403 s, pass so far 0.365, alloc retries 0
+batch 25/32: 1462 s, pass so far 0.365, alloc retries 0
+batch 26/32: 1520 s, pass so far 0.365, alloc retries 0
+batch 27/32: 1579 s, pass so far 0.373, alloc retries 0
+batch 28/32: 1637 s, pass so far 0.371, alloc retries 0
+batch 29/32: 1696 s, pass so far 0.373, alloc retries 0
+batch 30/32: 1754 s, pass so far 0.373, alloc retries 0
+batch 31/32: 1812 s, pass so far 0.377, alloc retries 0
+batch 32/32: 1870 s, pass so far 0.374, alloc retries 0
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": "runs/main/adapter.pt",
+ "data": "data/countdown3/heldout",
+ "n_items": 500,
+ "k": 1,
+ "temperature": 0.0,
+ "prompt_style": "plain",
+ "max_new": 128,
+ "pass_rate": 0.374,
+ "ci95": [
+  0.33,
+  0.418
+ ],
+ "has_box_rate": 1.0,
+ "truncated_rate": 0.202,
+ "mean_length": 45.672,
+ "seconds": 1870.1546115875244,
+ "zero_var_group_frac": null,
+ "alloc_conf": "expandable_segments:True",
+ "dtype": "float32",
+ "merge_in_memory": false,
+ "merge_stats": null,
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 6728.2373046875,
+ "gpu_reserved_peak_mib": 6774.0
+}
+Wed Nov 18 18:22:01 UTC 2026
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 3759.68it/s]
+batch 1/32: 59 s, pass so far 0.500, alloc retries 0
+batch 2/32: 117 s, pass so far 0.562, alloc retries 0
+batch 3/32: 175 s, pass so far 0.458, alloc retries 0
+batch 4/32: 233 s, pass so far 0.422, alloc retries 0
+batch 5/32: 291 s, pass so far 0.375, alloc retries 0
+batch 6/32: 349 s, pass so far 0.344, alloc retries 0
+batch 7/32: 407 s, pass so far 0.330, alloc retries 0
+batch 8/32: 465 s, pass so far 0.336, alloc retries 0
+batch 9/32: 523 s, pass so far 0.340, alloc retries 0
+batch 10/32: 581 s, pass so far 0.344, alloc retries 0
+batch 11/32: 639 s, pass so far 0.347, alloc retries 0
+batch 12/32: 697 s, pass so far 0.354, alloc retries 0
+batch 13/32: 755 s, pass so far 0.365, alloc retries 0
+batch 14/32: 813 s, pass so far 0.371, alloc retries 0
+batch 15/32: 871 s, pass so far 0.358, alloc retries 0
+batch 16/32: 929 s, pass so far 0.355, alloc retries 0
+batch 17/32: 987 s, pass so far 0.357, alloc retries 0
+batch 18/32: 1045 s, pass so far 0.365, alloc retries 0
+batch 19/32: 1103 s, pass so far 0.372, alloc retries 0
+batch 20/32: 1161 s, pass so far 0.356, alloc retries 0
+batch 21/32: 1219 s, pass so far 0.357, alloc retries 0
+batch 22/32: 1277 s, pass so far 0.352, alloc retries 0
+batch 23/32: 1335 s, pass so far 0.359, alloc retries 0
+batch 24/32: 1393 s, pass so far 0.362, alloc retries 0
+batch 25/32: 1451 s, pass so far 0.362, alloc retries 0
+batch 26/32: 1509 s, pass so far 0.363, alloc retries 0
+batch 27/32: 1567 s, pass so far 0.370, alloc retries 0
+batch 28/32: 1625 s, pass so far 0.366, alloc retries 0
+batch 29/32: 1683 s, pass so far 0.369, alloc retries 0
+batch 30/32: 1741 s, pass so far 0.369, alloc retries 0
+batch 31/32: 1799 s, pass so far 0.373, alloc retries 0
+batch 32/32: 1857 s, pass so far 0.370, alloc retries 0
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": "runs/main/adapter.pt",
+ "data": "data/countdown3/heldout",
+ "n_items": 500,
+ "k": 1,
+ "temperature": 0.0,
+ "prompt_style": "plain",
+ "max_new": 128,
+ "pass_rate": 0.37,
+ "ci95": [
+  0.324,
+  0.412
+ ],
+ "has_box_rate": 1.0,
+ "truncated_rate": 0.198,
+ "mean_length": 45.316,
+ "seconds": 1856.6864664554596,
+ "zero_var_group_frac": null,
+ "alloc_conf": "expandable_segments:True",
+ "dtype": "float32",
+ "merge_in_memory": true,
+ "merge_stats": {
+  "merged_tensors": 252,
+  "delta_kept_min": 0.9999919533729553,
+  "delta_kept_mean": 0.9999994524414577
+ },
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 6626.1123046875,
+ "gpu_reserved_peak_mib": 6672.0
+}
+Wed Nov 18 18:53:25 UTC 2026
+EXIT_CODE=0
