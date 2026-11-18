@@ -131,6 +131,7 @@ def main():
     ap.add_argument("--temperature", type=float, default=0.0)
     ap.add_argument("--max-new", type=int, default=512)
     ap.add_argument("--reward", default="math_boxed")
+    ap.add_argument("--prompt-style", default="cot", choices=["cot", "direct", "plain"])
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--dtype", default="bfloat16")
     ap.add_argument("--resident", type=int, default=20)
@@ -147,12 +148,17 @@ def main():
     if args.control:
         arms["control"] = (args.model, args.control)
     common = ["--data", args.data, "--n", str(args.n), "--k", str(args.k), "--temperature", str(args.temperature),
-              "--max-new", str(args.max_new), "--reward", args.reward, "--device", args.device, "--dtype", args.dtype,
+              "--max-new", str(args.max_new), "--reward", args.reward, "--prompt-style", args.prompt_style,
+              "--device", args.device, "--dtype", args.dtype,
               "--resident", str(args.resident), "--batch", str(args.batch), "--seed", "0"]
     if args.layers:
         common += ["--layers", str(args.layers)]
     for nm, (model, adapter) in arms.items():
         if Path(f"{out / nm}.summary.json").exists():
+            old = json.load(open(f"{out / nm}.summary.json"))
+            got = (old.get("prompt_style", "cot"), old.get("max_new", args.max_new))
+            assert got == (args.prompt_style, args.max_new), \
+                f"{nm}: cached summary has (prompt_style, max_new)={got}, asked {(args.prompt_style, args.max_new)}"
             print(f"{nm}: reusing {out / nm}.summary.json", flush=True)
             continue
         cmd = [sys.executable, str(HERE / "evaluate.py"), "--model", model, "--out", str(out / nm), *common]

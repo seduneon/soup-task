@@ -67,6 +67,8 @@ def merge(base_dir, adapter, out_dir, device="cpu"):
                 out[k] = t.contiguous()
         save_file(out, out_dir / fn, metadata=meta or {"format": "pt"})
         del out
+        print(f"{time.strftime('%H:%M:%S')} shard {fn} written ({merged} tensors merged so far, "
+              f"{time.time() - t0:.0f} s)", flush=True)
     for p in base_dir.iterdir():  # config, tokenizer, index
         if p.is_file() and p.suffix != ".safetensors":
             shutil.copy(p, out_dir / p.name)

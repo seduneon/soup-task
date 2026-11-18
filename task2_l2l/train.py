@@ -35,7 +35,7 @@ from engine import StreamedQwen3
 from grpo import completion_targets, diagnostics, group_advantages, make_loss, rollout_logp_grid, token_coef
 from lora import LoRAParams, lora_shapes
 from monitor import MiB, NvSmi, Phases
-from reward import PROMPT_SUFFIX, REWARDS
+from reward import PROMPT_SUFFIXES, REWARDS
 from store import LayerStore
 
 HERE = Path(__file__).parent
@@ -74,8 +74,8 @@ def build(cfg):
     return mcfg, tok, eng, lora
 
 
-def encode(tok, question):
-    text = tok.apply_chat_template([{"role": "user", "content": question + PROMPT_SUFFIX}], tokenize=False,
+def encode(tok, question, style="cot"):
+    text = tok.apply_chat_template([{"role": "user", "content": question + PROMPT_SUFFIXES[style]}], tokenize=False,
                                    add_generation_prompt=True, enable_thinking=False)
     return tok(text, add_special_tokens=False).input_ids
 
@@ -90,6 +90,11 @@ def maybe_kill(out, step, where, points):
         if not marker.exists():
             marker.touch()
             os.kill(os.getpid(), signal.SIGKILL)
+
+
+def say(msg):
+    """Console progress for a person watching (tmux / log tail); train_log.jsonl stays the record."""
+    print(f"{time.strftime('%H:%M:%S')} {msg}", flush=True)
 
 
 def append_jsonl(path, obj):
@@ -116,6 +121,7 @@ def main():
 
 def run(cfg, out):
     stream = PromptStream(cfg["data_dir"], seed=cfg["seed"])  # before the model load: a bad path fails in seconds
+    say(f"loading {cfg['model']} (resident {cfg['resident']}, streaming {cfg['streaming']}) -> {out}")
     mcfg, tok, eng, lora = build(cfg)
     dev = eng.device
     eng.profile = bool(cfg.get("profile_overlap")) and eng.cuda
@@ -149,10 +155,15 @@ def run(cfg, out):
     append_jsonl(out / "attempts.jsonl", {"time": time.time(), "pid": os.getpid(),
                                           "event": "resume" if step0 else "start", "step": step0,
                                           "stream": stream.state_dict()})
+    say(f"{'resume' if step0 else 'start'} at step {step0} of {cfg['steps']}"
+        f"{' (reward_shuffle control)' if cfg.get('reward_shuffle') else ''}")
+    t_run = time.time()
 
     for step in range(step0, cfg["steps"]):
+        t_step = time.time()
+        say(f"step {step}: rollout ({cfg['prompts']} prompts x G={cfg['G']}, max_new {cfg['max_new']})")
         recs = stream.next(cfg["prompts"])
-        prompts = [encode(tok, r["prompt"]) for r in recs for _ in range(cfg["G"])]
+        prompts = [encode(tok, r["prompt"], cfg.get("prompt_style", "cot")) for r in recs for _ in range(cfg["G"])]
         too_long = {r["id"]: len(p) for r, p in zip(recs, prompts[::cfg["G"]]) if len(p) > cfg["max_prompt"]}
         assert not too_long, (f"prompts longer than max_prompt={cfg['max_prompt']} tokens {too_long}: the memory "
                               f"plan assumes P <= max_prompt (filter with prepare_data.py --max-prompt-tokens)")
@@ -178,6 +189,7 @@ def run(cfg, out):
         ids, attn, comp = data["ids"], data["attn"], data["comp"]
         targets = completion_targets(ids, comp)
         adv, adv_stats = group_advantages(data["train_rewards"], cfg["G"], scale_std=cfg["adv_std"])
+        say(f"step {step}: rollout done in {time.time() - t_step:.0f} s, reward {float(rewards.mean()):.3f}; training")
         ref = None
         if cfg["beta"] > 0:
             with phases("ref"), eng.adapter_off():
@@ -194,6 +206,15 @@ def run(cfg, out):
         maybe_kill(out, step, "train", points)
         diag = diagnostics(targets, stash.view(ids.shape).cpu(), rollout_logp_grid(ro, ids.shape[1]), ref)
         lengths = comp.sum(-1).float()
+        ph = phases.rec
+        done, left = step - step0 + 1, cfg["steps"] - step - 1
+        eta = (time.time() - t_run) / done * left
+        say(f"step {step} done in {time.time() - t_step:.0f} s | reward {float(data['rewards'].mean()):.3f} "
+            f"zero-var groups {adv_stats['zero_std_groups']:.2f} | grad {grad_norm:.3g} | "
+            f"len {float(lengths.mean()):.0f} trunc {float((~data['finished']).float().mean()):.2f} | "
+            f"peak {max((r.get('device_used_mib', 0) for r in ph.values()), default=0)} MiB "
+            f"retries {sum(r.get('alloc_retries', 0) for r in ph.values())} | "
+            f"ETA {eta / 60:.0f} min ({left} steps)")
         append_jsonl(out / "train_log.jsonl", {
             "time": time.time(), "pid": os.getpid(), "step": step, "epoch": recs[0]["_epoch"],
             "sample_ids": data["sample_ids"], "phases": phases.pop(),
@@ -211,6 +232,7 @@ def run(cfg, out):
             atomic_torch_save({"step": step, "lora": lora.state_dict(), "opt": opt.state_dict(),
                                "stream": stream.state_dict(), "gen": gen.get_state(), "config": cfg},
                               out / "checkpoint.pt")
+            say(f"step {step}: checkpoint saved")
         maybe_kill(out, step, "after_ckpt", points)
     atomic_torch_save({"lora": lora.state_dict(), "r": lora.r, "alpha": lora.alpha, "targets": lora.targets,
                        "config": cfg}, out / "adapter.pt")

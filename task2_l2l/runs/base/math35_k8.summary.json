@@ -1,0 +1,19 @@
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": null,
+ "data": "data/math35/train",
+ "n_items": 64,
+ "k": 8,
+ "temperature": 1.0,
+ "pass_rate": 0.58984375,
+ "ci95": [
+  0.486279296875,
+  0.689453125
+ ],
+ "has_box_rate": 0.623046875,
+ "truncated_rate": 0.40625,
+ "mean_length": 411.681640625,
+ "seconds": 2414.3349158763885,
+ "gpu_alloc_peak_mib": 6542.40380859375,
+ "gpu_reserved_peak_mib": 7558.0
+}

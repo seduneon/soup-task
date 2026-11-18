@@ -1,0 +1,627 @@
+{
+ "scenarios": {
+  "default": {
+   "resident": 25,
+   "peak_mib": {
+    "prefill": 7602.78466796875,
+    "decode": 7586.47216796875,
+    "ref": 7010.62060546875,
+    "train": 7364.66845703125
+   },
+   "binding": "prefill",
+   "time": [
+    {
+     "phase": "prefill",
+     "tokens": 3072,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.5558498626543442,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 14.72 / VRAM 0.60"
+    },
+    {
+     "phase": "decode",
+     "tokens": 32,
+     "passes": 128,
+     "mult": 2,
+     "s": 16.377502060748114,
+     "bound": "PCIe",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 0.15 / VRAM 0.60"
+    },
+    {
+     "phase": "ref log-probs",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train forward",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train backward (recompute + dX)",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 4,
+     "s": 2.5847847760737763,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 69.05 / VRAM 1.21"
+    }
+   ],
+   "step_s": 22.201846211012768,
+   "gen_s": 16.93335192340246,
+   "prompts": 4,
+   "B": 32,
+   "s_per_prompt": 5.550461552753192,
+   "s_per_seq": 0.693807694094149
+  },
+  "dynamic": {
+   "resident": 25,
+   "peak_mib": {
+    "prefill": 7602.78466796875,
+    "decode": 7586.47216796875,
+    "ref": 7010.62060546875,
+    "train": 7364.66845703125
+   },
+   "binding": "prefill",
+   "time": [
+    {
+     "phase": "prefill",
+     "tokens": 3072,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.5558498626543442,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 14.72 / VRAM 0.60"
+    },
+    {
+     "phase": "decode",
+     "tokens": 32,
+     "passes": 128,
+     "mult": 2,
+     "s": 15.019752291437245,
+     "bound": "PCIe",
+     "resident": "25\u201328, mean 26.5",
+     "layer_ms": "copy 7.9 / FLOPs 0.15 / VRAM 0.60"
+    },
+    {
+     "phase": "ref log-probs",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train forward",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train backward (recompute + dX)",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 4,
+     "s": 2.5847847760737763,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 69.05 / VRAM 1.21"
+    }
+   ],
+   "step_s": 20.8440964417019,
+   "gen_s": 15.57560215409159,
+   "prompts": 4,
+   "B": 32,
+   "s_per_prompt": 5.211024110425475,
+   "s_per_seq": 0.6513780138031844
+  },
+  "dflash_tau3": {
+   "resident": 15,
+   "peak_mib": {
+    "prefill": 6999.7431640625,
+    "decode": 7634.9853515625,
+    "ref": 6110.5791015625,
+    "train": 6464.626953125
+   },
+   "binding": "decode",
+   "time": [
+    {
+     "phase": "prefill",
+     "tokens": 3072,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.5558498626543442,
+     "bound": "FLOPs",
+     "resident": 15,
+     "layer_ms": "copy 7.9 / FLOPs 14.72 / VRAM 0.60"
+    },
+    {
+     "phase": "decode, DFlash verify",
+     "tokens": 512,
+     "passes": 43,
+     "mult": 2,
+     "s": 11.258157236802866,
+     "bound": "PCIe",
+     "resident": 15,
+     "layer_ms": "copy 7.9 / FLOPs 2.48 / VRAM 0.60"
+    },
+    {
+     "phase": "ref log-probs",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 15,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train forward",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 15,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train backward (recompute + dX)",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 4,
+     "s": 2.5847847760737763,
+     "bound": "FLOPs",
+     "resident": 15,
+     "layer_ms": "copy 7.9 / FLOPs 69.05 / VRAM 1.21"
+    }
+   ],
+   "step_s": 17.08250138706752,
+   "gen_s": 11.81400709945721,
+   "prompts": 4,
+   "B": 32,
+   "s_per_prompt": 4.27062534676688,
+   "s_per_seq": 0.53382816834586
+  },
+  "dflash_tau2": {
+   "resident": 15,
+   "peak_mib": {
+    "prefill": 6999.7431640625,
+    "decode": 7634.9853515625,
+    "ref": 6110.5791015625,
+    "train": 6464.626953125
+   },
+   "binding": "decode",
+   "time": [
+    {
+     "phase": "prefill",
+     "tokens": 3072,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.5558498626543442,
+     "bound": "FLOPs",
+     "resident": 15,
+     "layer_ms": "copy 7.9 / FLOPs 14.72 / VRAM 0.60"
+    },
+    {
+     "phase": "decode, DFlash verify",
+     "tokens": 512,
+     "passes": 64,
+     "mult": 2,
+     "s": 16.756327050125197,
+     "bound": "PCIe",
+     "resident": 15,
+     "layer_ms": "copy 7.9 / FLOPs 2.48 / VRAM 0.60"
+    },
+    {
+     "phase": "ref log-probs",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 15,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train forward",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 15,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train backward (recompute + dX)",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 4,
+     "s": 2.5847847760737763,
+     "bound": "FLOPs",
+     "resident": 15,
+     "layer_ms": "copy 7.9 / FLOPs 69.05 / VRAM 1.21"
+    }
+   ],
+   "step_s": 22.58067120038985,
+   "gen_s": 17.31217691277954,
+   "prompts": 4,
+   "B": 32,
+   "s_per_prompt": 5.645167800097463,
+   "s_per_seq": 0.7056459750121828
+  },
+  "pcie3_x16": {
+   "resident": 25,
+   "peak_mib": {
+    "prefill": 7602.78466796875,
+    "decode": 7586.47216796875,
+    "ref": 7010.62060546875,
+    "train": 7364.66845703125
+   },
+   "binding": "prefill",
+   "time": [
+    {
+     "phase": "prefill",
+     "tokens": 3072,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.5789629154757834,
+     "bound": "PCIe",
+     "resident": 25,
+     "layer_ms": "copy 16.8 / FLOPs 14.72 / VRAM 0.60"
+    },
+    {
+     "phase": "decode",
+     "tokens": 32,
+     "passes": 128,
+     "mult": 2,
+     "s": 28.934128098891676,
+     "bound": "PCIe",
+     "resident": 25,
+     "layer_ms": "copy 16.8 / FLOPs 0.15 / VRAM 0.60"
+    },
+    {
+     "phase": "ref log-probs",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 16.8 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train forward",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 16.8 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train backward (recompute + dX)",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 4,
+     "s": 2.5847847760737763,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 16.8 / FLOPs 69.05 / VRAM 1.21"
+    }
+   ],
+   "step_s": 34.78158530197777,
+   "gen_s": 29.51309101436746,
+   "prompts": 4,
+   "B": 32,
+   "s_per_prompt": 8.695396325494443,
+   "s_per_seq": 1.0869245406868053
+  }
+ },
+ "batch": [
+  {
+   "resident": 27,
+   "peak_mib": {
+    "prefill": 7210.93994140625,
+    "decode": 7194.62744140625,
+    "ref": 7343.14111328125,
+    "train": 7644.68896484375
+   },
+   "binding": "train",
+   "time": [
+    {
+     "phase": "prefill",
+     "tokens": 768,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.19640554290162857,
+     "bound": "PCIe",
+     "resident": 27,
+     "layer_ms": "copy 7.9 / FLOPs 3.68 / VRAM 0.60"
+    },
+    {
+     "phase": "decode",
+     "tokens": 8,
+     "passes": 128,
+     "mult": 2,
+     "s": 14.508771195460035,
+     "bound": "PCIe",
+     "resident": 27,
+     "layer_ms": "copy 7.9 / FLOPs 0.04 / VRAM 0.60"
+    },
+    {
+     "phase": "ref log-probs",
+     "tokens": 1792,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.3531486889420667,
+     "bound": "FLOPs",
+     "resident": 27,
+     "layer_ms": "copy 7.9 / FLOPs 8.63 / VRAM 0.60"
+    },
+    {
+     "phase": "train forward",
+     "tokens": 1792,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.3531486889420667,
+     "bound": "FLOPs",
+     "resident": 27,
+     "layer_ms": "copy 7.9 / FLOPs 8.63 / VRAM 0.60"
+    },
+    {
+     "phase": "train backward (recompute + dX)",
+     "tokens": 1792,
+     "passes": 1,
+     "mult": 4,
+     "s": 0.6638811940184441,
+     "bound": "FLOPs",
+     "resident": 27,
+     "layer_ms": "copy 7.9 / FLOPs 17.26 / VRAM 1.21"
+    }
+   ],
+   "step_s": 16.075355310264243,
+   "gen_s": 14.705176738361663,
+   "prompts": 1,
+   "B": 8,
+   "s_per_prompt": 16.075355310264243,
+   "s_per_seq": 2.0094194137830304
+  },
+  {
+   "resident": 27,
+   "peak_mib": {
+    "prefill": 7469.89501953125,
+    "decode": 7453.58251953125,
+    "ref": 7360.64111328125,
+    "train": 7679.68896484375
+   },
+   "binding": "train",
+   "time": [
+    {
+     "phase": "prefill",
+     "tokens": 1536,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.29576970121574536,
+     "bound": "PCIe",
+     "resident": 27,
+     "layer_ms": "copy 7.9 / FLOPs 7.36 / VRAM 0.60"
+    },
+    {
+     "phase": "decode",
+     "tokens": 16,
+     "passes": 128,
+     "mult": 2,
+     "s": 14.508771195460035,
+     "bound": "PCIe",
+     "resident": 27,
+     "layer_ms": "copy 7.9 / FLOPs 0.08 / VRAM 0.60"
+    },
+    {
+     "phase": "ref log-probs",
+     "tokens": 3584,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.6827173778841334,
+     "bound": "FLOPs",
+     "resident": 27,
+     "layer_ms": "copy 7.9 / FLOPs 17.26 / VRAM 0.60"
+    },
+    {
+     "phase": "train forward",
+     "tokens": 3584,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.6827173778841334,
+     "bound": "FLOPs",
+     "resident": 27,
+     "layer_ms": "copy 7.9 / FLOPs 17.26 / VRAM 0.60"
+    },
+    {
+     "phase": "train backward (recompute + dX)",
+     "tokens": 3584,
+     "passes": 1,
+     "mult": 4,
+     "s": 1.3041823880368881,
+     "bound": "FLOPs",
+     "resident": 27,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 1.21"
+    }
+   ],
+   "step_s": 17.474158040480937,
+   "gen_s": 14.80454089667578,
+   "prompts": 2,
+   "B": 16,
+   "s_per_prompt": 8.737079020240468,
+   "s_per_seq": 1.0921348775300586
+  },
+  {
+   "resident": 26,
+   "peak_mib": {
+    "prefill": 7536.33984375,
+    "decode": 7520.02734375,
+    "ref": 7185.630859375,
+    "train": 7522.1787109375
+   },
+   "binding": "prefill",
+   "time": [
+    {
+     "phase": "prefill",
+     "tokens": 2304,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.42336431823552173,
+     "bound": "FLOPs",
+     "resident": 26,
+     "layer_ms": "copy 7.9 / FLOPs 11.04 / VRAM 0.60"
+    },
+    {
+     "phase": "decode",
+     "tokens": 24,
+     "passes": 128,
+     "mult": 2,
+     "s": 15.443136628104076,
+     "bound": "PCIe",
+     "resident": 26,
+     "layer_ms": "copy 7.9 / FLOPs 0.12 / VRAM 0.60"
+    },
+    {
+     "phase": "ref log-probs",
+     "tokens": 5376,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.0122860668262001,
+     "bound": "FLOPs",
+     "resident": 26,
+     "layer_ms": "copy 7.9 / FLOPs 25.89 / VRAM 0.60"
+    },
+    {
+     "phase": "train forward",
+     "tokens": 5376,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.0122860668262001,
+     "bound": "FLOPs",
+     "resident": 26,
+     "layer_ms": "copy 7.9 / FLOPs 25.89 / VRAM 0.60"
+    },
+    {
+     "phase": "train backward (recompute + dX)",
+     "tokens": 5376,
+     "passes": 1,
+     "mult": 4,
+     "s": 1.9444835820553321,
+     "bound": "FLOPs",
+     "resident": 26,
+     "layer_ms": "copy 7.9 / FLOPs 51.79 / VRAM 1.21"
+    }
+   ],
+   "step_s": 19.83555666204733,
+   "gen_s": 15.866500946339597,
+   "prompts": 3,
+   "B": 24,
+   "s_per_prompt": 6.611852220682444,
+   "s_per_seq": 0.8264815275853055
+  },
+  {
+   "resident": 25,
+   "peak_mib": {
+    "prefill": 7602.78466796875,
+    "decode": 7586.47216796875,
+    "ref": 7010.62060546875,
+    "train": 7364.66845703125
+   },
+   "binding": "prefill",
+   "time": [
+    {
+     "phase": "prefill",
+     "tokens": 3072,
+     "passes": 1,
+     "mult": 2,
+     "s": 0.5558498626543442,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 14.72 / VRAM 0.60"
+    },
+    {
+     "phase": "decode",
+     "tokens": 32,
+     "passes": 128,
+     "mult": 2,
+     "s": 16.377502060748114,
+     "bound": "PCIe",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 0.15 / VRAM 0.60"
+    },
+    {
+     "phase": "ref log-probs",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train forward",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 2,
+     "s": 1.3418547557682667,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 34.53 / VRAM 0.60"
+    },
+    {
+     "phase": "train backward (recompute + dX)",
+     "tokens": 7168,
+     "passes": 1,
+     "mult": 4,
+     "s": 2.5847847760737763,
+     "bound": "FLOPs",
+     "resident": 25,
+     "layer_ms": "copy 7.9 / FLOPs 69.05 / VRAM 1.21"
+    }
+   ],
+   "step_s": 22.201846211012768,
+   "gen_s": 16.93335192340246,
+   "prompts": 4,
+   "B": 32,
+   "s_per_prompt": 5.550461552753192,
+   "s_per_seq": 0.693807694094149
+  }
+ ],
+ "tau_breakeven": 2.0645161290449323,
+ "hw": {
+  "ctx_mib": 233,
+  "h2d_gbps": 25.54,
+  "vram_gbps": 334.2,
+  "tflops": 42.29,
+  "overhead_ms": 0.655,
+  "host_base_gib": 3
+ }
+}

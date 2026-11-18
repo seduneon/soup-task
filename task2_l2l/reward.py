@@ -9,10 +9,18 @@ math_boxed: the completion must contain a final answer in \\boxed{...}.
     "x =" are stripped; \\frac12 and -\\frac{1}{14} (MATH style) parse; anything else is compared as a
     normalised string (the MATH source keeps only items whose gold answer is a number, see prepare_data.py).
 """
+import ast
 import re
 from fractions import Fraction
 
-PROMPT_SUFFIX = "\nPut your final answer within \\boxed{}."
+PROMPT_SUFFIXES = {
+    "cot": "\nPut your final answer within \\boxed{}.",
+    # answer-only: ~10-token completions, so max_new can be ~32 and decode stops dominating the step; the
+    # CoT style at max_new 512 truncated 41 % of MATH 3-5 completions and turned the reward into a length test
+    "direct": "\nAnswer with only the final number in \\boxed{}. Do not explain or show any work.",
+    "plain": "",  # the item's prompt already carries the full instruction (countdown)
+}
+PROMPT_SUFFIX = PROMPT_SUFFIXES["cot"]
 
 
 def boxed_all(text):
@@ -88,4 +96,45 @@ def toy_ascii(completion, answer):
     return sum(ch.isascii() and ch.isalnum() for ch in completion) / max(len(completion), 1), {"has_box": False}
 
 
-REWARDS = {"math_boxed": math_boxed, "toy_ascii": toy_ascii}
+_ANSWER = re.compile(r"<answer>(.*?)</answer>", re.S)
+_EXPR_CHARS = re.compile(r"[0-9+\-*/() ]+")
+_OPS = {ast.Add: lambda a, b: a + b, ast.Sub: lambda a, b: a - b, ast.Mult: lambda a, b: a * b,
+        ast.Div: lambda a, b: a / b}
+
+
+def _eval_expr(node):
+    """Exact evaluation (Fraction) of a binary +,-,*,/ tree over integer literals; anything else raises."""
+    if isinstance(node, ast.BinOp) and type(node.op) in _OPS:
+        return _OPS[type(node.op)](_eval_expr(node.left), _eval_expr(node.right))
+    if isinstance(node, ast.Constant) and type(node.value) is int:
+        return Fraction(node.value)
+    raise ValueError(f"not allowed: {ast.dump(node)}")
+
+
+def countdown(completion, answer):
+    """answer = "a,b,c|target". reward 1.0 iff the LAST <answer>...</answer> is an expression that uses every
+    given number exactly once (no concatenation, no reuse, no extra numbers), only binary + - * / and
+    parentheses, and equals the target exactly (fractions, no float tolerance; 0 on division by zero).
+    has_box = an <answer> tag is present: format compliance, kept separate from correctness (H9)."""
+    nums_s, target_s = answer.split("|")
+    nums, target = sorted(int(x) for x in nums_s.split(",")), Fraction(int(target_s))
+    found = _ANSWER.findall(completion)
+    info = {"has_box": bool(found)}
+    if not found:
+        return 0.0, info
+    expr = found[-1].strip()
+    if not _EXPR_CHARS.fullmatch(expr) or "**" in expr or "//" in expr:
+        info["bad_chars"] = True
+        return 0.0, info
+    if sorted(int(x) for x in re.findall(r"\d+", expr)) != nums:
+        info["wrong_numbers"] = True
+        return 0.0, info
+    try:
+        value = _eval_expr(ast.parse(expr, mode="eval").body)
+    except (ZeroDivisionError, ValueError, SyntaxError, RecursionError):
+        info["invalid_expr"] = True
+        return 0.0, info
+    return float(value == target), info
+
+
+REWARDS = {"math_boxed": math_boxed, "toy_ascii": toy_ascii, "countdown": countdown}

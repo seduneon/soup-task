@@ -3,12 +3,12 @@ model: Qwen/Qwen3-4B
 layers: null              # null = all 36; a smaller number truncates (debug only)
 device: cuda
 dtype: bfloat16
-data_dir: data/gsm8k/train   # *.jsonl shards with {id, prompt, answer} (prepare_data.py)
+data_dir: data/countdown3/train   # Countdown-3 (prepare_countdown.py); was GSM8K
 out_dir: runs/main
 seed: 0
 
-# memory plan (Part 1: 20 resident / 16 streamed at prompts=2, G=8, P=256, C=512)
-resident: 20
+# memory plan (Part 1 re-run for Countdown-3: task1_budget/config_countdown.yaml -> 25 resident, 22 s/step)
+resident: 25
 n_buffers: 2
 streaming: regular        # regular | dynamic (paged KV + residency follows free memory during decode)
 profile_overlap: true     # CUDA events per layer copy / compute wait -> train_log "overlap" (off for timing A/B if it costs)
@@ -23,13 +23,14 @@ train_mb: 1
 chunk: 256
 
 # GRPO
-prompts: 2
+prompts: 4                # B = 32; 17-token answers make the extra prompts cheap
 G: 8
-max_new: 512
-max_prompt: 256           # P of the memory plan: a longer templated prompt aborts the step
+prompt_style: plain       # the Countdown prompt carries the full instruction; evaluate/verify need --prompt-style plain
+max_new: 128              # Countdown-3 pilot: p90 18 tokens, 0.6 % truncated at 256
+max_prompt: 96            # P of the memory plan (Countdown-3 prompts are <= 86 tokens); longer aborts
 temperature: 1.0
 top_p: 1.0
-reward: math_boxed
+reward: countdown
 adv_std: true
 norm: seq                 # seq (GRPO) | token (DAPO)
 beta: 0.0                 # KL to the reference; > 0 adds the ref log-prob pass
@@ -37,5 +38,5 @@ lr: 2.0e-5               # LoRA ~10x a full fine-tune GRPO lr (~1e-6..2e-6); tun
 clip: 1.0
 lora_r: 16
 lora_alpha: 32
-steps: 60
+steps: 100                # ~22 s/step predicted -> ~37 min
 save_every: 1

@@ -1,0 +1,19 @@
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": null,
+ "data": "data/gsm8k/heldout",
+ "n_items": 100,
+ "k": 1,
+ "temperature": 0.0,
+ "pass_rate": 0.94,
+ "ci95": [
+  0.89,
+  0.98
+ ],
+ "has_box_rate": 0.98,
+ "truncated_rate": 0.03,
+ "mean_length": 250.73,
+ "seconds": 475.1034851074219,
+ "gpu_alloc_peak_mib": 6597.20458984375,
+ "gpu_reserved_peak_mib": 7594.0
+}

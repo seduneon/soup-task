@@ -1,0 +1,25 @@
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": null,
+ "data": "data/countdown3/train",
+ "n_items": 64,
+ "k": 8,
+ "temperature": 1.0,
+ "prompt_style": "plain",
+ "max_new": 256,
+ "pass_rate": 0.33984375,
+ "ci95": [
+  0.2421875,
+  0.443359375
+ ],
+ "has_box_rate": 1.0,
+ "truncated_rate": 0.005859375,
+ "mean_length": 20.583984375,
+ "seconds": 275.8330612182617,
+ "zero_var_group_frac": 0.65625,
+ "alloc_conf": "",
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 5977.486328125,
+ "gpu_reserved_peak_mib": 6830.0
+}

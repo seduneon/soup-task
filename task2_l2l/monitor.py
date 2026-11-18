@@ -4,6 +4,7 @@ Phase boundaries synchronise CUDA and reset the peak counters, so each phase rep
 max_memory_allocated / max_memory_reserved (what the Part 1 ledger predicts per phase). nvidia-smi is
 sampled every 200 ms into a raw CSV: that, not the allocator, is what the 8 GB cap is judged on.
 """
+import os
 import shutil
 import subprocess
 import time
@@ -13,6 +14,18 @@ import psutil
 import torch
 
 MiB = 2**20
+
+
+def alloc_counters(device):
+    """Cumulative caching-allocator failure counters. num_alloc_retries: a cudaMalloc failed, the allocator
+    flushed its whole cache (device sync) and retried; it only warns on stderr, so without this a run can slow
+    down from flushes while every metric looks clean. num_ooms: the retry failed too."""
+    s = torch.cuda.memory_stats(device)
+    return {"alloc_retries": s.get("num_alloc_retries", 0), "ooms": s.get("num_ooms", 0)}
+
+
+def alloc_conf():
+    return os.environ.get("PYTORCH_CUDA_ALLOC_CONF", "")
 
 
 class Phases:
@@ -31,6 +44,7 @@ class Phases:
         if self.cuda:
             torch.cuda.synchronize(self.device)
             torch.cuda.reset_peak_memory_stats(self.device)
+            c0 = alloc_counters(self.device)
         t0 = time.perf_counter()
         try:
             yield
@@ -42,7 +56,8 @@ class Phases:
                 free, total = torch.cuda.mem_get_info(self.device)
                 r.update(alloc_peak_mib=round(torch.cuda.max_memory_allocated(self.device) / MiB),
                          reserved_peak_mib=round(torch.cuda.max_memory_reserved(self.device) / MiB),
-                         device_used_mib=round((total - free) / MiB - self.offset_mib))
+                         device_used_mib=round((total - free) / MiB - self.offset_mib),
+                         **{k: v - c0[k] for k, v in alloc_counters(self.device).items()})
                 if self.cap_mib is not None and r["device_used_mib"] > self.cap_mib:
                     r["over_cap"] = True
                     if self.strict:

@@ -132,6 +132,25 @@ and 32k tokens; ours is levels 3–5, temp 1, 512 tokens):
 4. If the truncated rate is above 15 %, report it as a finding: those zeros are length, not wrong math.
    Raising `max_new` changes the Part 1 memory plan (KV cache length C), so it is a separate decision.
 
+**MATH 3–5 result:** k=8 pass 0.59 (CI 0.49–0.69), zero-variance groups 0.53, **truncated 41 %**. Finished
+answers were 95.7 % correct and truncated ones 5.3 %, so the reward measured "fits in 512 tokens", not maths.
+Per level: L3 0.82 / L4 0.54 / L5 0.38, with L5 63 % truncated. The fallback above handles pass rate, not
+length, so MATH was rejected.
+
+**GSM8K answer-only** (`prompt_style: direct`, strict reward): max_new 32 → pass 0.078, 88 % truncated,
+zero-var 0.86; max_new 64 → 0.111, 83 %, 0.91. Qwen3-4B non-thinking ignores "do not explain" and writes working.
+Compliant answers were ~60 % correct, but too few groups had reward variance for GRPO.
+
+**Chosen: Countdown-3** (`prepare_countdown.py`, `reward.countdown`, `tests/test_countdown.py`). A research pass
+ranked 9 candidates; DAPO-Math-17k was rejected because it needs 1k+ token answers. Pilot, 64 prompts × k=8,
+T=1, max_new 256: pass **0.34** (CI 0.24–0.44), truncated **0.6 %**, `<answer>` tag 100 %, length p50 17 /
+p90 18 tokens, 0 allocator retries, zero-variance groups **0.66** (31 all-0, 11 all-1). Items that need * or /
+pass 0.05 and +/- items pass 0.47. Dropping the * or / items only lowers zero-variance to 0.59.
+**Deviation:** zero-variance is above the pre-registered 0.5. Adopted anyway, because 0.5 stood in for "enough
+learning signal per step". Here that is restored directly: prompts per step go 2 → 4, which is cheap with
+17-token answers, giving ~1.3 prompts with mixed rewards per step, ~5× answer-only GSM8K. The length confound
+is gone: failures are wrong expressions, not truncation. Part 3 reports +/- items and * or / items separately.
+
 ## Independent review (second Opus 5.5 instance, fresh context) and what was done
 
 | # | Finding | Status |

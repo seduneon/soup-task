@@ -1,0 +1,25 @@
+{
+ "model": "Qwen/Qwen3-4B",
+ "adapter": null,
+ "data": "data/gsm8k/train",
+ "n_items": 64,
+ "k": 8,
+ "temperature": 1.0,
+ "prompt_style": "direct",
+ "max_new": 64,
+ "pass_rate": 0.111328125,
+ "ci95": [
+  0.048828125,
+  0.18754882812499973
+ ],
+ "has_box_rate": 0.169921875,
+ "truncated_rate": 0.83203125,
+ "mean_length": 56.25,
+ "seconds": 288.59332752227783,
+ "zero_var_group_frac": 0.90625,
+ "alloc_conf": "",
+ "alloc_retries": 0,
+ "ooms": 0,
+ "gpu_alloc_peak_mib": 5709.640625,
+ "gpu_reserved_peak_mib": 6042.0
+}
