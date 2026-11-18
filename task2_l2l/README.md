@@ -117,6 +117,21 @@ GSM8K and MATH levels 3–5 are both prepared; Qwen3-4B non-thinking likely solv
 only if the sampled base pass rate on train (`--k 8 --temperature 1`) is between 30 % and 70 % and fewer than
 half the groups have zero reward variance; otherwise use `data/math35` (same rule applies to it).
 
+**GSM8K result (2026-11-18, RTX 3070):** greedy held-out pass 0.94 (95 % CI 0.89–0.98), boxed 0.98, truncated
+0.03, mean 251 tokens. Fails the 30–70 % rule by a wide margin, as the published prior predicted (Qwen3-4B-Base
+GSM8K 87.8, 4-shot; Qwen3 report arXiv 2505.09388). Deviation from the rule as written: the `--k 8 --temperature 1`
+GSM8K run was stopped early and not used. A sampled rate below 70 % is implausible with a greedy CI lower bound of 0.89.
+
+**Fallback, added before the MATH 3–5 result was seen** (published prior: non-thinking MATH-500 84.8 at temp 0.7
+and 32k tokens; ours is levels 3–5, temp 1, 512 tokens):
+1. If MATH 3–5 overall passes the rule, use all of `data/math35`.
+2. If its pass rate is above 70 %, break the same k=8 run down by level, using the `level` field (L3 439 / L4 453 /
+   L5 608 train items). Use the widest level subset from the top that passes the rule: L4–5, then L5 alone.
+   No new GPU run is needed to choose. Confirm the chosen subset with a fresh k=8 run on that subset only.
+3. If its pass rate is below 30 %, apply the same procedure from the bottom: L3–4, then L3.
+4. If the truncated rate is above 15 %, report it as a finding: those zeros are length, not wrong math.
+   Raising `max_new` changes the Part 1 memory plan (KV cache length C), so it is a separate decision.
+
 ## Independent review (second Opus 5.5 instance, fresh context) and what was done
 
 | # | Finding | Status |
