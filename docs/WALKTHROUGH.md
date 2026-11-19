@@ -364,3 +364,34 @@ explanation is a good answer.
 - **"Three days of H100s?"** Fix the signal first (filtered prompts, single-tag reward), then ≥ 3 seeds × {main,
   within-group shuffled control}, a T = 1 eval and a CoT baseline. Only then DFlash and residency work, because
   on an H100 the model fits and streaming isn't the bottleneck.
+
+## Open hypotheses: short answers for "why didn't you run H2?"
+
+**Frame first:** hypotheses were ranked by whether they could change a decision or the verdict. Proof of training
+(25 %) and silent failures (20 %) came first, because a fast engine training a fake model is worthless. H6 was the
+research question the team asked for, so it got a real A/B. The rest explain *why* the engine is fast or slow, not
+*whether* it is right, so they moved down once time ran short.
+
+| hyp | status | short answer | to close it |
+|---|---|---|---|
+| H1 generation ≥ 70 % of step | **ran, failed** (55 %) | answers stop at ~20 tokens (budget assumed GSM8K, 512); training 1.7× slower than modelled (small GEMMs below peak) | — |
+| H2 decode is PCIe-bound (linear in streamed layers) | not swept; partial evidence | rollout copy 7270 ms, stall 4723 ms, only 35 % hidden; 12 × 7.9 ms ≈ 95 of 128 ms per pass. Counterpoint: 24 → 25 resident in H6 did not move pass time (paged-KV overhead confounds) | decode pass time at r = 24, 20, 16, 12; slope within ±30 % of 7.9 ms, R² > 0.9 (~10 min GPU) |
+| H3 residency helps decode ≫ train | not run; strongly implied | training already hides 97 % of copies (copy 194 ms, stall 6 ms), so residency cannot buy much there | same sweep as H2, per phase |
+| H4 L2L cuts loads ≈ k vs GA | holds by construction; no GA arm | each layer visit runs all 32 sequences, so 2 copies per layer per step (counted); gradients covered by the equivalence test vs autograd | add a GA-order mode, A/B speed (~1 h code) |
+| H5 fuse reference pass | **moot** | β = 0, no KL term, so no reference pass exists | relevant again with KL |
+| H7 pageable store serialises copies | microbench done | `logs/bench.log`: pinned 25.5 GB/s, host call 0.05 ms; pageable 20.1 GB/s and **blocks the host 10 ms**; mmap 9.0 GB/s. Engine always pins | engine A/B pinned vs pageable |
+| H11 DFlash pays only if τ > ~1.8 | not built (optional) | drafter 1025 MiB pushes ~9–10 layers off the GPU; time went to the control and merge/precision checks, which changed the verdict; DFlash would only change speed | build drafter integration |
+| H12 acceptance falls with policy drift | not built | needs the drafter | τ vs KL(policy ‖ base) |
+| H13 greedy identical, sampling distribution kept | not built | needs the drafter | token compare; χ²/KS |
+
+**One seed per run.** ~35 min per run + eval; 3 seeds × (main, control) ≈ 4 h GPU. R2 (+0.004 vs control) is one
+draw, so seed noise and a small real effect can't be separated. It's the first item in "what must change"; the claim
+stays "no gain detected over the control".
+
+**H6 had one A-B-B-A block.** Admit: 12 paired steps from one block are not independent, so the CI is optimistic; the
+rule was registered for the GSM8K shape and not re-registered for Countdown. Defence: +0.1 % against a 2 % bar; even a
+CI twice as wide can't reach 2 %, so more blocks wouldn't change the decision. Mechanism: room for only one extra
+layer, and paged-KV overhead cancelled that one copy. It would matter for long reasoning answers or 8B+ models.
+
+**Order with more time:** (1) 3 seeds × (main, control) on prompts the base sometimes solves; (2) H2/H3 sweep, ~10 min,
+tests the time model; (3) H6 re-registered on a long-answer task, several blocks; (4) DFlash + H11–H13.
