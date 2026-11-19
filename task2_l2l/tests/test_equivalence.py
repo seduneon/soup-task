@@ -124,6 +124,24 @@ def test_grads_match(world, dtype, mb, padded):
     assert abs(s_loss - truth_loss) <= tol * abs(truth_loss) and abs(ref_loss - truth_loss) <= tol * abs(truth_loss)
 
 
+@pytest.mark.parametrize("resident,n_buffers", [((0,), 2), ((3,), 1), ((0, 2), 2), ((1, 2), 1), ((0, 1, 2), 2)])
+@pytest.mark.parametrize("dtype", [torch.float32, torch.bfloat16])
+@pytest.mark.parametrize("mb", [None, 1])
+@pytest.mark.parametrize("padded", [False, True])
+def test_grads_match_mixed_residency(world, resident, n_buffers, dtype, mb, padded):
+    """The training configuration: some layers resident, the rest streamed through the slots (the runs used 24
+    resident + 12 streamed). Same rule as test_grads_match, which covers only the fully streamed engine."""
+    w, mask = world, (world.pad if padded else None)
+    _, truth = run_grads(w, w.engine(torch.float64), mask, reference=True)
+    _, ref = run_grads(w, w.engine(dtype), mask, mb=mb, reference=True)
+    eng = w.engine(dtype, resident=resident, n_buffers=n_buffers)
+    _, stream = run_grads(w, eng, mask, mb=mb)
+    rep = compare(stream, ref, truth)
+    assert eng.loads > 0, "nothing was streamed: the test would prove nothing"
+    assert rep["all_nonzero"], "some LoRA tensor has a zero gradient: the test would prove nothing"
+    assert rep["pass_"], {k: rep[k] for k in ("agg_err_stream", "agg_err_ref", "worst_ratio")}
+
+
 def test_l2l_one_copy_per_pass(world):
     """L2L order: 4 micro-batches still cost one copy per streamed layer per pass (forward + backward = 2)."""
     w = world

@@ -1,5 +1,7 @@
 # 02 — Part 1: memory and time budget, step by step
 
+> **Note (2026-11-19):** the numbers in this file are the pre-run prediction for *assumed* hardware and the GSM8K shape (20 resident, 111.8 s/step). The task moved to Countdown-3 and the budget was re-run with constants measured on the RTX 3070 (`results/countdown_measured_hw.md`: 25 resident, 22.2 s). Measured results (24 resident, 7793 MiB nvidia-smi, 20.1 s mean step, 55 % generation) and the gaps are in `REPORT.md` §1.
+
 Core mental model: **a GRPO step is a sequence of phases, each with a different set of live tensors.** Budget each phase; the peak is the worst phase; that phase decides how many layers can stay resident.
 
 **Source of truth:** `task1_budget/budget.py` (every term is one line with its formula) and its output `task1_budget/results/predicted.md`. The pre-registered hypotheses and the A/B protocol are in `task1_budget/README.md`. This file explains the reasoning; if a number here disagrees with the script, the script wins.

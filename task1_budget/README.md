@@ -1,5 +1,7 @@
 # Part 1 — Memory and time budget
 
+> **Note (2026-11-19):** the numbers in this file are the pre-run prediction for *assumed* hardware and the GSM8K shape (20 resident, 111.8 s/step). The task moved to Countdown-3 and the budget was re-run with constants measured on the RTX 3070 (`results/countdown_measured_hw.md`: 25 resident, 22.2 s). Measured results (24 resident, 7793 MiB nvidia-smi, 20.1 s mean step, 55 % generation) and the gaps are in `REPORT.md` §1.
+
 Predict GPU memory, host RAM and step time for one GRPO step (and the optional merge) **before running
 anything**. Then compare with measured allocated / reserved / nvidia-smi and wall time, and explain the gaps.
 Every prediction below is stated as a hypothesis with a decision rule, committed before the first GPU run.

@@ -2,7 +2,7 @@
 import pytest
 
 from prepare_countdown import solutions
-from reward import countdown
+from reward import countdown, normalize_ops
 
 ANS = "68,98,14|61"  # 68 - 98 / 14 = 61
 
@@ -49,6 +49,14 @@ def test_exact_fractions():
     assert countdown("<answer>(1 + 2) / 3</answer>", "1,2,3|1")[0] == 1.0
     assert countdown("<answer>10 / 4 * 2</answer>", "10,4,2|5")[0] == 1.0     # 2.5 * 2, no rounding needed
     assert countdown("<answer>10 / 3 * 3</answer>", "10,3,3|10")[0] == 1.0    # float would give 9.999...
+
+
+def test_unicode_operators_strict_reward_lenient_rescoring():
+    text = "<answer>68 − 98 ÷ 14</answer>"
+    r, info = countdown(text, ANS)
+    assert r == 0.0 and info.get("bad_chars")                  # the training reward stays strict
+    assert countdown(normalize_ops(text), ANS)[0] == 1.0      # the analysis rescoring accepts it
+    assert countdown(normalize_ops("<answer>2 × 3 × 4</answer>"), "2,3,4|24")[0] == 1.0
 
 
 def test_solver_and_scorer_agree():

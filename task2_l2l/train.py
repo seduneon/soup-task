@@ -103,6 +103,22 @@ def say(msg):
     print(f"{time.strftime('%H:%M:%S')} {msg}", flush=True)
 
 
+def committed_ledger_lines(path, ck_step):
+    """Ledger lines of checkpointed steps (step <= ck_step). A SIGKILL inside append_jsonl can leave a torn LAST
+    line; its step was never checkpointed (the ledger line is written before the checkpoint), so it is dropped
+    like any other uncommitted line. A corrupt line anywhere else is real damage and stops the resume."""
+    lines, keep = open(path).readlines(), []
+    for n, line in enumerate(lines):
+        try:
+            rec = json.loads(line)
+        except json.JSONDecodeError:
+            assert n == len(lines) - 1, f"{path}: corrupt line {n + 1} of {len(lines)} is not the last one"
+            continue
+        if rec["step"] <= ck_step:
+            keep.append(line if line.endswith("\n") else line + "\n")
+    return keep
+
+
 def append_jsonl(path, obj):
     with open(path, "a") as f:
         f.write(json.dumps(obj) + "\n")
@@ -156,8 +172,7 @@ def run(cfg, out):
         step0 = ck_step = ck["step"]
         step0 += 1
     if ledger.exists():  # drop ledger lines of uncommitted steps (all of them if no checkpoint): they replay
-        keep = [l for l in open(ledger) if json.loads(l)["step"] <= ck_step]
-        atomic_write_bytes(ledger, "".join(keep).encode())
+        atomic_write_bytes(ledger, "".join(committed_ledger_lines(ledger, ck_step)).encode())
     append_jsonl(out / "attempts.jsonl", {"time": time.time(), "pid": os.getpid(),
                                           "event": "resume" if step0 else "start", "step": step0,
                                           "alloc_conf": os.environ.get("PYTORCH_CUDA_ALLOC_CONF", ""),

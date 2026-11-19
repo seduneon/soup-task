@@ -137,4 +137,14 @@ def countdown(completion, answer):
     return float(value == target), info
 
 
+_UNICODE_OPS = str.maketrans({"÷": "/", "×": "*", "−": "-"})
+
+
+def normalize_ops(completion):
+    """Map the Unicode operators ÷ × − to / * -. NOT part of the training reward (the prompt asks for +, -, *, /,
+    so countdown() scores ÷ × as bad_chars). analyze.py uses it to measure arithmetic skill apart from operator
+    spelling: the shuffled-reward control writes ÷ in 12 of 500 held-out answers, all of them correct."""
+    return completion.translate(_UNICODE_OPS)
+
+
 REWARDS = {"math_boxed": math_boxed, "toy_ascii": toy_ascii, "countdown": countdown}

@@ -6,10 +6,51 @@ The long version of `REPORT.md` (same numbers, all from `task2_l2l/results/analy
 - *Shuffled control mechanism:* not the Dr. GRPO length bias. Shuffled advantages are independent of the completion, so the expected gradient is zero under any normalisation, and from step ~40 most control answers hit the 128-token cap anyway. Best explanation: a noise-driven random walk (Adam gives roughly fixed-size steps; ‖ΔW‖ 0.85 vs 1.00 for main) that happened to drift towards longer reasoning. One seed; unproven.
 - *Allocator retries at 25 resident:* 4, 17 and 3 in the three smoke steps, not "17 per step"; "rollout 5.7× slower" compared different batches (the same step at 24 resident with 0 retries took as long). The H6 dynamic blocks had 9 retries each.
 - *Part 1 gaps* should be read at 24 resident: nvidia-smi predicted 7410 vs 7793 measured (+383); decode predicted ~135 ms vs 128 ms; step 23.1 s vs 20.1 s, where the totals agree only by cancellation (decode stops early, training is 1.7× slower than modelled).
-- *× ÷ regression* also appears in the shuffled control (−0.107), so it is not reward-driven.
+- *× ÷ regression:* superseded by the second review below. The control's −0.107 was a scoring artifact (`÷`).
 - *Root cause:* 72 % zero-variance groups (~1 informative group per step), 50 % of steps gradient-clipped, lr not swept.
 - *`soup ship`:* only its tuned > base leg was evaluated (no general benchmark); Soup was read in source, not run.
 - *Fix 3:* ship the unmerged adapter; an fp32 merged model (~16 GB) doubles streaming for the target user.
+
+**Corrections after a second review (2026-11-19, sub-agents; every number re-checked on the raw files). Where the
+text below disagrees, these win:**
+- *`÷ ×` scoring.* The reward follows the prompt ("Use +, -, *, /") and scores `÷`/`×` as invalid characters. The
+  control wrote 12 correct answers with them (adapter 1, others 0). Accepting them (`reward.normalize_ops`, used only
+  by `analyze.py`; the training reward is unchanged): control 0.428 (× ÷ items 0.107), adapter 0.432 (0.043).
+  R2 becomes +0.004 [−0.042, +0.048]; control − base +0.110 [+0.060, +0.158] vs adapter − base +0.114.
+- *The × ÷ regression is specific to the trained run.* With `÷` accepted, control − base on × ÷ items is
+  −0.021 [−0.086, +0.043] (no detectable regression) and adapter − control −0.064 [−0.114, −0.014]. The adapter
+  nearly stopped writing * and /: 37 % → 13 % of answers on × ÷ items, 15 % → 1 % on +/− items (base → adapter),
+  e.g. `46 - 30 / 2` → `46 - (30 - 2)`. Likely mechanism: × ÷ items rarely get a solved rollout, so their groups
+  have zero variance and the gradient came from +/− items. One seed; inferred.
+- *Control dose.* The batch-wide shuffle left 14 % zero-variance groups vs 72 % in main (~3.4 vs ~1.1 groups with
+  a non-zero advantage per step): the control got more noise than main, not the same amount.
+- *Training reward = held-out T = 1 score.* Each of the 400 training prompts was used once, so the per-step true
+  reward is measured on unseen prompts: last 25 − first 25 steps −0.004 [−0.114, +0.104]. Zero-variance groups
+  rose 0.56 → 0.79. The sampled policy did not improve; only the greedy answer moved.
+- *R4 is vacuous:* every arm writes the tag on every item, so R4's subset is all 500 items and R4 = R1. The
+  first-tag rescoring is the real format-vs-correctness check.
+- *Prediction provenance.* The commit made before any GPU run (11-17) predicted 20 resident, 7641 MiB, 111.8 s
+  per step for assumed hardware and GSM8K. The 25 resident / 7603 MiB prediction is the same budget re-run on
+  11-18 with constants measured on the 3070 and the Countdown shape, after the bench and pilots and before
+  training.
+- *Step time:* 20.1 s is the mean; the median is 26.7 s (a step lasts until its longest answer ends).
+- *Pre-registration breach:* the Countdown pilot had 0.66 zero-variance groups against our 0.5 limit; we
+  trained anyway. This became the root cause.
+- *Hypotheses left open:* H2–H5 and H7 were not run (time); H11–H13 need DFlash, which was not built. The H6 rule
+  was registered for the GSM8K shape and not re-registered after the switch; its 12 paired steps come from one
+  A-B-B-A block, so they are not independent and the CI is optimistic.
+- *Equivalence resolution:* the GPU gradient check (1.5 × the bf16 reference's own error) resolves bugs only down
+  to bf16 noise (~1.6 % relative on 4B). The strict checks (fp32 vs fp64, mixed resident/streamed, a swapped-layer
+  control) are CPU tests on a tiny random model. The reference is plain autograd over resident layers. Until
+  11-19 the gradient tests covered only the fully streamed engine; `test_grads_match_mixed_residency` now covers
+  the trained configuration (some layers resident, the rest streamed): fp32 error 5e-7, equal to the reference's.
+  Not covered: the mixed configuration on the GPU (async copies) with real weights.
+- *Merge host RAM:* the merge holds one output shard in host memory (8.44 GiB RSS), not one tensor.
+- *Resume:* a SIGKILL inside the ledger append could leave a torn last line, and resume then crashed (loud, not
+  silent). `train.py` now drops a torn last line (its step was never checkpointed); test added.
+- *Evidence gaps:* `verify*.log`, `countdown_pilot.log` and `direct*_k8.log` have no per-line timestamps (their
+  jsonl and nvidia-smi CSVs do); `base_eval*.log` and `bench.log` have no EXIT_CODE line; the 8 s
+  random-adapter merge ran before its nvidia-smi sampler started; `equivalence.py` (a test) has no CSV.
 
 
 **Verdict: DON'T SHIP.** The streamed L2L engine works and stays under the cap. The artifact is a different
@@ -38,7 +79,7 @@ cache: rollout 17 s instead of 3 s), so the main run used **24 resident** + `exp
 |---|---|---|---|
 | allocated peak | 7410 MiB at 24 resident, minus 233 MiB context = 7177 | **7232 MiB** | +55 MiB (0.8 %): `repeat_kv` and logits transients not in the ledger |
 | reserved peak | — | 7542 MiB | allocator cache: +310 MiB over allocated |
-| nvidia-smi peak (device-wide, sampled every 200 ms in every run) | 7603 at 25 | **7793 MiB** (≤ 7839 in any run) | = reserved 7542 + CUDA context 253 (re-measured with expandable_segments; 233 without) |
+| nvidia-smi peak (device-wide, sampled every 200 ms; all runs but the 8 s random-adapter merge) | 7603 at 25 | **7793 MiB** (≤ 7839 in any run) | = reserved 7542 + CUDA context 253 (re-measured with expandable_segments; 233 without) |
 | host RSS | 10.05 GiB | 5.27 GiB | ledger counted a full shard while loading; we read tensor by tensor |
 | decode, per weight pass | 128 ms at 25 resident (11 copies + resident-layer compute + per-layer overhead) | **128 ms** at 24 resident | 12 copies × 7.9 ms = 96 ms of PCIe per pass (`copy_ms`), the rest is resident-layer compute and launch overhead; copy hidden only 35 % |
 | decode passes / step | 128 (always to max length) | mean 75.6, max 127 | generation stops when the last sequence ends: one long completion sets the step |
@@ -81,7 +122,7 @@ bootstrap 95 % CIs. Full output: `task2_l2l/results/analysis.md`, `runs/verify/v
 |---|---|---|---|---|---|---|---|
 | base | 0.318 | 0.392 | 0.129 | 0.316 | 1.6 % | 2.0 % | 19 |
 | adapter | 0.430 | 0.583 | 0.036 | 0.370 | 18.0 % | 10.8 % | 34 |
-| shuffled control | 0.404 | 0.553 | 0.021 | 0.404 | 0 % | 55.8 % | 119 |
+| shuffled control | 0.404 (0.428 with `÷ ×`) | 0.553 | 0.021 (0.107 with `÷ ×`) | 0.404 | 0 % | 55.8 % | 119 |
 | merged (bf16) | 0.502 | 0.681 | 0.043 | 0.488 | 7.0 % | 4.2 % | 23 |
 | random direction, attached | 0.320 | 0.394 | 0.129 | 0.316 | 1.4 % | 1.6 % | 19 |
 | random direction, merged | 0.320 | 0.394 | 0.129 | 0.316 | 1.6 % | 1.8 % | 19 |
@@ -89,22 +130,25 @@ bootstrap 95 % CIs. Full output: `task2_l2l/results/analysis.md`, `runs/verify/v
 | rule | result | |
 |---|---|---|
 | R1 adapter − base > 0 | +0.112 [+0.060, +0.162] | pass |
-| R2 adapter − control > 0 | +0.026 [−0.018, +0.070] | **fail** |
+| R2 adapter − control > 0 | +0.026 [−0.018, +0.070]; +0.004 [−0.042, +0.048] with `÷ ×` accepted | **fail** |
 | R3 merged − adapter ∋ 0 | +0.072 [+0.040, +0.104]; same text on 65 % of items | **fail** |
-| R4 not format only | every arm answers in the tag; +0.112 | pass |
+| R4 not format only | every arm answers in the tag; +0.112 (= R1: vacuous) | pass |
 
 What the numbers say:
-1. **The control gained almost as much.** With shuffled rewards the policy drifted to long step-by-step
+1. **The control gained as much** (with its `÷` answers counted). With shuffled rewards the policy drifted to long step-by-step
    reasoning (19 → 119 tokens): when it finishes it is right 91 % of the time, but 56 % of its answers are
    cut at 128 tokens. Random advantages are not neutral: under sequence-normalised GRPO, a long completion
    spreads its negative advantage over more tokens, so length drifts up (the length bias described in the
    Dr. GRPO paper), and on this model longer = more reasoning = more correct. A reward-free change of style
-   moves held-out accuracy by +8.6 pts [+3.6, +13.4], so a +11 pt gain is not evidence of learning from the reward.
+   moves held-out accuracy by +8.6 pts [+3.6, +13.4] (+11.0 [+6.0, +15.8] counting its 12 correct `÷`/`×`
+   answers), so a +11 pt gain is not evidence of learning from the reward. (The length-bias explanation in this
+   item is wrong; see the corrections at the top.)
 2. **Half the adapter's gain is hedging.** 18 % of adapter outputs give an answer, a "Note: this is wrong…",
    then a second answer. The reward grades the last tag. Graded on the first answer (what a user reads),
    adapter − base is +0.054 [0.000, +0.108] and adapter − control −0.034 [−0.080, +0.012].
 3. **It got worse at × and ÷.** Items that need × or ÷: 0.129 → 0.036 (−0.093 [−0.157, −0.029]). The policy
-   collapsed to +/− expressions, which win often on the easy items. Training reward stayed flat
+   collapsed to +/− expressions, which win often on the easy items; the control did not (with `÷` accepted:
+   −0.021 [−0.086, +0.043]), so this is the one reward-specific change, and it is a shortcut. Training reward stayed flat
    (0.40 → 0.41; 72 % of groups had zero reward variance and gave no gradient).
 4. **The merged model is a different model.** The mean LoRA update is 0.08 % of a weight, below bf16's
    0.39 % step: 82 % of elements round back to the base value, and the merge keeps only 50–92 % of each
@@ -128,13 +172,13 @@ half-width (~±5 pts at n = 500); sampling-time behaviour (greedy only); seed va
 | data | train/held-out overlap inflates the held-out gain | `prepare_countdown.py` asserts disjoint keys; prepare_data drops 7 MATH train items found in test | data doctor: no (template/EOS/roles/input-truncation only) |
 | data → reward | task too easy (GSM8K 0.94): no gradient; or the reward measures length (MATH: 41 % truncated, finished answers 96 % right) | GPU pilots with k = 8 before training: pass rate, zero-variance groups, truncation | no; `soup advise` checks memory/ROI, not reward signal |
 | template | instruction ignored (answer-only GSM8K: 88 % truncated); thinking mode on | pilots; `enable_thinking=False` asserted in train/eval; prompt-style mismatch aborts eval | data doctor checks the chat template renders, not the model's compliance |
-| reward | parser too strict (`\$18`, `1{,}000` scored 0) or too loose; **last-tag rule rewards hedging** (18 % of adapter outputs) | 32 + Countdown adversarial unit tests; first-tag rescoring (§3.2) | no |
+| reward | parser too strict (`\$18`, `1{,}000`, Countdown `÷ ×` scored 0: hid 12 correct control answers and faked a control × ÷ regression) or too loose; **last-tag rule rewards hedging** (18 % of adapter outputs) | 32 + Countdown adversarial unit tests; first-tag and `÷ ×` rescoring (§3.2) | no |
 | GRPO | zero-variance groups (72 %) silently give no gradient; random advantages still drift length | logged per step; shuffled-reward control (§3.1) | no |
-| GRPO / policy | gain on easy items hides a regression (× ÷ −9 pts) | per-subset paired CIs | `soup ship` compares one aggregate number |
-| L2L memory | pinned memory 2× the ledger (power-of-two rounding: 9.2 GB vs 3.1); allocator retries (17/step, rollout 5.7× slower) visible only in `torch.cuda.memory_stats`; CUDA sees 7840 of 8192 MiB | review + ledger; retry counter per phase; nvidia-smi at 200 ms | no |
+| GRPO / policy | gain on easy items hides a learned "no × ÷" shortcut (× ÷ −9 pts) | per-subset paired CIs | `soup ship` compares one aggregate number |
+| L2L memory | pinned memory 2× the ledger (power-of-two rounding: 9.2 GB vs 3.1); allocator retries (4, 17, 3 in the smoke steps at 25 resident) visible only in `torch.cuda.memory_stats`; CUDA sees 7840 of 8192 MiB | review + ledger; retry counter per phase; nvidia-smi at 200 ms | no |
 | L2L sync | prefetch not ordered after the previous pass's compute: hidden by incidental syncs | review; fixed with persistent events; GPU equivalence test | no |
 | on-policy | rollout log-prob ≠ training log-prob (bf16 decode vs recompute): mean 0.008, max 1.6 nats | logged every step (`rollout_vs_train_*`) | no. Harmless at ratio = 1; would bias PPO clipping or a KL term |
-| streaming | duplicate samples when killed before the first checkpoint | test (fixed); GPU kill/resume demo identical to the uninterrupted run | no |
+| streaming | duplicate samples when killed before the first checkpoint; a torn ledger line when killed mid-write | test (fixed); GPU kill/resume demo identical to the uninterrupted run | no |
 | merge | **bf16 rounding swallows most of the LoRA delta**: the merged model ≠ the adapter | `merge_report.json` delta_kept / changed_frac; merged vs adapter arm; random-direction control | `soup ship` measures `AdapterChange` but it is "never part of the decision" |
 | eval | cached arm reused across prompt styles | guard in `verify.py` (asserts style and max_new) | no |
 | deps | transformers 5.x changed Qwen3 rotary/layer signatures | pinned 4.52.3 | no |
@@ -165,7 +209,7 @@ and a held-out gain close to the "real" one. Without it this run would look like
 CI excluding 0). The second was the merge: a delta of 0.08 % of each weight is mostly rounded away in bf16,
 and the result is a different model that happens to score better here. What still concerns me: one seed per
 arm, so the control's length drift may be one outcome of several; greedy only; max 128 tokens cuts the
-control's reasoning, so its 0.404 is a lower bound; and no general benchmark, so regressions outside the task
+control's reasoning, so its 0.428 (0.404 strict) is a lower bound; and no general benchmark, so regressions outside the task
 are unmeasured.
 
 ## AI tools
@@ -177,7 +221,7 @@ history: dataset choice and the rejection of GSM8K/MATH, pre-registered rules, 2
 merge. Tools were unreliable where they predicted instead of measured (the 5.3 s training estimate; the first
 dataset picks); every number in this report comes from a log in the repo.
 
-Evidence: `logs/` (timestamped), `task2_l2l/runs/*/logs/*.csv` and `runs/verify/*.nvsmi*.csv` (nvidia-smi
+Evidence: `logs/` (timestamped, except the files listed in the corrections), `task2_l2l/runs/*/logs/*.csv` and `runs/verify/*.nvsmi*.csv` (nvidia-smi
 every 200 ms, device-wide and per process), `task2_l2l/verify.py` (Part 3 check), `task2_l2l/equivalence.py`
 + `tests/` (CPU test suite), `task2_l2l/results/analysis.md` (all numbers above, regenerated by `analyze.py`).
 

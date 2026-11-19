@@ -156,7 +156,8 @@ adopted it anyway and doubled the prompts per step (2 → 4) to get the learning
   outputs or rounds differently".
 
 **Memory and time against the prediction (H1, H2, H10):**
-- nvidia-smi peak **7793 MiB** (≤ 7839 in every run), sampled every 200 ms during all runs: **the cap holds**.
+- nvidia-smi peak **7793 MiB** (≤ 7839 in every run), sampled every 200 ms during all runs but the 8 s
+  random-adapter merge: **the cap holds**.
 - decode 128 ms per pass, predicted 128 ms. Of that, ~96 ms is the 12 layer copies over PCIe (only 35 % hidden
   behind compute); the rest is resident-layer compute and launch overhead. Decode is mostly PCIe-bound (H2), but
   the H6 run shows that removing one copy did not shorten the pass, so it is not *purely* copy-bound.
@@ -174,16 +175,17 @@ Rules fixed in `verify.py` **before** any run:
 | rule | meaning | result |
 |---|---|---|
 | R1 | adapter beats base (CI lower bound > 0) | +0.112 [+0.060, +0.162], **pass** |
-| R2 | adapter beats the shuffled control | +0.026 [−0.018, +0.070], **fail** |
+| R2 | adapter beats the shuffled control | +0.026 [−0.018, +0.070], **fail** (+0.004 with `÷ ×` accepted) |
 | R3 | merged equals adapter (CI contains 0) | +0.072 [+0.040, +0.104], **fail** |
-| R4 | the gain is not just formatting | every arm uses the answer tag, **pass** |
+| R4 | the gain is not just formatting | every arm uses the answer tag, **pass** (vacuous: R4 = R1) |
 
 All comparisons are **paired** (same item, two arms) with bootstrap 95 % CIs. At n = 500 the resolution is
 about ±5 points.
 
 What we found by digging (these analyses were **added after reading the outputs**, so they're exploratory, not
 pre-registered; say so if asked):
-1. **The control gained +8.6 of the +11.2 points.** It drifted to long step-by-step reasoning (19 → 119 tokens).
+1. **The control gained as much.** +8.6 of +11.2 points as scored; +11.0 vs +11.4 once its 12 correct `÷`/`×`
+   answers count (the reward follows the prompt and scores them 0; found by the 11-19 review). It drifted to long step-by-step reasoning (19 → 119 tokens).
    *Mechanism (corrected after the review):* an earlier draft blamed the Dr. GRPO length bias. That's wrong
    here. With shuffled rewards the advantage is independent of the completion, so the **expected gradient is
    zero** under either normalisation (the length bias needs advantage and length to be correlated). Also, from
@@ -195,8 +197,12 @@ pre-registered; say so if asked):
    within-group permutation would be the tighter control.
 2. **Hedging.** 18 % of adapter outputs give an answer, then "Note: this is wrong…", then a second answer. The
    reward grades the **last** tag, so hedging pays. Graded on the first answer: the gain halves (+0.054).
-3. **× ÷ regression.** It got better on +/− items (+0.19) and worse on × ÷ items (0.129 → 0.036). The aggregate
-   hides it. The shuffled control regressed on × ÷ just as much (−0.107), so this too is not reward-driven.
+3. **× ÷ regression: a learned shortcut.** It got better on +/− items (+0.19) and worse on × ÷ items
+   (0.129 → 0.036). The aggregate hides it. The adapter nearly stopped writing * and / (37 % → 13 % of × ÷
+   answers, 15 % → 1 % on +/−). An earlier draft said the control regressed just as much (−0.107); that was the
+   scorer rejecting `÷`. With `÷` accepted the control is −0.021 [−0.086, +0.043] and adapter − control
+   −0.064 [−0.114, −0.014]: this regression *is* specific to the trained run. Likely cause: × ÷ groups are rarely
+   solved, so they carry no gradient and the signal came from +/− items.
 4. **The merge changed the model.** The LoRA update is ~0.08 % of each weight. bf16 can only represent changes
    larger than ~0.39 % of a value, so **82 % of the updated elements round back to the base value**. The merged
    model scores 0.502 against the adapter's 0.430, with only 65 % identical text.
@@ -303,7 +309,7 @@ explanation is a good answer.
 | **H6: dynamic vs regular residency A/B** | **done 11-18**: A-B-B-A, 12 paired steps: +0.1 % [−0.4, +0.8] → rejected, keep regular (see below) | closes the research arm |
 | **H2/H3 residency sweep** | not run | H2 is confirmed indirectly (128 ms = prediction); H3 is untested |
 | second seed per arm | not run | R2 rests on one control run |
-| control at 256 tokens | not run | the control's 0.404 is cut off at 128 tokens, so it's a lower bound |
+| control at 256 tokens | not run | the control's 0.428 (0.404 strict) is cut off at 128 tokens, so it's a lower bound |
 
 ---
 
@@ -328,8 +334,9 @@ explanation is a good answer.
 ## Hard questions to expect (from the fresh-context review), with short answers
 
 - **"The training reward at T = 1 was flat, yet greedy eval gained 11 points. What did GRPO optimise?"** The mode
-  of the policy moved; the sampled distribution did not improve. A T = 1 eval (`verify.py --k 4 --temperature 1`)
-  is the matching metric, and we didn't run it.
+  of the policy moved; the sampled distribution did not improve. Evidence: each training prompt was used once, so
+  the training reward is a T = 1 score on unseen prompts (last 25 − first 25 steps −0.004 [−0.114, +0.104]). A
+  held-out T = 1 eval (`verify.py --k 4 --temperature 1`) is the matching metric, and we didn't run it.
 - **"Is the shuffled control fair?"** It permutes rewards across the whole batch, so it had only 14 % zero-variance
   groups vs 72 % in main: ~3× more groups with non-zero (noise) advantages. Permuting *within* groups would keep
   main's pattern and is the tighter control. Its gain is still informative: noise alone moved the model that far.
@@ -343,7 +350,11 @@ explanation is a good answer.
 - **"Why did merging *gain* 7 points?"** Unexplained. Outputs sit on near-ties, and the flips happened to land
   positive. That's a reason to distrust the number, not to ship the merged model.
 - **"One seed, n = 500?"** The CIs cover item sampling only. R2's ±4.4-pt interval can't resolve a 2.6-pt
-  difference, and seed variance is unknown.
+  difference (0.4 pts with `÷` accepted), and seed variance is unknown.
+- **"Your draft said the control also regressed at × ÷. Why did that change?"** The reward rejects `÷`/`×`
+  (the prompt asks for * and /), and the control, with its long LaTeX-style reasoning, wrote 12 correct answers
+  with `÷`. A review on 11-19 found it by reading outputs. It's a silent failure in our own eval: a scorer bias
+  against one arm's style. Fixed in `analyze.py` (`reward.normalize_ops`), training reward unchanged.
 - **"Is the cached decode checked against teacher-forced logits?"** Yes: `tests/test_decode.py` (decode-time
   log-prob = training rescoring), and the on-policy gap is logged every step (mean 0.008 nats).
 - **"Do you trust your VRAM numbers?"** nvidia-smi sampled every 200 ms for every run is device-wide ground truth;

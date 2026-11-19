@@ -50,6 +50,20 @@ def ledger(out):
     return [json.loads(l) for l in open(out / "samples.jsonl")]
 
 
+def test_torn_ledger_line_is_dropped_not_fatal(tmp_path):
+    """A SIGKILL inside append_jsonl leaves a torn last line: resume drops it (its step was never checkpointed).
+    A corrupt line that is not the last one is real damage and must stop the resume."""
+    from train import committed_ledger_lines
+    p = tmp_path / "samples.jsonl"
+    good = [json.dumps({"step": s, "ids": [f"q{s}"], "epoch": 0}) + "\n" for s in range(3)]
+    p.write_text("".join(good) + '{"step": 3, "ids": ["q')
+    assert committed_ledger_lines(p, ck_step=2) == good
+    assert committed_ledger_lines(p, ck_step=0) == good[:1]
+    p.write_text(good[0] + '{"step": 1, "ids\n' + good[2])
+    with pytest.raises(AssertionError):
+        committed_ledger_lines(p, ck_step=2)
+
+
 def test_stream_order_and_resume_unit(tmp_path):
     recs = [{"id": f"r{i}", "prompt": "p", "answer": "a"} for i in range(7)]
     write_jsonl_shards(recs, tmp_path, per_shard=3)

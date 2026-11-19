@@ -83,6 +83,37 @@ Rescored on the FIRST `<answer>` (the training reward takes the last one):
 - first tag, merged − base: +0.172 [+0.124, +0.220]
 - first tag, random_adapter − base: +0.000 [-0.010, +0.010]
 
+Rescored with ÷ × − mapped to / * - (the reward scores them 0; arithmetic apart from spelling):
+
+| arm | answers rescued | pass (all) | pass +/- | pass */÷ |
+|---|---|---|---|---|
+| base | 0 | 0.318 | 0.392 | 0.129 |
+| adapter | 1 | 0.432 | 0.583 | 0.043 |
+| control | 12 | 0.428 | 0.553 | 0.107 |
+| merged | 0 | 0.502 | 0.681 | 0.043 |
+| random_adapter | 0 | 0.320 | 0.394 | 0.129 |
+| random_merged | 0 | 0.320 | 0.394 | 0.129 |
+
+- normalised, adapter − base, all: +0.114 [+0.060, +0.164]
+- normalised, adapter − base, needs * or /: -0.086 [-0.157, -0.021]
+- normalised, adapter − control, all: +0.004 [-0.042, +0.048]
+- normalised, adapter − control, needs * or /: -0.064 [-0.114, -0.014]
+- normalised, control − base, all: +0.110 [+0.060, +0.158]
+- normalised, control − base, needs * or /: -0.021 [-0.086, +0.043]
+- normalised, merged − adapter, all: +0.070 [+0.038, +0.102]
+- normalised, merged − adapter, needs * or /: +0.000 [-0.043, +0.036]
+
+Share of final answers that use * or / (after normalising ÷ ×), among items with an answer:
+
+| arm | +/- items | */÷ items |
+|---|---|---|
+| base | 0.15 (of 360) | 0.37 (of 140) |
+| adapter | 0.01 (of 360) | 0.13 (of 140) |
+| control | 0.00 (of 201) | 0.75 (of 20) |
+| merged | 0.01 (of 360) | 0.14 (of 140) |
+| random_adapter | 0.14 (of 360) | 0.37 (of 140) |
+| random_merged | 0.15 (of 360) | 0.37 (of 140) |
+
 verify.py rules: `{'R1_effect': True, 'R2_not_generic': False, 'R3_merge': False, 'R4_not_format': True}` → **NOT SHOWN: R2_not_generic, R3_merge**
 Merged vs adapter text identical: 0.648
 
@@ -92,6 +123,8 @@ Merged vs adapter text identical: 0.648
 |---|---|---|---|---|---|---|
 | main | 100 | 0.402 | 0.411 | 0.72 | 1.25 | 0.997 |
 | control | 100 | 0.377 | 0.341 | 0.14 | 0.43 | 0.847 |
+
+Main run: 400 unique prompts of 400 used (each once), so the true reward per step is a T = 1 score on unseen prompts. Last 25 − first 25 steps: -0.004 [-0.114, +0.104] (bootstrap over steps). Zero-variance groups rose from 0.56 (first 20 steps) to 0.79 (last 20).
 
 ![reward curves](reward_curves.png)
 

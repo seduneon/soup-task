@@ -13,6 +13,8 @@ Writes results/analysis.md, results/analysis.json and results/reward_curves.png:
 """
 import argparse
 import json
+import random
+import re
 import statistics as st
 from pathlib import Path
 
@@ -139,6 +141,41 @@ def part3(args, rep, md):
             m, lo, hi = paired_ci([first[a][i] - first[b][i] for i in ids])
             out["first_tag"][f"{a}-{b}"] = {"diff": m, "ci95": [lo, hi]}
             md.append(f"- first tag, {a} − {b}: {m:+.3f} [{lo:+.3f}, {hi:+.3f}]")
+    # The reward follows the prompt ("Use +, -, *, /") and scores ÷ × as bad characters. To measure arithmetic
+    # apart from operator spelling, rescore with ÷ × − mapped to / * - (reward.normalize_ops).
+    from reward import normalize_ops
+    norm = {nm: {i: countdown(normalize_ops(it[i][0]["text"]), heldout[i]["answer"])[0] for i in ids}
+            for nm, it in arms.items()}
+    md.append("\nRescored with ÷ × − mapped to / * - (the reward scores them 0; arithmetic apart from spelling):\n")
+    md.append("| arm | answers rescued | pass (all) | pass +/- | pass */÷ |")
+    md.append("|---|---|---|---|---|")
+    out["ops_normalised"] = {"arms": {}, "pairs": {}}
+    for nm in arms:
+        p = {s: sum(norm[nm][i] for i in sub) / len(sub) for s, sub in subsets.items()}
+        rescued = sum(norm[nm][i] > score(nm, i) for i in ids)
+        out["ops_normalised"]["arms"][nm] = dict(p, rescued=rescued)
+        md.append(f"| {nm} | {rescued} | {p['all']:.3f} | {p['+/- only']:.3f} | {p['needs * or /']:.3f} |")
+    md.append("")
+    for a, b in (("adapter", "base"), ("adapter", "control"), ("control", "base"), ("merged", "adapter")):
+        if a in arms and b in arms:
+            for s in ("all", "needs * or /"):
+                m, lo, hi = paired_ci([norm[a][i] - norm[b][i] for i in subsets[s]])
+                out["ops_normalised"]["pairs"][f"{a}-{b}|{s}"] = {"diff": m, "ci95": [lo, hi]}
+                md.append(f"- normalised, {a} − {b}, {s}: {m:+.3f} [{lo:+.3f}, {hi:+.3f}]")
+    # Which operators the final answer uses: a policy that learned "+ and - only" stops writing * and /.
+    md.append("\nShare of final answers that use * or / (after normalising ÷ ×), among items with an answer:\n")
+    md.append("| arm | +/- items | */÷ items |")
+    md.append("|---|---|---|")
+    out["uses_mul_div"] = {}
+    for nm, it in arms.items():
+        row = {}
+        for s in ("+/- only", "needs * or /"):
+            tags = [_ANSWER.findall(normalize_ops(it[i][0]["text"])) for i in subsets[s]]
+            tags = [t[-1] for t in tags if t]
+            row[s] = {"answered": len(tags), "frac": sum(bool(re.search(r"[*/]", t)) for t in tags) / max(len(tags), 1)}
+        out["uses_mul_div"][nm] = row
+        md.append(f"| {nm} | {row['+/- only']['frac']:.2f} (of {row['+/- only']['answered']}) | "
+                  f"{row['needs * or /']['frac']:.2f} (of {row['needs * or /']['answered']}) |")
     rep_v = vdir / "verify_report.json"
     if rep_v.exists():
         v = json.load(open(rep_v))
@@ -183,6 +220,21 @@ def curves(args, rep, md):
                    "has_box": [x["has_box_frac"] for x in rows]}
         md.append(f"| {nm} | {len(rows)} | {res[nm]['first20']:.3f} | {res[nm]['last20']:.3f} | {zv:.2f} | {gn:.2f} | "
                   f"{ln['delta_fro'] if ln else float('nan'):.3f} |")
+    # Every training prompt is used once (one partial epoch), so each step's true reward is measured on prompts
+    # the policy has not trained on: the curve is an unseen-prompt, T = 1 estimate of the sampled policy.
+    used = [i for x in main for i in x["sample_ids"]]
+    zv = [x["reward"]["zero_std_groups"] for x in main]
+    r = res["main"]["reward"]
+    rng, w = random.Random(0), 25
+    boot = sorted(st.mean(rng.choices(r[-w:], k=w)) - st.mean(rng.choices(r[:w], k=w)) for _ in range(4000))
+    t1 = {"unique_prompts": len(set(used)), "prompts": len(used), "last_minus_first": st.mean(r[-w:]) - st.mean(r[:w]),
+          "ci95": [boot[100], boot[3899]], "zero_var_first20": st.mean(zv[:20]), "zero_var_last20": st.mean(zv[-20:])}
+    res["main"]["t1_unseen"] = t1
+    md.append(f"\nMain run: {t1['unique_prompts']} unique prompts of {t1['prompts']} used (each once), so the true "
+              f"reward per step is a T = 1 score on unseen prompts. Last {w} − first {w} steps: "
+              f"{t1['last_minus_first']:+.3f} [{t1['ci95'][0]:+.3f}, {t1['ci95'][1]:+.3f}] (bootstrap over steps). "
+              f"Zero-variance groups rose from {t1['zero_var_first20']:.2f} (first 20 steps) to "
+              f"{t1['zero_var_last20']:.2f} (last 20).")
     rep["curves"] = {k: {kk: vv for kk, vv in v.items() if kk not in ("reward", "len", "has_box")} for k, v in res.items()}
     try:
         import matplotlib

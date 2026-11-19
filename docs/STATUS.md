@@ -13,10 +13,13 @@ Start here in a new session. The draft report is `REPORT.md` (repo root); every 
 
 ## Result: DON'T SHIP (details in REPORT.md §3)
 - adapter 0.430 vs base 0.318 (+0.112 [0.060, 0.162]) but vs shuffled control 0.404: +0.026 [−0.018, 0.070] → R2 fails.
+  With the control's 12 correct `÷`/`×` answers counted (the reward rejects them): 0.432 vs 0.428, +0.004 [−0.042, +0.048].
   Control drifted to long reasoning (19 → 119 tokens). Not the length bias (expected gradient is 0 with shuffled
   advantages): a noise-driven random walk under Adam, one seed, mechanism unproven.
 - 18 % of adapter outputs hedge with two `<answer>` tags; reward grades the last. First-tag: adapter − base +0.054 [0, 0.108].
-- × ÷ items regressed 0.129 → 0.036. Training reward flat (0.40 → 0.41), 72 % zero-variance groups.
+- × ÷ items regressed 0.129 → 0.036, specific to the trained run (control −0.021 [−0.086, +0.043] once `÷` counts):
+  the adapter nearly stopped writing * and / (37 % → 13 % of × ÷ answers), a learned shortcut.
+  Training reward flat (0.40 → 0.41; it is a T = 1 score on unseen prompts), 72 % zero-variance groups.
 - Merged bf16 ≠ adapter (0.502 vs 0.430, 65 % same text) → R3 fails. LoRA delta ~0.08 % of W < bf16 step;
   random-direction control of equal norm changes nothing (0.320), so the gap is not explained by perturbation size.
 - Root cause: 72 % zero-variance groups (~1 informative group/step), 50 % of steps clipped, lr not swept.
@@ -27,6 +30,18 @@ Start here in a new session. The draft report is `REPORT.md` (repo root); every 
 - **H6 A/B** (`h6_queue.sh`, `h6_ab.py`, `results/h6_ab.md`): dynamic +0.1 % [−0.4, +0.8] → rejected, keep regular.
 - REPORT.md rewritten to 3 pages (measured: `docs/tools/render_report.sh` → REPORT.pdf, US Letter, 11 pt);
   long version in `docs/APPENDIX.md`; study guide in `docs/WALKTHROUGH.md`.
+
+## Second review (2026-11-19), corrections applied
+Sub-agent review of code, data, logs, nvidia-smi and the report; every claim re-checked on the raw files.
+- `÷ ×` scoring bug in the analysis (not in training): `reward.normalize_ops` + `analyze.py` rescoring; REPORT §2
+  item 3 was wrong (the control did not regress at × ÷) and is rewritten; R2 now +0.004.
+- REPORT wording: prediction provenance (20 resident before any GPU run; 25 from the re-run with measured constants),
+  mean vs median step time, pilot zero-variance breach of the pre-registered 0.5, open hypotheses (H2–H5, H7,
+  H11–H13), H6 single block, R4 vacuous, control noise dose, equivalence resolution, merge host RAM, evidence gaps.
+- `train.py`: resume drops a torn last ledger line (test added). New CPU test: gradients with mixed residency. Root README, docs/02, task1_budget/README notes,
+  APPENDIX and WALKTHROUGH updated. REPORT.pdf re-rendered: 3 pages.
+- Verified correct: GRPO math, reward parser, data disjointness, bootstrap, stream ordering, layer-major training,
+  nvidia-smi coverage (max 7839 MiB), 0 retries in main/control; `analyze.py` reproduces every number.
 
 ## Vast box
 **Stopped** on 2026-11-18 ~19:20 UTC (`vastai stop`, from inside the instance): no GPU charges, disk still billed.
@@ -39,7 +54,7 @@ All parts measured, analysed, written up; the report fits 3 pages.
 
 ## Next steps (in order)
 1. User reads `REPORT.md` / `REPORT.pdf` and `docs/WALKTHROUGH.md`; prepare the live discussion.
-2. Done 2026-11-19: fresh-context review; corrections applied (length-bias mechanism, retry numbers, Part 1 gaps at 24
+2. Done 2026-11-19: fresh-context review, then a second (sub-agent) review; corrections applied (length-bias mechanism, retry numbers, Part 1 gaps at 24
    resident, post-hoc labels, root cause, soup ship wording, H6 attribution, fp32 base caveat).
 3. **Submit**: REPORT.pdf + repo link by email reply to team@trysoup.dev (the user sends it).
 4. Destroy the Vast instance.
