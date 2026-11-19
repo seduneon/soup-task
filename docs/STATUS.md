@@ -40,6 +40,8 @@ Sub-agent review of code, data, logs, nvidia-smi and the report; every claim re-
   H11–H13), H6 single block, R4 vacuous, control noise dose, equivalence resolution, merge host RAM, evidence gaps.
 - `train.py`: resume drops a torn last ledger line (test added). New CPU test: gradients with mixed residency. Root README, docs/02, task1_budget/README notes,
   APPENDIX and WALKTHROUGH updated. REPORT.pdf re-rendered: 3 pages.
+- REPORT.md rewritten in plain language (same numbers; every task requirement checked against the PDF): verdict
+  first, Part 1 ledger terms and step split added, DFlash row in Part 4, AI-tools note says what was kept/rejected.
 - Verified correct: GRPO math, reward parser, data disjointness, bootstrap, stream ordering, layer-major training,
   nvidia-smi coverage (max 7839 MiB), 0 retries in main/control; `analyze.py` reproduces every number.
 
